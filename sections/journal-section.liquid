@@ -1,0 +1,521 @@
+{% schema %}
+{
+  "name": "Journal Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Left Content"
+    },
+    {
+      "type": "text",
+      "id": "top_label",
+      "label": "Top Label",
+      "default": "EXPLORE OUR"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Journal"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size",
+      "default": 56
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#111111"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>The perfect online resource for anyone interested in beauty and inner health. From recipes to health tips and beyond. Dive into the world of healthy living.</p>"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Description Size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "READ THE JOURNAL"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background",
+      "default": "#f5e5d8"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#111111"
+    },
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "top_padding",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "bottom_padding",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_link",
+      "name": "Category Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Category Label",
+          "default": "CATEGORY"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Category URL"
+        }
+      ]
+    },
+    {
+      "type": "journal_article",
+      "name": "Article Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Article Image"
+        },
+        {
+          "type": "text",
+          "id": "category",
+          "label": "Category Label",
+          "default": "RECIPES",
+          "info": "Small label below image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Article Title",
+          "default": "Article Title"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Article URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Journal Section",
+      "blocks": [
+        {
+          "type": "category_link",
+          "settings": {
+            "label": "EXPERT ADVICE"
+          }
+        },
+        {
+          "type": "category_link",
+          "settings": {
+            "label": "HEALTHY LIVING"
+          }
+        },
+        {
+          "type": "category_link",
+          "settings": {
+            "label": "NEWS"
+          }
+        },
+        {
+          "type": "category_link",
+          "settings": {
+            "label": "NUTRITION"
+          }
+        },
+        {
+          "type": "category_link",
+          "settings": {
+            "label": "RECIPES"
+          }
+        },
+        {
+          "type": "category_link",
+          "settings": {
+            "label": "SCIENCE"
+          }
+        },
+        {
+          "type": "journal_article",
+          "settings": {
+            "category": "RECIPES",
+            "title": "Black Forest Trifle"
+          }
+        },
+        {
+          "type": "journal_article",
+          "settings": {
+            "category": "RECIPES",
+            "title": "Mixed Berry Collagen Gummies"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+{{ section.settings.heading_font | font_face }}
+
+.journal-section {
+  background-color: {{ section.settings.background_color }};
+  padding: {{ section.settings.top_padding }}px 0 {{ section.settings.bottom_padding }}px;
+}
+
+.journal-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.journal-left {
+  position: sticky;
+  top: 100px;
+}
+
+.journal-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.category-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-end;
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.category-link {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+  position: relative;
+  white-space: nowrap;
+}
+
+.category-link:hover {
+  opacity: 0.6;
+}
+
+.category-link:not(:last-child)::after {
+  content: '|';
+  position: absolute;
+  right: -12px;
+  color: #ccc;
+}
+
+.journal-top-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.journal-heading {
+  font-size: {{ section.settings.heading_size }}px;
+  font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  font-weight: 400;
+  margin-bottom: 25px;
+  color: {{ section.settings.heading_color }};
+  line-height: 1.1;
+}
+
+.journal-description {
+  font-size: {{ section.settings.description_size }}px;
+  line-height: 1.8;
+  color: {{ section.settings.description_color }};
+  margin-bottom: 30px;
+}
+
+.journal-description p {
+  margin-bottom: 15px;
+}
+
+.journal-button {
+  display: inline-block;
+  background: {{ section.settings.button_bg_color }};
+  color: {{ section.settings.button_text_color }};
+  padding: 14px 32px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border: 1.5px solid transparent;
+}
+
+.journal-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.journal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.article-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.article-card:hover {
+  transform: translateY(-5px);
+}
+
+.article-image {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: #f5f5f5;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.article-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.article-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+  color: #999;
+}
+
+.article-category {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.article-title {
+  font-size: 22px;
+  font-family: serif;
+  font-weight: 400;
+  color: #111;
+  line-height: 1.3;
+}
+
+@media (max-width: 1024px) {
+  .journal-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .journal-left {
+    position: relative;
+    top: 0;
+  }
+  
+  .category-navigation {
+    justify-content: flex-start;
+  }
+  
+  .journal-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .journal-container {
+    padding: 0 20px;
+  }
+  
+  .journal-heading {
+    font-size: clamp(36px, 8vw, {{ section.settings.heading_size }}px);
+  }
+  
+  .journal-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .article-title {
+    font-size: 20px;
+  }
+  
+  .category-navigation {
+    gap: 15px;
+  }
+}
+</style>
+
+<section class="journal-section">
+  <div class="journal-container">
+    <div class="journal-left">
+      {% if section.settings.top_label != blank %}
+        <p class="journal-top-label">{{ section.settings.top_label }}</p>
+      {% endif %}
+      
+      {% if section.settings.heading != blank %}
+        <h2 class="journal-heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      
+      {% if section.settings.description != blank %}
+        <div class="journal-description">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+      
+      {% if section.settings.button_text != blank %}
+        <a href="{{ section.settings.button_url }}" class="journal-button">
+          {{ section.settings.button_text }}
+        </a>
+      {% endif %}
+    </div>
+    
+    <div class="journal-right">
+      {% assign has_categories = false %}
+      {% for block in section.blocks %}
+        {% if block.type == 'category_link' %}
+          {% assign has_categories = true %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+      
+      {% if has_categories %}
+        <div class="category-navigation">
+          {% for block in section.blocks %}
+            {% if block.type == 'category_link' %}
+              <a href="{{ block.settings.url }}" class="category-link" {{ block.shopify_attributes }}>
+                {{ block.settings.label }}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+      
+      <div class="journal-grid">
+        {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+            {% if block.type == 'journal_article' %}
+              <a 
+                href="{{ block.settings.url }}" 
+                class="article-card"
+                {{ block.shopify_attributes }}
+              >
+                <div class="article-image">
+                  {% if block.settings.image %}
+                    <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title }}">
+                  {% else %}
+                    <div class="article-placeholder">
+                      <span>Add Image</span>
+                    </div>
+                  {% endif %}
+                </div>
+                
+                {% if block.settings.category != blank %}
+                  <p class="article-category">{{ block.settings.category }}</p>
+                {% endif %}
+                
+                {% if block.settings.title != blank %}
+                  <h3 class="article-title">{{ block.settings.title }}</h3>
+                {% endif %}
+              </a>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <p style="grid-column: 1 / -1; text-align: center; color: #999;">Add article cards in the theme editor</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

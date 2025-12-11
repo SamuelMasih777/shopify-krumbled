@@ -1,0 +1,314 @@
+{% schema %}
+{
+  "name": "Marquee",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Marquee Settings"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#e9427c"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "s",
+      "label": "Scroll Speed (seconds)",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "min": 10,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Height",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "marquee_font",
+      "label": "Font Family",
+      "default": "poppins_n6"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 18
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font Weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "600",
+          "label": "Semi-Bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Letter Spacing",
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Gap Settings"
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "min": 20,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Gap Between Items",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "marquee_item",
+      "name": "Marquee Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Add your text here"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "marquee_item",
+          "settings": {
+            "text": "BEAUTY"
+          }
+        },
+        {
+          "type": "marquee_item",
+          "settings": {
+            "text": "WELLNESS"
+          }
+        },
+        {
+          "type": "marquee_item",
+          "settings": {
+            "text": "SKIN CARE"
+          }
+        },
+        {
+          "type": "marquee_item",
+          "settings": {
+            "text": "HEALTH"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+{{ section.settings.marquee_font | font_face }}
+
+.custom-marquee-section {
+  background-color: {{ section.settings.bg_color }};
+  color: {{ section.settings.text_color }};
+  padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.custom-marquee-wrapper {
+  display: flex;
+  width: max-content;
+  animation: custom-marquee-scroll {{ section.settings.marquee_speed }}s linear infinite;
+  gap: {{ section.settings.item_gap }}px;
+}
+
+.custom-marquee-content {
+  display: flex;
+  gap: {{ section.settings.item_gap }}px;
+  padding: 0 30px;
+  white-space: nowrap;
+}
+
+.custom-marquee-item {
+  font-family: {{ section.settings.marquee_font.family }}, {{ section.settings.marquee_font.fallback_families }};
+  font-size: {{ section.settings.font_size }}px;
+  font-weight: {{ section.settings.font_weight }};
+  letter-spacing: {{ section.settings.letter_spacing }}px;
+  text-transform: uppercase;
+  line-height: {{ section.settings.height }}px;
+  height: {{ section.settings.height }}px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+@keyframes custom-marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.custom-marquee-section:hover .custom-marquee-wrapper {
+  animation-play-state: paused;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .custom-marquee-section {
+    padding: {{ section.settings.padding_top | times: 0.7 | round }}px 0 {{ section.settings.padding_bottom | times: 0.7 | round }}px 0;
+  }
+
+  .custom-marquee-item {
+    font-size: {{ section.settings.font_size | times: 0.85 | round }}px;
+    letter-spacing: {{ section.settings.letter_spacing | times: 0.8 }}px;
+  }
+
+  .custom-marquee-content {
+    gap: {{ section.settings.item_gap | times: 0.7 | round }}px;
+    padding: 0 20px;
+  }
+
+  .custom-marquee-wrapper {
+    gap: {{ section.settings.item_gap | times: 0.7 | round }}px;
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-marquee-item {
+    font-size: {{ section.settings.font_size | times: 0.7 | round }}px;
+    letter-spacing: {{ section.settings.letter_spacing | times: 0.6 }}px;
+  }
+
+  .custom-marquee-content {
+    gap: {{ section.settings.item_gap | times: 0.5 | round }}px;
+    padding: 0 15px;
+  }
+
+  .custom-marquee-wrapper {
+    gap: {{ section.settings.item_gap | times: 0.5 | round }}px;
+  }
+}
+</style>
+
+<section class="custom-marquee-section">
+  <div class="custom-marquee-wrapper" id="marqueeWrapper">
+    {% if section.blocks.size > 0 %}
+      <div class="custom-marquee-content">
+        {% for block in section.blocks %}
+          <span class="custom-marquee-item">{{ block.settings.text }}</span>
+        {% endfor %}
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="custom-marquee-content" aria-hidden="true">
+        {% for block in section.blocks %}
+          <span class="custom-marquee-item">{{ block.settings.text }}</span>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="custom-marquee-content">
+        <span class="custom-marquee-item">Add marquee items in the editor</span>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const marqueeWrapper = document.getElementById('marqueeWrapper');
+    
+    if (marqueeWrapper) {
+      // Pause animation on hover
+      marqueeWrapper.addEventListener('mouseenter', function() {
+        this.style.animationPlayState = 'paused';
+      });
+
+      marqueeWrapper.addEventListener('mouseleave', function() {
+        this.style.animationPlayState = 'running';
+      });
+
+      // Mobile touch pause
+      marqueeWrapper.addEventListener('touchstart', function() {
+        this.style.animationPlayState = 'paused';
+      });
+
+      marqueeWrapper.addEventListener('touchend', function() {
+        this.style.animationPlayState = 'running';
+      });
+    }
+  });
+</script>

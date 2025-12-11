@@ -1,0 +1,300 @@
+{% schema %}
+{
+  "name": "Custom Header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Global Settings"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo Width",
+      "default": 150
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand_tab",
+      "name": "Brand Tab",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Tab Appearance"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Brand Name",
+          "default": "Brand Name"
+        },
+        {
+          "type": "url",
+          "id": "brand_url",
+          "label": "Brand URL",
+          "info": "Where clicking the brand name/logo should go (e.g., /pages/mini-me)"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "min": 12,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "label": "Font Size",
+          "default": 14
+        },
+        {
+          "type": "font_picker",
+          "id": "font_family",
+          "label": "Font Family",
+          "default": "sans-serif"
+        },
+        {
+          "type": "checkbox",
+          "id": "active_default",
+          "label": "Active by default?",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Theme Colors"
+        },
+        {
+          "type": "color",
+          "id": "color_bg",
+          "label": "Background Color (Promo & Active Tab)",
+          "default": "#eb4586"
+        },
+        {
+          "type": "color",
+          "id": "color_text",
+          "label": "Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "header",
+          "content": "Brand Content"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Brand Logo"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Brand Menu"
+        },
+        {
+          "type": "header",
+          "content": "Mega Menu Configuration"
+        },
+        {
+            "type": "text",
+            "id": "mega_menu_trigger",
+            "label": "Link Title to Trigger Mega Menu",
+            "default": "Shop",
+            "info": "Must match exact link text in the menu"
+        },
+        {
+            "type": "textarea",
+            "id": "mega_menu_sidebar_items",
+            "label": "Sidebar Items",
+            "info": "Enter each item on a new line: Title | URL",
+            "default": "Shop All | /collections/all\nBest Sellers | /collections/best-sellers"
+        },
+        {
+            "type": "text",
+            "id": "mega_menu_sidebar_heading",
+            "label": "Sidebar Heading",
+            "default": "SHOP"
+        },
+        {
+            "type": "url",
+            "id": "mega_menu_sidebar_link",
+            "label": "Sidebar Heading Link"
+        },
+        {
+            "type": "product",
+            "id": "mega_menu_product_1",
+            "label": "Product 1"
+        },
+        {
+            "type": "product",
+            "id": "mega_menu_product_2",
+            "label": "Product 2"
+        },
+        {
+            "type": "product",
+            "id": "mega_menu_product_3",
+            "label": "Product 3"
+        },
+        {
+            "type": "product",
+            "id": "mega_menu_product_4",
+            "label": "Product 4"
+        }
+      ]
+    },
+    {
+      "type": "announcement",
+      "name": "Announcement Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free Shipping Over $110 Australia Wide"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Header"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  /* Generate dynamic font styles for each block */
+  {% for block in section.blocks %}
+    {% if block.type == 'brand_tab' %}
+      {{ block.settings.font_family | font_face }}
+      .brand-pill-{{ block.id }} {
+        font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+      }
+    {% endif %}
+  {% endfor %}
+</style>
+
+<div class="custom-header-wrapper">
+
+  <!-- Brand Pills -->
+  <div class="brand-pills-container">
+    <div class="brand-pills-row">
+    <div class="brand-pills">
+      {% for block in section.blocks %}
+        {% if block.type == 'brand_tab' %}
+          <a href="{{ block.settings.brand_url | default: routes.root_url }}" 
+             class="pill brand-pill-{{ block.id }} {% if block.settings.active_default %}active default-active{% endif %}" 
+                  data-index="{{ forloop.index0 }}"
+                  data-color-bg="{{ block.settings.color_bg }}"
+                  data-color-text="{{ block.settings.color_text }}"
+                  style="font-size: {{ block.settings.font_size }}px; background-color: {{ block.settings.color_bg }}; color: {{ block.settings.color_text }}; text-decoration: none; cursor: pointer;"
+                  {{ block.shopify_attributes }}>
+            {{ block.settings.title }}
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="account-icon-top">
+      <a href="{{ routes.account_url }}" class="icon-btn" title="Account">
+         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+      </a>
+    </div>
+    </div>
+  </div>
+
+  <!-- Promo Bar -->
+  <div class="promo-bar" id="promoBar" style="background-color: {{ section.blocks[0].settings.color_bg | default: '#eb4586' }}; color: {{ section.blocks[0].settings.color_text | default: '#ffffff' }}">
+    <div class="promo-inner">
+      {% for block in section.blocks %}
+        {% if block.type == 'announcement' %}
+          <span class="promo-text-item" {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
+        {% endif %}
+      {% endfor %}
+      <span class="promo-arrow">&rarr;</span>
+    </div>
+  </div>
+
+  <!-- Main Header -->
+  <header class="site-header">
+    <div class="header-row">
+      
+      <!-- NAV LEFT -->
+      <nav class="nav-left">
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+
+        <!-- Dynamic Menus -->
+        {% for block in section.blocks %}
+          {% if block.type == 'brand_tab' %}
+            <ul class="main-nav brand-menu-list" data-index="{{ forloop.index0 }}" {% unless block.settings.active_default %}style="display:none;"{% endunless %}>
+              {% if block.settings.menu != blank %}
+                {% for link in linklists[block.settings.menu].links %}
+                  <li>
+                    <a href="{{ link.url }}" 
+                       class="nav-link" 
+                       {% if link.title == block.settings.mega_menu_trigger %}
+                         data-mega-trigger="true" 
+                         data-brand-index="{{ forloop.parentloop.index0 }}"
+                       {% endif %}>
+                      {{ link.title }}
+                    </a>
+                  </li>
+                {% endfor %}
+              {% else %}
+                 <li><a href="#" class="nav-link">Configure Menu</a></li>
+              {% endif %}
+            </ul>
+          {% endif %}
+        {% endfor %}
+      </nav>
+      
+      <!-- LOGO CENTER -->
+      <div class="logo-wrap">
+        <a href="{{ routes.root_url }}" class="logo-link">
+          {% for block in section.blocks %}
+            {% if block.type == 'brand_tab' %}
+              <div class="brand-logo-item" data-index="{{ forloop.index0 }}" {% unless block.settings.active_default %}style="display:none;"{% endunless %}>
+                {% if block.settings.logo != blank %}
+                  <img src="{{ block.settings.logo | image_url: width: section.settings.logo_width }}" 
+                       alt="{{ block.settings.title }}"
+                       style="width: {{ section.settings.logo_width }}px; display:block; margin:0 auto;">
+                {% else %}
+                  <span class="logo-text">{{ block.settings.title }}</span>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </a>
+      </div>
+
+      <!-- ICONS RIGHT -->
+      <div class="nav-right">
+        <a href="{{ routes.search_url }}" class="icon-btn" title="Search">
+           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+        </a>
+        <a href="{{ routes.cart_url }}" class="icon-btn" title="Cart">
+           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Mega Menu Containers (Dynamic per Block) -->
+    {% for block in section.blocks %}
+      {% if block.type == 'brand_tab' %}
+        <div class="mega-menu-wrapper" data-brand-index="{{ forloop.index0 }}">
+            {% render 'mega-menu', 
+               sidebar_items: block.settings.mega_menu_sidebar_items,
+               sidebar_heading: block.settings.mega_menu_sidebar_heading,
+               sidebar_link: block.settings.mega_menu_sidebar_link,
+               product_1: block.settings.mega_menu_product_1,
+               product_2: block.settings.mega_menu_product_2,
+               product_3: block.settings.mega_menu_product_3,
+               product_4: block.settings.mega_menu_product_4,
+               brand_color: block.settings.color_bg
+            %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </header>
+</div>

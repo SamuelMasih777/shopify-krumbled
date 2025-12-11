@@ -1,0 +1,346 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_carousel": {
+      "type": "hero-section",
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "top_label": "BACK IN STOCK",
+            "top_label_size": 14,
+            "top_label_color": "#333333",
+            "heading": "Beauty Bites Are Back",
+            "heading_size": 56,
+            "heading_color": "#111111",
+            "heading_alignment": "center",
+            "description": "Your favourite skin-loving snack just restocked. Low sugar and seriously delicious. Limited stock available, get in quick!",
+            "description_size": 16,
+            "description_color": "#666666",
+            "button_text": "Shop Beauty Bites",
+            "button_link": "/collections/all",
+            "button_bg": "#e9427c",
+            "button_text_color": "#ffffff",
+            "button_size": 16,
+            "background_color": "#f6eee9",
+            "content_position": "left"
+          }
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {
+            "top_label": "NEW ARRIVAL",
+            "top_label_size": 14,
+            "top_label_color": "#333333",
+            "heading": "Wired at Night?",
+            "heading_size": 56,
+            "heading_color": "#111111",
+            "heading_alignment": "center",
+            "description": "This science-led blend helps you wind down properly, sleep deeply and wake up without the fog.",
+            "description_size": 16,
+            "description_color": "#666666",
+            "button_text": "Shop Hot Chocolate",
+            "button_link": "/collections/sleep",
+            "button_bg": "#e9427c",
+            "button_text_color": "#ffffff",
+            "button_size": 16,
+            "background_color": "#d4c4b8",
+            "content_position": "left"
+          }
+        },
+        "slide_3": {
+          "type": "slide",
+          "settings": {
+            "top_label": "BESTSELLER",
+            "top_label_size": 14,
+            "top_label_color": "#333333",
+            "heading": "Collagen For Your Skin",
+            "heading_size": 56,
+            "heading_color": "#111111",
+            "heading_alignment": "center",
+            "description": "Premium collagen peptides to support healthy skin, hair, and nails from within.",
+            "description_size": 16,
+            "description_color": "#666666",
+            "button_text": "Shop Collagen",
+            "button_link": "/collections/collagen",
+            "button_bg": "#e9427c",
+            "button_text_color": "#ffffff",
+            "button_size": 16,
+            "background_color": "#f6eee9",
+            "content_position": "left"
+          }
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2",
+        "slide_3"
+      ],
+      "settings": {
+        "autoplay_speed": 5,
+        "show_dots": true,
+        "section_height": 600,
+        "marquee_text": "NAILS | GUT HEALTH | DIGESTION | WELLNESS | SLEEP SUPPORT | HAIR",
+        "marquee_bg": "#e9427c",
+        "marquee_text_color": "#ffffff",
+        "marquee_speed": 30
+      }
+    },
+    "better_ones_wc69zE": {
+      "type": "better-ones",
+      "name": "Better Ones Section",
+      "settings": {
+        "top_label": "YOU DON'T NEED MORE SUPPLEMENTS.",
+        "top_label_size": 12,
+        "top_label_color": "#333333",
+        "top_label_spacing": 2,
+        "heading": "You Need Better Ones.",
+        "heading_size": 56,
+        "heading_color": "#111111",
+        "heading_font": "serif",
+        "link_1_text": "SLEEP SUPPORT",
+        "link_1_url": "",
+        "link_2_text": "COLLAGEN + DIGESTION",
+        "link_2_url": "",
+        "link_size": 13,
+        "link_color": "#111111",
+        "link_spacing": 1.5,
+        "background_color": "#f6eee9",
+        "section_height": 300,
+        "top_padding": 60,
+        "bottom_padding": 60
+      }
+    },
+    "bestseller_zFiihR": {
+      "type": "bestseller",
+      "name": "Bestseller Carousel",
+      "settings": {
+        "heading": "Shop our Best Sellers",
+        "collection": "hydrogen",
+        "products_limit": 8,
+        "badge_text": "BEST SELLER"
+      }
+    },
+    "meet_the_range_VVPRbX": {
+      "type": "meet-the-range",
+      "blocks": {
+        "category_e3qtm4": {
+          "type": "category",
+          "settings": {
+            "title": "Beauty Bites",
+            "url": ""
+          }
+        },
+        "category_bpJaXC": {
+          "type": "category",
+          "settings": {
+            "title": "Collagen Peptides",
+            "url": ""
+          }
+        },
+        "category_wg3B96": {
+          "type": "category",
+          "settings": {
+            "title": "All Products",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_e3qtm4",
+        "category_bpJaXC",
+        "category_wg3B96"
+      ],
+      "name": "Meet the Range",
+      "settings": {
+        "heading": "Meet the range",
+        "heading_font": "serif",
+        "heading_size": 42,
+        "background_color": "#ffffff",
+        "top_padding": 60,
+        "bottom_padding": 60
+      }
+    },
+    "reviews_section_JfEY8Q": {
+      "type": "reviews-section",
+      "blocks": {
+        "review_RiACp4": {
+          "type": "review",
+          "settings": {
+            "customer_name": "Shannon C",
+            "review_text": "Just joined as a Scrumbled mum these bars are fantastic. Delicious, quick, healthy snack, they are great! From the fridge and don't fall apart so no crumbs in the car!",
+            "product_name": "LEMON COCONUT BEAUTY BITES™",
+            "background_color": "#f5f5f5"
+          }
+        },
+        "review_kig3NN": {
+          "type": "review",
+          "settings": {
+            "customer_name": "Kathy B",
+            "review_text": "I've been a convert of Beauty Bites for a number of months, decide making a difference to my appearance, my nails and hair are definitely in better condition than before.",
+            "product_name": "CHOC CHERRY COCONUT BEAUTY BITES™",
+            "background_color": "#f0e5e0"
+          }
+        },
+        "review_kcYUkV": {
+          "type": "review",
+          "settings": {
+            "customer_name": "Louise H",
+            "review_text": "Definitely daily beauty treatment for your whole body! These were delicious and I've incorporated them as part of my daily beauty and self care routine! Love!",
+            "product_name": "SALTED CARAMEL BEAUTY BITES™ 4 CT",
+            "background_color": "#f5f5f5"
+          }
+        }
+      },
+      "block_order": [
+        "review_RiACp4",
+        "review_kig3NN",
+        "review_kcYUkV"
+      ],
+      "name": "Customer Reviews",
+      "settings": {
+        "top_label": "COMMUNITY LOVE",
+        "heading": "Real Results from our Community",
+        "heading_font": "serif",
+        "heading_size": 42,
+        "background_color": "#ffffff",
+        "top_padding": 80,
+        "bottom_padding": 80,
+        "show_arrows": true
+      }
+    },
+    "evolution_tabs_WbxhF7": {
+      "type": "evolution-tabs",
+      "blocks": {
+        "tab_miLtPe": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "BEAUTY BITES®",
+            "content_text": "<p>Body Bites® collagen bars combine illuminating and age-defying ingredients in a convenient snack-only dose.</p><p>They are a delicious 100% natural, non-GMO & gluten-free bars and healthy snacks that can be enjoyed anytime and anywhere. They are pregnancy and breastfeeding safe. However if you are unsure, please consult your physician.</p>",
+            "icon_1_label": "GLUTEN FREE",
+            "icon_2_label": "NATURAL INGREDIENTS",
+            "icon_3_label": "NO ADDED SUGAR",
+            "icon_4_label": "LOW SUGAR",
+            "icon_5_label": "NON-NATURAL",
+            "icon_6_label": "KEEPING AN ACTIVE LIFE"
+          }
+        },
+        "tab_gf3UTX": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "COLLAGEN",
+            "content_text": "<p>An innovative functional formula, with more collagen than most secrets on the market and less than 1.2g grams of sugar per serve.</p><p>Clinically proven to show a reduction in fine lines, increased skin hydration and elasticity, stronger ligaments and improved digestion in just 6 weeks.</p>",
+            "icon_1_label": "SKIN",
+            "icon_2_label": "HAIR",
+            "icon_3_label": "NAILS",
+            "icon_4_label": "GUT",
+            "icon_5_label": "100% NATURAL",
+            "icon_6_label": "KEEPING AN ACTIVE LIFE"
+          }
+        },
+        "tab_Fc9rTy": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "SLEEP SUPPORT",
+            "content_text": "<p>Our Advanced Magnesium Hot Chocolate is expertly formulated with a premium blend of sleep inducing ingredients, Magnesium, Ashwagandha, Amino Acids, and Botanicals—designed to ease stress, relax the body, and prime your mind for deep, uninterrupted sleep.</p>",
+            "icon_1_label": "",
+            "icon_2_label": "",
+            "icon_3_label": "",
+            "icon_4_label": "",
+            "icon_5_label": "",
+            "icon_6_label": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_miLtPe",
+        "tab_gf3UTX",
+        "tab_Fc9rTy"
+      ],
+      "name": "Evolution Tabs",
+      "settings": {
+        "heading": "The Evolution of Krumbled Foods",
+        "heading_font": "serif",
+        "heading_size": 42,
+        "heading_color": "#111111",
+        "background_color": "#ffffff",
+        "top_padding": 80,
+        "bottom_padding": 80,
+        "tab_container_bg": "#f8f4f0",
+        "tab_text_color": "#111111",
+        "tab_active_bg": "#f5e5d8",
+        "tab_border_color": "#d4b5a0",
+        "content_text_size": 14,
+        "content_text_color": "#333333"
+      }
+    },
+    "journal_section_i88CF3": {
+      "type": "journal-section",
+      "blocks": {
+        "category_link_8GFTcf": {
+          "type": "category_link",
+          "settings": {
+            "label": "expert advise",
+            "url": "shopify://blogs/news"
+          }
+        },
+        "journal_article_QMxETw": {
+          "type": "journal_article",
+          "settings": {
+            "category": "RECIPES",
+            "title": "Article Title",
+            "url": ""
+          }
+        },
+        "journal_article_9PBaqN": {
+          "type": "journal_article",
+          "settings": {
+            "category": "RECIPES",
+            "title": "Black Forest Trifle",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_link_8GFTcf",
+        "journal_article_QMxETw",
+        "journal_article_9PBaqN"
+      ],
+      "name": "Journal Section",
+      "settings": {
+        "top_label": "EXPLORE OUR",
+        "heading": "Journal",
+        "heading_font": "serif",
+        "heading_size": 56,
+        "heading_color": "#111111",
+        "description": "<p>The perfect online resource for anyone interested in beauty and inner health. From recipes to health tips and beyond. Dive into the world of healthy living.</p>",
+        "description_size": 14,
+        "description_color": "#666666",
+        "button_text": "READ THE JOURNAL",
+        "button_url": "",
+        "button_bg_color": "#f5e5d8",
+        "button_text_color": "#111111",
+        "background_color": "#ffffff",
+        "top_padding": 80,
+        "bottom_padding": 80
+      }
+    }
+  },
+  "order": [
+    "hero_carousel",
+    "better_ones_wc69zE",
+    "bestseller_zFiihR",
+    "meet_the_range_VVPRbX",
+    "reviews_section_JfEY8Q",
+    "evolution_tabs_WbxhF7",
+    "journal_section_i88CF3"
+  ]
+}

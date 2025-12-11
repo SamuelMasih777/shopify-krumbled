@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>{{ page_title }}</title>
+        {{ 'theme.css' | asset_url | stylesheet_tag }}
+        {{ content_for_header }}
+        {{ 'header.css' | asset_url | stylesheet_tag }}
+        <script src="{{ 'header.js' | asset_url }}" defer="defer"></script>
+    </head>
+    <body>
+        {% section 'header' %}
+        {{ content_for_layout }}
+        {% section 'footer' %}
+    </body>
+</html>

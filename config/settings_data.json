@@ -1,0 +1,115 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "blocks": {
+          "announcement_QpKd7M": {
+            "type": "announcement",
+            "settings": {
+              "text": "Free Shipping Over $110 Australia Wide"
+            }
+          },
+          "brand_tab_zxEHMC": {
+            "type": "brand_tab",
+            "settings": {
+              "title": "Krumbled",
+              "brand_url": "",
+              "font_size": 14,
+              "font_family": "serif",
+              "active_default": true,
+              "color_bg": "#eb4586",
+              "color_text": "#ffffff",
+              "menu": "main-menu",
+              "mega_menu_trigger": "Shop",
+              "mega_menu_sidebar_items": "Shop All | /collections/all\nBest Sellers | /collections/best-sellers",
+              "mega_menu_sidebar_heading": "SHOP",
+              "mega_menu_sidebar_link": "",
+              "mega_menu_product_1": "",
+              "mega_menu_product_2": "",
+              "mega_menu_product_3": "",
+              "mega_menu_product_4": ""
+            }
+          },
+          "brand_tab_N9cWNR": {
+            "type": "brand_tab",
+            "settings": {
+              "title": "mini + me",
+              "brand_url": "shopify://pages/mini-me",
+              "font_size": 14,
+              "font_family": "system_ui_n4",
+              "active_default": false,
+              "color_bg": "#fb8f33",
+              "color_text": "#ffffff",
+              "menu": "mini-me",
+              "mega_menu_trigger": "Shop",
+              "mega_menu_sidebar_items": "Shop All | /collections/all\nBest Sellers | /collections/best-sellers\nPostpartum | /collections/best-seller",
+              "mega_menu_sidebar_heading": "Shop",
+              "mega_menu_sidebar_link": "",
+              "mega_menu_product_1": "",
+              "mega_menu_product_2": "",
+              "mega_menu_product_3": "",
+              "mega_menu_product_4": ""
+            }
+          },
+          "brand_tab_wz3bBy": {
+            "type": "brand_tab",
+            "settings": {
+              "title": "HABITUAL BEAUTY",
+              "brand_url": "",
+              "font_size": 14,
+              "font_family": "system_ui_n4",
+              "active_default": false,
+              "color_bg": "#eeeeee",
+              "color_text": "#ffffff",
+              "menu": "habitual-beauty",
+              "mega_menu_trigger": "Shop",
+              "mega_menu_sidebar_items": "Shop All | /collections/all\nBest Sellers | /collections/best-sellers",
+              "mega_menu_sidebar_heading": "SHOP",
+              "mega_menu_sidebar_link": "",
+              "mega_menu_product_1": "",
+              "mega_menu_product_2": "",
+              "mega_menu_product_3": "",
+              "mega_menu_product_4": ""
+            }
+          }
+        },
+        "block_order": [
+          "announcement_QpKd7M",
+          "brand_tab_zxEHMC",
+          "brand_tab_N9cWNR",
+          "brand_tab_wz3bBy"
+        ],
+        "settings": {
+          "logo_width": 150
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "logo_width": 180,
+          "newsletter_heading": "SIGN UP AND SAVE",
+          "newsletter_button_text": "Sign Up",
+          "newsletter_button_color": "#e9427c",
+          "newsletter_disclaimer": "<p>Krumbled Foods is part of the Krumbled Group (Krumble Beauty).</p>",
+          "copyright_text": "2024 Copyright Krumbled Foods. All rights reserved.",
+          "designed_by_text": "Website by Delyork",
+          "designed_by_url": "",
+          "background_color": "#ffffff",
+          "text_color": "#111111",
+          "border_color": "#e0e0e0"
+        }
+      }
+    },
+    "content_for_index": []
+  }
+}

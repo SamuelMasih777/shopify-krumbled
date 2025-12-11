@@ -1,0 +1,628 @@
+{% schema %}
+{
+  "name": "Hero Carousel",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Carousel Settings"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Autoplay Speed",
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show Navigation Dots",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "min": 400,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "Section Height (Desktop)",
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Marquee Settings"
+    },
+    {
+      "type": "textarea",
+      "id": "marquee_text",
+      "label": "Marquee Text (separate items with |)",
+      "default": "NAILS | GUT HEALTH | DIGESTION | WELLNESS | SLEEP SUPPORT | HAIR",
+      "info": "Use | to separate items"
+    },
+    {
+      "type": "color",
+      "id": "marquee_bg",
+      "label": "Marquee Background",
+      "default": "#e9427c"
+    },
+    {
+      "type": "color",
+      "id": "marquee_text_color",
+      "label": "Marquee Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "s",
+      "label": "Marquee Speed",
+      "default": 30
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Carousel Slide",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Top Label"
+        },
+        {
+          "type": "text",
+          "id": "top_label",
+          "label": "Top Label Text",
+          "default": "BACK IN STOCK"
+        },
+        {
+          "type": "range",
+          "id": "top_label_size",
+          "min": 10,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "label": "Font Size",
+          "default": 14
+        },
+        {
+          "type": "color",
+          "id": "top_label_color",
+          "label": "Color",
+          "default": "#333"
+        },
+        {
+          "type": "header",
+          "content": "Main Heading"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Beauty Bites Are Back"
+        },
+        {
+          "type": "range",
+          "id": "heading_size",
+          "min": 24,
+          "max": 72,
+          "step": 2,
+          "unit": "px",
+          "label": "Font Size",
+          "default": 56
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Color",
+          "default": "#111"
+        },
+        {
+          "type": "select",
+          "id": "heading_alignment",
+          "label": "Alignment",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "header",
+          "content": "Description"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Your favourite skin-loving snack just restocked. Low sugar and seriously delicious."
+        },
+        {
+          "type": "range",
+          "id": "description_size",
+          "min": 12,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "label": "Font Size",
+          "default": 16
+        },
+        {
+          "type": "color",
+          "id": "description_color",
+          "label": "Color",
+          "default": "#666"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "color",
+          "id": "button_bg",
+          "label": "Background",
+          "default": "#e9427c"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "range",
+          "id": "button_size",
+          "min": 12,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "label": "Font Size",
+          "default": 16
+        },
+        {
+          "type": "header",
+          "content": "Background"
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background Image"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background Color",
+          "default": "#f6eee9"
+        },
+        {
+          "type": "select",
+          "id": "content_position",
+          "label": "Content Position",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "left"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Carousel",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.hero-carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-carousel {
+  position: relative;
+  min-height: {{ section.settings.section_height }}px;
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.6s ease-in-out;
+  display: flex;
+  align-items: center;
+  min-height: {{ section.settings.section_height }}px;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  position: relative;
+}
+
+.slide-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.hero-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  width: 100%;
+  display: flex;
+  position: relative;
+  z-index: 2;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 600px;
+  width: auto;
+}
+
+.hero-top-label {
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.hero-heading {
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 25px;
+  font-family: 'Playfair Display', serif;
+}
+
+.hero-description {
+  line-height: 1.6;
+  margin-bottom: 35px;
+  max-width: 500px;
+}
+
+.hero-button {
+  display: inline-block;
+  padding: 16px 40px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.hero-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  opacity: 0.9;
+}
+
+/* Carousel Navigation Dots */
+.carousel-dots {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.carousel-dot.active {
+  background: #fff;
+  width: 30px;
+  border-radius: 5px;
+}
+
+/* Marquee Section */
+.marquee-section {
+  background: {{ section.settings.marquee_bg }};
+  color: {{ section.settings.marquee_text_color }};
+  padding: 20px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-wrapper {
+  display: flex;
+  width: max-content;
+  animation: scroll {{ section.settings.marquee_speed }}s linear infinite;
+}
+
+.marquee-content {
+  display: flex;
+  gap: 60px;
+  padding: 0 30px;
+  white-space: nowrap;
+}
+
+.marquee-item {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-carousel {
+    min-height: auto;
+  }
+  
+  .carousel-slide {
+    min-height: auto;
+    padding: 30px 0;
+  }
+  
+  .slide-background {
+    background-size: contain;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+  }
+  
+  .hero-container {
+    padding: 30px 20px;
+  }
+  
+  .hero-content {
+    max-width: 100%;
+    padding: 0 10px;
+    width: 100%;
+  }
+  
+  .hero-top-label {
+    font-size: 11px !important;
+    letter-spacing: 1.5px;
+    margin-bottom: 15px;
+  }
+  
+  .hero-heading {
+    font-size: clamp(28px, 8vw, 36px) !important;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    padding: 0 10px;
+  }
+  
+  .hero-description {
+    font-size: 14px !important;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    max-width: 100%;
+    padding: 0 15px;
+  }
+  
+  .hero-button {
+    padding: 14px 35px;
+    font-size: 15px !important;
+    max-width: 280px;
+  }
+  
+  .carousel-dots {
+    bottom: 15px;
+  }
+  
+  .marquee-section {
+    padding: 15px 0;
+  }
+  
+  .marquee-item {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+  }
+  
+  .marquee-content {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-slide {
+    padding: 20px 0;
+  }
+  
+  .hero-container {
+    padding: 20px 15px;
+  }
+  
+  .hero-heading {
+    font-size: clamp(24px, 7vw, 32px) !important;
+    margin-bottom: 15px;
+  }
+  
+  .hero-description {
+    font-size: 13px !important;
+    margin-bottom: 20px;
+  }
+  
+  .hero-button {
+    padding: 12px 30px;
+    font-size: 14px !important;
+  }
+}
+</style>
+
+<div class="hero-carousel-wrapper">
+  <div class="hero-carousel" id="heroCarousel">
+    {% for block in section.blocks %}
+      {% if block.type == 'slide' %}
+        <div class="carousel-slide {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          <div class="slide-background" style="background-color: {{ block.settings.background_color }}; {% if block.settings.background_image %}background-image: url('{{ block.settings.background_image | image_url: width: 2000 }}');{% endif %}"></div>
+          
+          <div class="hero-container" style="{% if block.settings.content_position == 'center' %}justify-content: center;{% elsif block.settings.content_position == 'right' %}justify-content: flex-end;{% else %}justify-content: flex-start;{% endif %}">
+            <div class="hero-content" style="text-align: {{ block.settings.heading_alignment }};">
+              {% if block.settings.top_label != blank %}
+                <div class="hero-top-label" style="font-size: {{ block.settings.top_label_size }}px; color: {{ block.settings.top_label_color }};">
+                  {{ block.settings.top_label }}
+                </div>
+              {% endif %}
+              
+              {% if block.settings.heading != blank %}
+                <h1 class="hero-heading" style="font-size: {{ block.settings.heading_size }}px; color: {{ block.settings.heading_color }};">
+                  {{ block.settings.heading }}
+                </h1>
+              {% endif %}
+              
+              {% if block.settings.description != blank %}
+                <p class="hero-description" style="font-size: {{ block.settings.description_size }}px; color: {{ block.settings.description_color }}; {% if block.settings.heading_alignment == 'center' %}margin-left: auto; margin-right: auto;{% endif %}">
+                  {{ block.settings.description }}
+                </p>
+              {% endif %}
+              
+              {% if block.settings.button_text != blank %}
+                <a href="{{ block.settings.button_link | default: '#' }}" class="hero-button" style="background: {{ block.settings.button_bg }}; color: {{ block.settings.button_text_color }}; font-size: {{ block.settings.button_size }}px;">
+                  {{ block.settings.button_text }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  
+  {% if section.settings.show_dots and section.blocks.size > 1 %}
+    <div class="carousel-dots">
+      {% for block in section.blocks %}
+        {% if block.type == 'slide' %}
+          <button class="carousel-dot {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}"></button>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+<div class="marquee-section">
+  <div class="marquee-wrapper">
+    {% assign marquee_items = section.settings.marquee_text | split: '|' %}
+    <div class="marquee-content">
+      {% for item in marquee_items %}
+        <span class="marquee-item">{{ item | strip }}</span>
+      {% endfor %}
+    </div>
+    <div class="marquee-content" aria-hidden="true">
+      {% for item in marquee_items %}
+        <span class="marquee-item">{{ item | strip }}</span>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const carousel = document.getElementById('heroCarousel');
+  if (!carousel) return;
+  
+  const slides = carousel.querySelectorAll('.carousel-slide');
+  const dots = document.querySelectorAll('.carousel-dot');
+  let currentSlide = 0;
+  const autoplaySpeed = {{ section.settings.autoplay_speed | times: 1000 }};
+  let autoplayInterval;
+  
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+    currentSlide = index;
+  }
+  
+  function nextSlide() {
+    const next = (currentSlide + 1) % slides.length;
+    showSlide(next);
+  }
+  
+  function startAutoplay() {
+    if (slides.length > 1) {
+      autoplayInterval = setInterval(nextSlide, autoplaySpeed);
+    }
+  }
+  
+  function stopAutoplay() {
+    clearInterval(autoplayInterval);
+  }
+  
+  // Dot navigation
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      showSlide(index);
+      stopAutoplay();
+      startAutoplay();
+    });
+  });
+  
+  // Pause on hover
+  carousel.addEventListener('mouseenter', stopAutoplay);
+  carousel.addEventListener('mouseleave', startAutoplay);
+  
+  // Start autoplay
+  startAutoplay();
+  
+  // Marquee pause on hover
+  const marquee = document.querySelector('.marquee-wrapper');
+  if (marquee) {
+    marquee.addEventListener('mouseenter', function() {
+      this.style.animationPlayState = 'paused';
+    });
+    marquee.addEventListener('mouseleave', function() {
+      this.style.animationPlayState = 'running';
+    });
+  }
+})();
+</script>

@@ -1,0 +1,77 @@
+{% comment %}
+  Renders a Mega Menu with a Sidebar and 4 Product Cards.
+  Accepts:
+  - sidebar_menu: LinkList handle
+  - sidebar_heading: Text for sidebar title
+  - sidebar_link: URL for sidebar title
+  - product_1: Product object
+  - product_2: Product object
+  - product_3: Product object
+  - product_4: Product object
+  - brand_color: Color string for accents
+{% endcomment %}
+
+<div class="mega-menu-inner">
+  <!-- Left Sidebar (Menu) -->
+  <div class="mega-menu-sidebar">
+    {% if sidebar_heading != blank %}
+      <div class="mega-menu-heading-wrap" style="margin-bottom:15px;">
+        {% if sidebar_link != blank %}
+          <a href="{{ sidebar_link }}" class="mega-menu-heading" style="color:{{ brand_color }}; font-weight:700; text-transform:uppercase; text-decoration:none; font-size:14px; letter-spacing:1px;">{{ sidebar_heading }}</a>
+        {% else %}
+           <span class="mega-menu-heading" style="color:{{ brand_color }}; font-weight:700; text-transform:uppercase; font-size:14px; letter-spacing:1px;">{{ sidebar_heading }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if sidebar_menu != blank %}
+      <ul>
+        {% for link in linklists[sidebar_menu].links %}
+          <li>
+            <a href="{{ link.url }}" class="mega-sidebar-link">{{ link.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="placeholder-text">Select a Sidebar Menu in settings</p>
+    {% endif %}
+  </div>
+
+  <!-- Right Product Grid -->
+  <div class="mega-menu-products">
+    {%- assign product_handles = "" | split: "," -%}
+    {%- if product_1 != blank -%}{%- assign product_handles = product_handles | push: product_1 -%}{%- endif -%}
+    {%- if product_2 != blank -%}{%- assign product_handles = product_handles | push: product_2 -%}{%- endif -%}
+    {%- if product_3 != blank -%}{%- assign product_handles = product_handles | push: product_3 -%}{%- endif -%}
+    {%- if product_4 != blank -%}{%- assign product_handles = product_handles | push: product_4 -%}{%- endif -%}
+    
+    {% if product_handles.size > 0 %}
+      {% for prod in product_handles %}
+        <div class="mega-product-card">
+          <a href="{{ prod.url }}" class="product-link">
+            <div class="product-image-wrap">
+              <img src="{{ prod.featured_image | image_url: width: 300 }}" alt="{{ prod.title }}" loading="lazy">
+            </div>
+            <div class="product-info">
+              <span class="product-title">{{ prod.title }}</span>
+              <span class="product-price">{{ prod.price | money }}</span>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    {% else %}
+      <!-- Placeholders if no products selected -->
+      {% for i in (1..4) %}
+        <div class="mega-product-card placeholder">
+           <div class="product-image-wrap placeholder-image">
+             <span>Product {{ i }}</span>
+           </div>
+           <div class="product-info">
+             <span class="product-title">Product Name</span>
+             <span class="product-price">$00.00</span>
+           </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>

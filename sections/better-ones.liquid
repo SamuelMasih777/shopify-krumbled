@@ -1,0 +1,319 @@
+{% schema %}
+{
+  "name": "Better Ones Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Top Label"
+    },
+    {
+      "type": "text",
+      "id": "top_label",
+      "label": "Top Label Text",
+      "default": "YOU DON'T NEED MORE SUPPLEMENTS."
+    },
+    {
+      "type": "range",
+      "id": "top_label_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "top_label_color",
+      "label": "Color",
+      "default": "#333"
+    },
+    {
+      "type": "range",
+      "id": "top_label_spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Letter Spacing",
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Main Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "You Need Better Ones."
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 56
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Color",
+      "default": "#111"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Font Family",
+      "default": "serif"
+    },
+    {
+      "type": "header",
+      "content": "Links"
+    },
+    {
+      "type": "text",
+      "id": "link_1_text",
+      "label": "Link 1 Text",
+      "default": "SLEEP SUPPORT"
+    },
+    {
+      "type": "url",
+      "id": "link_1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_2_text",
+      "label": "Link 2 Text",
+      "default": "COLLAGEN + DIGESTION"
+    },
+    {
+      "type": "url",
+      "id": "link_2_url",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "range",
+      "id": "link_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Link Font Size",
+      "default": 13
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link Color",
+      "default": "#111"
+    },
+    {
+      "type": "range",
+      "id": "link_spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Link Letter Spacing",
+      "default": 1.5
+    },
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f6eee9"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "min": 200,
+      "max": 600,
+      "step": 50,
+      "unit": "px",
+      "label": "Section Height",
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Better Ones Section"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+{{ section.settings.heading_font | font_face }}
+
+.better-ones-section {
+  background-color: {{ section.settings.background_color }};
+  min-height: {{ section.settings.section_height }}px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: {{ section.settings.top_padding }}px 20px {{ section.settings.bottom_padding }}px;
+  text-align: center;
+}
+
+.better-ones-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.better-ones-top-label {
+  font-size: {{ section.settings.top_label_size }}px;
+  color: {{ section.settings.top_label_color }};
+  font-weight: 600;
+  letter-spacing: {{ section.settings.top_label_spacing }}px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.better-ones-heading {
+  font-size: {{ section.settings.heading_size }}px;
+  color: {{ section.settings.heading_color }};
+  font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 30px;
+}
+
+.better-ones-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.better-ones-link {
+  font-size: {{ section.settings.link_size }}px;
+  color: {{ section.settings.link_color }};
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: {{ section.settings.link_spacing }}px;
+  text-transform: uppercase;
+  position: relative;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.better-ones-link:hover {
+  opacity: 0.7;
+}
+
+.better-ones-link::after {
+  content: '>';
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.better-ones-separator {
+  width: 1px;
+  height: 20px;
+  background-color: {{ section.settings.link_color }};
+  opacity: 0.3;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .better-ones-section {
+    min-height: auto;
+    padding: 40px 20px;
+  }
+  
+  .better-ones-top-label {
+    font-size: calc({{ section.settings.top_label_size }}px * 0.85);
+    margin-bottom: 15px;
+  }
+  
+  .better-ones-heading {
+    font-size: clamp(32px, 8vw, {{ section.settings.heading_size }}px);
+    margin-bottom: 25px;
+  }
+  
+  .better-ones-links {
+    gap: 20px;
+    flex-direction: column;
+  }
+  
+  .better-ones-separator {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .better-ones-heading {
+    font-size: clamp(28px, 7vw, 40px);
+  }
+  
+  .better-ones-link {
+    font-size: calc({{ section.settings.link_size }}px * 0.9);
+  }
+}
+</style>
+
+<section class="better-ones-section">
+  <div class="better-ones-container">
+    {% if section.settings.top_label != blank %}
+      <div class="better-ones-top-label">
+        {{ section.settings.top_label }}
+      </div>
+    {% endif %}
+    
+    {% if section.settings.heading != blank %}
+      <h2 class="better-ones-heading">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+    
+    <div class="better-ones-links">
+      {% if section.settings.link_1_text != blank %}
+        <a href="{{ section.settings.link_1_url | default: '#' }}" class="better-ones-link">
+          {{ section.settings.link_1_text }}
+        </a>
+      {% endif %}
+      
+      {% if section.settings.link_1_text != blank and section.settings.link_2_text != blank %}
+        <div class="better-ones-separator"></div>
+      {% endif %}
+      
+      {% if section.settings.link_2_text != blank %}
+        <a href="{{ section.settings.link_2_url | default: '#' }}" class="better-ones-link">
+          {{ section.settings.link_2_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>

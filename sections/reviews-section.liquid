@@ -1,0 +1,349 @@
+{% schema %}
+{
+  "name": "Customer Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "top_label",
+      "label": "Top Label",
+      "default": "COMMUNITY LOVE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Real Results from our Community"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size",
+      "default": 42
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "top_padding",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "bottom_padding",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show Navigation Arrows",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Customer Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "customer_name",
+          "label": "Customer Name",
+          "default": "Customer Name"
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "Write the customer review here..."
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product Name",
+          "default": "PRODUCT NAME • BEAUTY BITES™"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_icon",
+          "label": "Product Icon"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Card Background Color",
+          "default": "#f5f5f5"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "customer_name": "Shannon C",
+            "review_text": "Just joined as a Scrumbled mum these bars are fantastic. Delicious, quick, healthy snack, they are great! From the fridge and don't fall apart so no crumbs in the car!",
+            "product_name": "LEMON COCONUT BEAUTY BITES™",
+            "background_color": "#f5f5f5"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "customer_name": "Kathy B",
+            "review_text": "I've been a convert of Beauty Bites for a number of months, decide making a difference to my appearance, my nails and hair are definitely in better condition than before.",
+            "product_name": "CHOC CHERRY COCONUT BEAUTY BITES™",
+            "background_color": "#f0e5e0"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "customer_name": "Louise H",
+            "review_text": "Definitely daily beauty treatment for your whole body! These were delicious and I've incorporated them as part of my daily beauty and self care routine! Love!",
+            "product_name": "SALTED CARAMEL BEAUTY BITES™ 4 CT",
+            "background_color": "#f5f5f5"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+{{ section.settings.heading_font | font_face }}
+
+.reviews-section {
+  background-color: {{ section.settings.background_color }};
+  padding: {{ section.settings.top_padding }}px 0 {{ section.settings.bottom_padding }}px;
+  overflow: hidden;
+}
+
+.reviews-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.reviews-top-label {
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.reviews-heading {
+  font-size: {{ section.settings.heading_size }}px;
+  font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 60px;
+  color: #111;
+  line-height: 1.2;
+}
+
+.reviews-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.reviews-carousel {
+  display: flex;
+  gap: 30px;
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  flex: 1;
+}
+
+.review-slide {
+  flex: 0 0 calc(33.333% - 20px);
+  min-width: calc(33.333% - 20px);
+}
+
+.carousel-arrow {
+  background: white;
+  border: 2px solid #e0e0e0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  color: #111;
+}
+
+.carousel-arrow:hover {
+  background: #f5f5f5;
+  border-color: #ccc;
+}
+
+.carousel-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1024px) {
+  .review-slide {
+    flex: 0 0 calc(50% - 15px);
+    min-width: calc(50% - 15px);
+  }
+}
+
+@media (max-width: 768px) {
+  .reviews-container {
+    padding: 0 20px;
+  }
+  
+  .reviews-heading {
+    font-size: clamp(28px, 6vw, {{ section.settings.heading_size }}px);
+    margin-bottom: 40px;
+  }
+  
+  .reviews-carousel-wrapper {
+    gap: 10px;
+  }
+  
+  .reviews-carousel {
+    gap: 20px;
+  }
+  
+  .review-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+  }
+  
+  .carousel-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+}
+</style>
+
+<section class="reviews-section">
+  <div class="reviews-container">
+    {% if section.settings.top_label != blank %}
+      <p class="reviews-top-label">{{ section.settings.top_label }}</p>
+    {% endif %}
+    
+    {% if section.settings.heading != blank %}
+      <h2 class="reviews-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    
+    {% if section.blocks.size > 0 %}
+      <div class="reviews-carousel-wrapper">
+        {% if section.settings.show_arrows %}
+          <button class="carousel-arrow prev" id="prevReview-{{ section.id }}" aria-label="Previous reviews">‹</button>
+        {% endif %}
+        
+        <div class="reviews-carousel" id="reviewsCarousel-{{ section.id }}">
+          {% for block in section.blocks %}
+            <div class="review-slide" {{ block.shopify_attributes }}>
+              {% render 'review-card',
+                customer_name: block.settings.customer_name,
+                review_text: block.settings.review_text,
+                product_name: block.settings.product_name,
+                product_icon: block.settings.product_icon,
+                background_color: block.settings.background_color
+              %}
+            </div>
+          {% endfor %}
+        </div>
+        
+        {% if section.settings.show_arrows %}
+          <button class="carousel-arrow next" id="nextReview-{{ section.id }}" aria-label="Next reviews">›</button>
+        {% endif %}
+      </div>
+    {% else %}
+      <p style="text-align: center; color: #999;">Add customer reviews in the theme editor</p>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+(function() {
+  const carousel = document.getElementById('reviewsCarousel-{{ section.id }}');
+  const prevBtn = document.getElementById('prevReview-{{ section.id }}');
+  const nextBtn = document.getElementById('nextReview-{{ section.id }}');
+  
+  if (!carousel || !prevBtn || !nextBtn) return;
+  
+  let currentIndex = 0;
+  const slides = carousel.querySelectorAll('.review-slide');
+  
+  function getSlidesPerView() {
+    if (window.innerWidth <= 768) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
+  }
+  
+  function updateCarousel() {
+    const slideWidth = slides[0].offsetWidth;
+    const gap = window.innerWidth <= 768 ? 20 : 30;
+    const offset = currentIndex * (slideWidth + gap);
+    carousel.style.transform = `translateX(-${offset}px)`;
+    
+    const maxIndex = Math.max(0, slides.length - getSlidesPerView());
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex >= maxIndex;
+  }
+  
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateCarousel();
+    }
+  });
+  
+  nextBtn.addEventListener('click', () => {
+    const maxIndex = Math.max(0, slides.length - getSlidesPerView());
+    if (currentIndex < maxIndex) {
+      currentIndex++;
+      updateCarousel();
+    }
+  });
+  
+  window.addEventListener('resize', () => {
+    currentIndex = Math.min(currentIndex, Math.max(0, slides.length - getSlidesPerView()));
+    updateCarousel();
+  });
+  
+  updateCarousel();
+})();
+</script>

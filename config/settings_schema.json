@@ -1,0 +1,27 @@
+[
+    {
+        "name": "theme_info",
+        "theme_name": "Custom Theme",
+        "theme_version": "1.0.0",
+        "theme_author": "Samuel",
+        "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+        "theme_support_url": "https://support.shopify.com/"
+    },
+    {
+        "name": "Typography",
+        "settings": [
+            {
+                "type": "font_picker",
+                "id": "type_header_font",
+                "label": "Heading font",
+                "default": "poppins_n6"
+            },
+            {
+                "type": "font_picker",
+                "id": "type_body_font",
+                "label": "Body font",
+                "default": "inter_n4"
+            }
+        ]
+    }
+]

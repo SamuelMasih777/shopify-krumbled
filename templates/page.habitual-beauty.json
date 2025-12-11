@@ -1,0 +1,10 @@
+{
+    "sections":{
+        "welcome-mini-me":{
+            "type":"welcome-mini-me",
+        }
+    },
+    "order":[
+        "welcome-mini-me"
+    ]
+}

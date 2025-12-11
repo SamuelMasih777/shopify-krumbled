@@ -1,0 +1,307 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_section_rMc88q": {
+      "type": "hero-section",
+      "blocks": {
+        "slide_w9yyKR": {
+          "type": "slide",
+          "settings": {
+            "top_label": "BACK IN STOCK",
+            "top_label_size": 14,
+            "top_label_color": "#333",
+            "heading": "Beauty Bites Are Back",
+            "heading_size": 56,
+            "heading_color": "#111",
+            "heading_alignment": "left",
+            "description": "Your favourite skin-loving snack just restocked. Low sugar and seriously delicious.",
+            "description_size": 16,
+            "description_color": "#666",
+            "button_text": "Shop Now",
+            "button_link": "",
+            "button_bg": "#e9427c",
+            "button_text_color": "#ffffff",
+            "button_size": 16,
+            "background_color": "#f6eee9",
+            "content_position": "left"
+          }
+        },
+        "slide_NKjjxG": {
+          "type": "slide",
+          "settings": {
+            "top_label": "BACK IN STOCK",
+            "top_label_size": 14,
+            "top_label_color": "#333",
+            "heading": "Beauty Bites Are Back",
+            "heading_size": 56,
+            "heading_color": "#111",
+            "heading_alignment": "left",
+            "description": "Your favourite skin-loving snack just restocked. Low sugar and seriously delicious.",
+            "description_size": 16,
+            "description_color": "#666",
+            "button_text": "Shop Now",
+            "button_link": "",
+            "button_bg": "#e9427c",
+            "button_text_color": "#ffffff",
+            "button_size": 16,
+            "background_color": "#f6eee9",
+            "content_position": "left"
+          }
+        },
+        "slide_h6Amke": {
+          "type": "slide",
+          "settings": {
+            "top_label": "BACK IN STOCK",
+            "top_label_size": 14,
+            "top_label_color": "#333",
+            "heading": "Beauty Bites Are Back",
+            "heading_size": 56,
+            "heading_color": "#111",
+            "heading_alignment": "left",
+            "description": "Your favourite skin-loving snack just restocked. Low sugar and seriously delicious.",
+            "description_size": 16,
+            "description_color": "#666",
+            "button_text": "Shop Now",
+            "button_link": "",
+            "button_bg": "#e9427c",
+            "button_text_color": "#ffffff",
+            "button_size": 16,
+            "background_color": "#f6eee9",
+            "content_position": "left"
+          }
+        }
+      },
+      "block_order": [
+        "slide_w9yyKR",
+        "slide_NKjjxG",
+        "slide_h6Amke"
+      ],
+      "name": "Hero Carousel",
+      "settings": {
+        "autoplay_speed": 5,
+        "show_dots": true,
+        "section_height": 600,
+        "marquee_text": "NAILS | GUT HEALTH | DIGESTION | WELLNESS | SLEEP SUPPORT | HAIR",
+        "marquee_bg": "#e9427c",
+        "marquee_text_color": "#ffffff",
+        "marquee_speed": 30
+      }
+    },
+    "welcome-mini-me": {
+      "type": "welcome-mini-me",
+      "blocks": {
+        "content_block_wrzJc6": {
+          "type": "content_block",
+          "settings": {
+            "layout": "image_right",
+            "text_bg_color": "#d4c4e8",
+            "top_label": "OUR INTRODUCTION",
+            "heading": "We're taking care of you, so they can thrive and flourish.",
+            "heading_font": "serif",
+            "heading_size": 42,
+            "description": "<p>Welcome to mini + me. Our philosophy is simple. Our little one's I'm so best when their parents are fully supported. From conception, pregnancy, postpartum and beyond, we've got the goods and products carefully curated to help fill your cup.</p>",
+            "button_text": "LEARN MORE",
+            "button_url": "",
+            "button_bg": "#ffffff",
+            "button_text_color": "#111111",
+            "deco_position": "none"
+          }
+        },
+        "content_block_mRMP8y": {
+          "type": "content_block",
+          "settings": {
+            "layout": "image_left",
+            "text_bg_color": "#d4c4e8",
+            "top_label": "OUR INTRODUCTION",
+            "heading": "We're taking care of you, so they can thrive and flourish.",
+            "heading_font": "serif",
+            "heading_size": 42,
+            "description": "<p>Welcome to mini + me. Our philosophy is simple. Our little one's I'm so best when their parents are fully supported. From conception, pregnancy, postpartum and beyond, we've got the goods and products carefully curated to help fill your cup.</p>",
+            "button_text": "LEARN MORE",
+            "button_url": "",
+            "button_bg": "#ffffff",
+            "button_text_color": "#111111",
+            "deco_position": "none"
+          }
+        }
+      },
+      "block_order": [
+        "content_block_wrzJc6",
+        "content_block_mRMP8y"
+      ],
+      "settings": {
+        "hero_bg_color": "#f6d5d0",
+        "hero_top_label": "WELCOME TO MINI + ME",
+        "hero_heading": "We're here for you, so you're present for them.",
+        "hero_font": "serif",
+        "hero_heading_size": 56,
+        "hero_text_color": "#111111",
+        "section_padding": 0
+      }
+    },
+    "bestseller_7Y3en8": {
+      "type": "bestseller",
+      "name": "Bestseller Carousel",
+      "settings": {
+        "heading": "Shop our Best Sellers",
+        "collection": "hydrogen",
+        "products_limit": 8,
+        "badge_text": "BEST SELLER"
+      }
+    },
+    "reviews_section_tCYL3P": {
+      "type": "reviews-section",
+      "blocks": {
+        "review_kaNTRx": {
+          "type": "review",
+          "settings": {
+            "customer_name": "Shannon C",
+            "review_text": "Just joined as a Scrumbled mum these bars are fantastic. Delicious, quick, healthy snack, they are great! From the fridge and don't fall apart so no crumbs in the car!",
+            "product_name": "LEMON COCONUT BEAUTY BITES™",
+            "background_color": "#f5f5f5"
+          }
+        },
+        "review_P79Ndg": {
+          "type": "review",
+          "settings": {
+            "customer_name": "Kathy B",
+            "review_text": "I've been a convert of Beauty Bites for a number of months, decide making a difference to my appearance, my nails and hair are definitely in better condition than before.",
+            "product_name": "CHOC CHERRY COCONUT BEAUTY BITES™",
+            "background_color": "#f0e5e0"
+          }
+        },
+        "review_pcUWAA": {
+          "type": "review",
+          "settings": {
+            "customer_name": "Louise H",
+            "review_text": "Definitely daily beauty treatment for your whole body! These were delicious and I've incorporated them as part of my daily beauty and self care routine! Love!",
+            "product_name": "SALTED CARAMEL BEAUTY BITES™ 4 CT",
+            "background_color": "#f5f5f5"
+          }
+        }
+      },
+      "block_order": [
+        "review_kaNTRx",
+        "review_P79Ndg",
+        "review_pcUWAA"
+      ],
+      "name": "Customer Reviews",
+      "settings": {
+        "top_label": "COMMUNITY LOVE",
+        "heading": "Real Results from our Community",
+        "heading_font": "serif",
+        "heading_size": 42,
+        "background_color": "#ffffff",
+        "top_padding": 80,
+        "bottom_padding": 80,
+        "show_arrows": true
+      }
+    },
+    "journal_section_iKgCqU": {
+      "type": "journal-section",
+      "blocks": {
+        "category_link_gPDTMP": {
+          "type": "category_link",
+          "settings": {
+            "label": "EXPERT ADVICE",
+            "url": ""
+          }
+        },
+        "category_link_M6RY6D": {
+          "type": "category_link",
+          "settings": {
+            "label": "HEALTHY LIVING",
+            "url": ""
+          }
+        },
+        "category_link_fV8Pdw": {
+          "type": "category_link",
+          "settings": {
+            "label": "NEWS",
+            "url": ""
+          }
+        },
+        "category_link_PVmTzM": {
+          "type": "category_link",
+          "settings": {
+            "label": "NUTRITION",
+            "url": ""
+          }
+        },
+        "category_link_iz9qdx": {
+          "type": "category_link",
+          "settings": {
+            "label": "RECIPES",
+            "url": ""
+          }
+        },
+        "category_link_Wzwb3N": {
+          "type": "category_link",
+          "settings": {
+            "label": "SCIENCE",
+            "url": ""
+          }
+        },
+        "journal_article_6XnPBG": {
+          "type": "journal_article",
+          "settings": {
+            "category": "RECIPES",
+            "title": "Black Forest Trifle",
+            "url": ""
+          }
+        },
+        "journal_article_ABLXJk": {
+          "type": "journal_article",
+          "settings": {
+            "category": "RECIPES",
+            "title": "Mixed Berry Collagen Gummies",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_link_gPDTMP",
+        "category_link_M6RY6D",
+        "category_link_fV8Pdw",
+        "category_link_PVmTzM",
+        "category_link_iz9qdx",
+        "category_link_Wzwb3N",
+        "journal_article_6XnPBG",
+        "journal_article_ABLXJk"
+      ],
+      "name": "Journal Section",
+      "settings": {
+        "top_label": "EXPLORE OUR",
+        "heading": "Journal",
+        "heading_font": "serif",
+        "heading_size": 56,
+        "heading_color": "#111111",
+        "description": "<p>The perfect online resource for anyone interested in beauty and inner health. From recipes to health tips and beyond. Dive into the world of healthy living.</p>",
+        "description_size": 14,
+        "description_color": "#666666",
+        "button_text": "READ THE JOURNAL",
+        "button_url": "",
+        "button_bg_color": "#f5e5d8",
+        "button_text_color": "#111111",
+        "background_color": "#ffffff",
+        "top_padding": 80,
+        "bottom_padding": 80
+      }
+    }
+  },
+  "order": [
+    "hero_section_rMc88q",
+    "welcome-mini-me",
+    "bestseller_7Y3en8",
+    "reviews_section_tCYL3P",
+    "journal_section_iKgCqU"
+  ]
+}

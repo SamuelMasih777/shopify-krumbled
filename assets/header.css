@@ -1,0 +1,294 @@
+:root{
+  --pink: #e9427c;
+  --accent: #f28b2a; 
+  --muted: #f6eee9;
+  --pill-bg: #efefef;
+  --white-bg: #ffffff;
+  --promo-height: 36px;
+  --header-height: 92px;
+  --max-width: 1200px;
+}
+
+*{box-sizing:border-box}
+
+/* --- BRAND PILLS --- */
+.brand-pills-container {
+  width: 100%;
+  background-color: var(--white-bg);
+}
+
+.brand-pills-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-right: 20px;
+}
+
+.account-icon-top {
+  display: flex;
+  align-items: center;
+  padding-bottom: 14px;
+}
+
+.account-icon-top .icon-btn {
+  color: #333;
+  padding: 8px;
+}
+
+.account-icon-top .icon-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.brand-pills{
+  display: flex;
+  gap: 0;
+  padding: 14px 20px 0 20px;
+  align-items: flex-end;
+  position: relative;
+  z-index: 50;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+.brand-pills .pill{
+  border: 0;
+  padding: 14px 25px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--pill-bg);
+  color: #888;
+  margin-right: 5px;
+  transition: all 0.2s ease;
+  white-space: nowrap; 
+}
+
+.brand-pills .pill.active{
+  padding-bottom: 18px;
+  margin-bottom: -4px;
+  z-index: 55;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+  position: relative;
+}
+
+/* --- PROMO BAR --- */
+.promo-bar{
+  color: white; 
+  height: var(--promo-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
+  z-index: 40;
+}
+.promo-bar .promo-inner{
+  width: 100%;
+  max-width: var(--max-width);
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+}
+
+/* Carousel Animation */
+.promo-text-item {
+  display: none;
+  animation: fadeInPromo 0.5s ease-in-out;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%;
+}
+.promo-text-item.active {
+  display: block;
+}
+@keyframes fadeInPromo {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.promo-bar .promo-arrow{font-weight:700; margin-left:6px; flex-shrink: 0;}
+
+/* --- MAIN HEADER --- */
+.site-header{
+  background: white;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.04);
+  position: relative;
+  z-index: 30;
+}
+.header-row{
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+  min-height: var(--header-height);
+}
+
+/* NAV LEFT */
+.nav-left{ display:flex; align-items:center; gap:18px; flex:1;}
+.hamburger{
+  display:none;
+  border:0;
+  background:transparent;
+  padding:8px;
+  cursor:pointer;
+}
+.hamburger span{
+  display:block;
+  width:22px;
+  height:2px;
+  background:#222;
+  margin:4px 0;
+}
+
+/* MAIN NAV */
+.main-nav{ list-style:none; margin:0; padding:0; display:flex; gap:18px; align-items:center;}
+.main-nav a{ text-decoration:none; color:#222; font-weight:400; font-size:15px; padding:6px 0; position: relative;}
+.main-nav a[data-mega-trigger="true"] {
+    cursor: pointer;
+}
+/*.main-nav a[data-mega-trigger="true"]:after {
+    content: ' \2304';
+    font-size: 10px;
+    margin-left: 2px;
+}*/ 
+/* Chevron optional */
+
+
+/* LOGO CENTER */
+.logo-wrap{ flex:0 0 auto; text-align:center; width:380px; }
+.logo-link { text-decoration: none; color: inherit; display: block; }
+.logo-text {
+  font-family:'Playfair Display', serif;
+  font-size:36px;
+  letter-spacing:0.02em;
+  font-weight:700;
+  color:#111;
+}
+
+/* ICONS RIGHT */
+.nav-right{ display:flex; gap:8px; align-items:center; flex:1; justify-content:flex-end;}
+.icon-btn{
+  border:0;
+  background:transparent;
+  text-decoration: none;
+  color: #333;
+  cursor:pointer;
+  font-size:18px;
+  padding:8px;
+  display: flex;
+  align-items: center;
+}
+.icon-btn svg { width: 20px; height: 20px; }
+
+/* --- MEGA MENU --- */
+.mega-menu-wrapper {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-top: 1px solid #f0f0f0;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  z-index: 20;
+  display: none;
+  opacity: 0;
+  transform: translateY(-10px);
+  padding: 40px 0;
+}
+
+.mega-menu-wrapper.open {
+  display: block;
+  animation: slideDownMenu 0.3s forwards ease-out;
+}
+
+@keyframes slideDownMenu {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.mega-menu-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 40px;
+}
+
+/* Mega Sidebar */
+.mega-menu-sidebar ul { list-style: none; padding: 0; margin: 0; }
+.mega-menu-sidebar li { margin-bottom: 12px; }
+.mega-sidebar-link {
+    text-decoration: none;
+    color: #444;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+    display: block;
+}
+.mega-sidebar-link:hover { color: var(--pink); /* Could be dynamic but kept simple */ }
+
+/* Mega Products */
+.mega-menu-products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+.mega-product-card {
+    text-align: center;
+    transition: transform 0.2s;
+}
+.mega-product-card:hover { opacity: 0.8; }
+.product-image-wrap {
+    width: 100%;
+    aspect-ratio: 1/1; /* Square */
+    background: #f9f9f9;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 4px;
+}
+.product-image-wrap img { width: 100%; height: 100%; object-fit: contain; }
+
+.placeholder-image {
+    background: #eee;
+    color: #999;
+    font-size: 12px;
+}
+
+.product-info { display: flex; flex-direction: column; gap: 4px; }
+.product-title { font-size: 13px; font-weight: 600; color: #111; }
+.product-price { font-size: 12px; color: #666; }
+
+
+/* RESPONSIVE */
+@media (max-width:900px){
+  .brand-pills-row { padding-right: 10px; }
+  .brand-pills{ padding-left:10px; gap:5px; }
+  .pill{ padding:10px 15px; }
+  .main-nav{ display:none; }
+  .hamburger{ display:inline-flex; }
+  .logo-wrap{ width:100%; }
+  .header-row{ padding:12px 14px; min-height:74px; }
+  .nav-left{ flex:0 1 auto; }
+  .nav-right{ gap:6px; }
+  
+  /* Hide mega menu on mobile */
+  .mega-menu-wrapper { display: none !important; }
+}

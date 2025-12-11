@@ -1,0 +1,611 @@
+{% schema %}
+{
+  "name": "Social Carousel",
+  "settings": [
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "carousel_item_width",
+      "label": "Item Width (px)",
+      "min": 250,
+      "max": 400,
+      "step": 10,
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "carousel_item_height",
+      "label": "Item Height (px)",
+      "min": 250,
+      "max": 400,
+      "step": 10,
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "hover_opacity",
+      "label": "Hover Opacity (%)",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "label": "Gap Between Items (px)",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "carousel_image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Add description for this image"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Social Carousel",
+      "blocks": [
+        {
+          "type": "carousel_image"
+        },
+        {
+          "type": "carousel_image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .social-carousel-section {
+    padding: 60px 20px;
+    background-color: {{ section.settings.section_bg_color }};
+    transition: background-color 0.3s ease;
+  }
+  
+  .social-carousel-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .carousel-wrapper {
+    position: relative;
+  }
+  
+  .social-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: {{ section.settings.item_gap }}px;
+    padding: 20px 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+  }
+  
+  .social-carousel::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .social-item {
+    flex: 0 0 {{ section.settings.carousel_item_width }}px;
+    scroll-snap-align: start;
+    position: relative;
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    height: {{ section.settings.carousel_item_height }}px;
+  }
+  
+  .social-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  .social-item-image-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .social-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .social-item:hover img {
+    opacity: {{ section.settings.hover_opacity | times: 0.01 }};
+  }
+  
+  .social-item-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+  }
+  
+  .social-item:hover .social-item-overlay {
+    opacity: 1;
+  }
+  
+  .social-item-overlay svg {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  }
+  
+  .carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .carousel-nav:hover {
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .prev-btn {
+    left: -60px;
+  }
+  
+  .next-btn {
+    right: -60px;
+  }
+  
+  /* Modal Styles */
+  .social-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .social-modal.active {
+    display: flex;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideInContent {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .modal-content {
+    background: white;
+    max-width: 1100px;
+    width: 100%;
+    max-height: 85vh;
+    display: flex;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideInContent 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .modal-image-wrapper {
+    width: 55%;
+    height: 70vh;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .modal-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .modal-details {
+    width: 45%;
+    padding: 40px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #000;
+    line-height: 1.3;
+  }
+  
+  .modal-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 30px;
+    flex-grow: 1;
+  }
+  
+  .modal-handle {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .instagram-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    width: fit-content;
+  }
+  
+  .instagram-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  }
+  
+  .instagram-icon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .modal-link {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .modal-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  }
+  
+  .modal-close {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 28px;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10000;
+  }
+  
+  .modal-close:hover {
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .prev-btn {
+      left: 10px;
+    }
+    
+    .next-btn {
+      right: 10px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .social-carousel-heading {
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+    
+    .modal-content {
+      flex-direction: column;
+      max-height: 90vh;
+      border-radius: 12px;
+    }
+    
+    .modal-image-wrapper {
+      width: 100%;
+      height: 250px;
+    }
+    
+    .modal-details {
+      width: 100%;
+      padding: 25px;
+      max-height: calc(90vh - 250px);
+    }
+    
+    .modal-title {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+    
+    .modal-description {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    
+    .social-carousel-section {
+      padding: 40px 15px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .social-carousel-heading {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .modal-details {
+      padding: 20px;
+    }
+    
+    .modal-title {
+      font-size: 18px;
+    }
+    
+    .modal-description {
+      font-size: 13px;
+    }
+    
+    .carousel-nav {
+      width: 40px;
+      height: 40px;
+      font-size: 16px;
+    }
+  }
+</style>
+
+<div class="social-carousel-section">
+  <div class="social-carousel-container">
+    <div class="carousel-wrapper">
+      <div class="social-carousel" id="socialCarousel">
+        {% for block in section.blocks %}
+          <div class="social-item" data-index="{{ forloop.index0 }}" data-block-id="{{ block.id }}">
+            <div class="social-item-image-wrapper">
+              {% if block.settings.image %}
+                <img 
+                  src="{{ block.settings.image | image_url: width: 600 }}" 
+                  alt="Carousel image"
+                  width="600"
+                  height="600"
+                  loading="lazy">
+              {% else %}
+                <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+                  <span>Add Image</span>
+                </div>
+              {% endif %}
+            </div>
+            <div class="social-item-overlay">
+              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+              </svg>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      
+      {% if section.blocks.size > 1 %}
+        <button class="carousel-nav prev-btn" aria-label="Previous slide">&#10094;</button>
+        <button class="carousel-nav next-btn" aria-label="Next slide">&#10095;</button>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="social-modal" id="socialModal">
+  <button class="modal-close" id="closeModal" aria-label="Close modal">&times;</button>
+  <div class="modal-content">
+    <div class="modal-image-wrapper">
+      <img 
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Crect fill='%23f0f0f0' width='1000' height='1000'/%3E%3C/svg%3E" 
+        alt="Image" 
+        class="modal-image" 
+        id="modalImage"
+        width="1000"
+        height="1000">
+    </div>
+    <div class="modal-details">
+      <div class="modal-description" id="modalDescription"></div>
+      <a href="#" class="modal-link" id="modalLink" target="_blank" rel="noopener noreferrer">
+        View More
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.getElementById('socialCarousel');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    const modal = document.getElementById('socialModal');
+    const closeModal = document.getElementById('closeModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalLink = document.getElementById('modalLink');
+    const socialItems = document.querySelectorAll('.social-item');
+    
+    // Block data stored in data attributes
+    const blocksData = {
+      {% for block in section.blocks %}
+        '{{ block.id }}': {
+          description: {{ block.settings.description | json }},
+          link_url: {{ block.settings.link_url | json }},
+          image_url: {{ block.settings.image | image_url: width: 1000 | json }}
+        }{% if forloop.last %}{% else %},{% endif %}
+      {% endfor %}
+    };
+    
+    // Carousel navigation
+    if (prevBtn && nextBtn) {
+      prevBtn.addEventListener('click', () => {
+        const itemWidth = {{ section.settings.carousel_item_width }};
+        const gap = {{ section.settings.item_gap }};
+        carousel.scrollBy({ 
+          left: -(itemWidth + gap), 
+          behavior: 'smooth' 
+        });
+      });
+      
+      nextBtn.addEventListener('click', () => {
+        const itemWidth = {{ section.settings.carousel_item_width }};
+        const gap = {{ section.settings.item_gap }};
+        carousel.scrollBy({ 
+          left: itemWidth + gap, 
+          behavior: 'smooth' 
+        });
+      });
+    }
+    
+    // Modal functionality
+    socialItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        const blockId = item.dataset.blockId;
+        const blockData = blocksData[blockId];
+        
+        if (blockData) {
+          // Set modal content
+          modalDescription.textContent = blockData.description || 'No description available';
+          
+          // Set image
+          if (blockData.image_url) {
+            modalImage.src = blockData.image_url;
+            modalImage.alt = 'Carousel image';
+          }
+          
+          // Set link
+          if (blockData.link_url) {
+            modalLink.href = blockData.link_url;
+            modalLink.style.display = 'inline-block';
+          } else {
+            modalLink.style.display = 'none';
+          }
+          
+          // Show modal with animation
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+    
+    // Close modal function
+    function closeModalWindow() {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Close button
+    closeModal.addEventListener('click', closeModalWindow);
+    
+    // Close when clicking outside modal content
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModalWindow();
+      }
+    });
+    
+    // Keyboard navigation - Escape to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModalWindow();
+      }
+    });
+  });
+</script>

@@ -13,6 +13,31 @@
       "default": "EXPLORE OUR"
     },
     {
+      "type": "font_picker",
+      "id": "top_label_font",
+      "label": "Top Label Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "top_label_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Top Label Size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "top_label_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Top Label Weight",
+      "default": 600
+    },
+    {
       "type": "text",
       "id": "heading",
       "label": "Heading",
@@ -35,6 +60,15 @@
       "default": 56
     },
     {
+      "type": "range",
+      "id": "heading_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Heading Weight",
+      "default": 400
+    },
+    {
       "type": "color",
       "id": "heading_color",
       "label": "Heading Color",
@@ -55,6 +89,21 @@
       "unit": "px",
       "label": "Description Size",
       "default": 14
+    },
+    {
+      "type": "font_picker",
+      "id": "description_font",
+      "label": "Description Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "description_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Description Weight",
+      "default": 400
     },
     {
       "type": "color",
@@ -86,8 +135,116 @@
       "default": "#111111"
     },
     {
+      "type": "font_picker",
+      "id": "button_font",
+      "label": "Button Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Button Weight",
+      "default": 700
+    },
+    {
       "type": "header",
       "content": "Section Settings"
+    },
+    {
+      "type": "header",
+      "content": "Category Navigation Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "nav_link_font",
+      "label": "Nav Link Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "nav_link_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Nav Link Size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "nav_link_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Nav Link Weight",
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Article Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "article_cat_font",
+      "label": "Article Category Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "article_cat_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Article Category Size",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "article_cat_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Article Category Weight",
+      "default": 700
+    },
+    {
+      "type": "font_picker",
+      "id": "article_title_font",
+      "label": "Article Title Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "article_title_size",
+      "min": 16,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Article Title Size",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "article_title_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Article Title Weight",
+      "default": 400
     },
     {
       "type": "color",
@@ -226,10 +383,42 @@
 
 <style>
 {{ section.settings.heading_font | font_face }}
+{{ section.settings.top_label_font | font_face }}
+{{ section.settings.description_font | font_face }}
+{{ section.settings.button_font | font_face }}
+{{ section.settings.nav_link_font | font_face }}
+{{ section.settings.article_cat_font | font_face }}
+{{ section.settings.article_title_font | font_face }}
 
 .journal-section {
   background-color: {{ section.settings.background_color }};
   padding: {{ section.settings.top_padding }}px 0 {{ section.settings.bottom_padding }}px;
+  
+  --heading-font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  --heading-weight: {{ section.settings.heading_weight }};
+  
+  --top-label-font-family: {{ section.settings.top_label_font.family }}, {{ section.settings.top_label_font.fallback_families }};
+  --top-label-size: {{ section.settings.top_label_size }}px;
+  --top-label-weight: {{ section.settings.top_label_weight }};
+  
+  --desc-font-family: {{ section.settings.description_font.family }}, {{ section.settings.description_font.fallback_families }};
+  --desc-weight: {{ section.settings.description_weight }};
+  
+  --btn-font-family: {{ section.settings.button_font.family }}, {{ section.settings.button_font.fallback_families }};
+  --btn-size: {{ section.settings.button_size }}px;
+  --btn-weight: {{ section.settings.button_weight }};
+  
+  --nav-link-font-family: {{ section.settings.nav_link_font.family }}, {{ section.settings.nav_link_font.fallback_families }};
+  --nav-link-size: {{ section.settings.nav_link_size }}px;
+  --nav-link-weight: {{ section.settings.nav_link_weight }};
+  
+  --article-cat-font-family: {{ section.settings.article_cat_font.family }}, {{ section.settings.article_cat_font.fallback_families }};
+  --article-cat-size: {{ section.settings.article_cat_size }}px;
+  --article-cat-weight: {{ section.settings.article_cat_weight }};
+  
+  --article-title-font-family: {{ section.settings.article_title_font.family }}, {{ section.settings.article_title_font.fallback_families }};
+  --article-title-size: {{ section.settings.article_title_size }}px;
+  --article-title-weight: {{ section.settings.article_title_weight }};
 }
 
 .journal-container {
@@ -263,10 +452,11 @@
 }
 
 .category-link {
-  font-size: 11px;
+  font-size: var(--nav-link-size);
+  font-family: var(--nav-link-font-family);
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: var(--nav-link-weight);
   color: #111;
   text-decoration: none;
   transition: opacity 0.3s ease;
@@ -286,18 +476,19 @@
 }
 
 .journal-top-label {
-  font-size: 11px;
+  font-size: var(--top-label-size);
+  font-family: var(--top-label-font-family);
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #999;
   margin-bottom: 15px;
-  font-weight: 600;
+  font-weight: var(--top-label-weight);
 }
 
 .journal-heading {
   font-size: {{ section.settings.heading_size }}px;
-  font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
-  font-weight: 400;
+  font-family: var(--heading-font-family);
+  font-weight: var(--heading-weight);
   margin-bottom: 25px;
   color: {{ section.settings.heading_color }};
   line-height: 1.1;
@@ -305,6 +496,8 @@
 
 .journal-description {
   font-size: {{ section.settings.description_size }}px;
+  font-family: var(--desc-font-family);
+  font-weight: var(--desc-weight);
   line-height: 1.8;
   color: {{ section.settings.description_color }};
   margin-bottom: 30px;
@@ -321,8 +514,9 @@
   padding: 14px 32px;
   border-radius: 50px;
   text-decoration: none;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: var(--btn-size);
+  font-family: var(--btn-font-family);
+  font-weight: var(--btn-weight);
   letter-spacing: 1.5px;
   text-transform: uppercase;
   transition: all 0.3s ease;
@@ -378,18 +572,19 @@
 }
 
 .article-category {
-  font-size: 10px;
+  font-size: var(--article-cat-size);
+  font-family: var(--article-cat-font-family);
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: #999;
   margin-bottom: 8px;
-  font-weight: 700;
+  font-weight: var(--article-cat-weight);
 }
 
 .article-title {
-  font-size: 22px;
-  font-family: serif;
-  font-weight: 400;
+  font-size: var(--article-title-size);
+  font-family: var(--article-title-font-family);
+  font-weight: var(--article-title-weight);
   color: #111;
   line-height: 1.3;
 }

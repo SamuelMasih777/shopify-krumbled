@@ -1,0 +1,12 @@
+{% liquid
+  assign current_brand = 'krumbled'
+  
+  if request.path contains 'mini-me' or page.handle contains 'mini' or product.vendor == 'Mini + Me' or collection.title contains 'Mini'
+    assign current_brand = 'mini-me'
+  elsif request.path contains 'habitual' or page.handle contains 'habitual' or product.vendor == 'Habitual Beauty' or collection.title contains 'Habitual'
+    assign current_brand = 'habitual'
+  endif
+%}
+<script>
+  console.log("Current Brand:", "{{ current_brand }}", "Path:", "{{ request.path }}", "Handle:", "{{ page.handle }}", "Vendor:", "{{ product.vendor }}");
+</script>

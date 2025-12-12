@@ -126,34 +126,124 @@
       "name": "Better Ones Section",
       "settings": {
         "top_label": "YOU DON'T NEED MORE SUPPLEMENTS.",
-        "top_label_size": 10,
+        "top_label_size": 11,
         "top_label_color": "#333333",
         "top_label_spacing": 2,
+        "top_label_font": "montserrat_n4",
+        "top_label_weight": 900,
         "heading": "You Need Better Ones.",
         "heading_size": 56,
         "heading_color": "#111111",
-        "heading_font": "serif",
+        "heading_font": "arapey_n4",
+        "heading_weight": 400,
         "link_1_text": "SLEEP SUPPORT",
-        "link_1_url": "",
+        "link_1_url": "shopify://products/selling-plans-ski-wax",
         "link_2_text": "COLLAGEN + DIGESTION",
-        "link_2_url": "",
-        "link_size": 13,
+        "link_2_url": "shopify://products/the-collection-snowboard-hydrogen",
+        "link_size": 12,
+        "link_font": "montserrat_n4",
+        "link_weight": 600,
         "link_color": "#111111",
-        "link_spacing": 1.5,
-        "background_color": "#f6eee9",
-        "section_height": 300,
+        "link_spacing": 1,
+        "background_color": "#f7f4f4",
+        "section_height": 350,
         "top_padding": 60,
         "bottom_padding": 60
       }
     },
     "bestseller_zFiihR": {
       "type": "bestseller",
+      "blocks": {
+        "product_card_43XfwX": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "custom_title": "",
+            "custom_vendor": "",
+            "review_count": "148 Reviews",
+            "star_rating": 5,
+            "custom_price": ""
+          }
+        },
+        "product_card_fC9PpU": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "custom_title": "",
+            "custom_vendor": "",
+            "review_count": "148 Reviews",
+            "star_rating": 5,
+            "custom_price": ""
+          }
+        },
+        "product_card_JHeiam": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "custom_title": "",
+            "custom_vendor": "",
+            "review_count": "148 Reviews",
+            "star_rating": 5,
+            "custom_price": ""
+          }
+        },
+        "product_card_YNigcU": {
+          "type": "product_card",
+          "settings": {
+            "product": "",
+            "custom_title": "",
+            "custom_vendor": "",
+            "review_count": "148 Reviews",
+            "star_rating": 5,
+            "custom_price": ""
+          }
+        },
+        "product_card_qP8zJH": {
+          "type": "product_card",
+          "settings": {
+            "product": "the-collection-snowboard-hydrogen",
+            "custom_badge": "shopify://shop_images/bestseller_badge.svg",
+            "custom_title": "",
+            "custom_vendor": "",
+            "review_count": "148 Reviews",
+            "star_rating": 4,
+            "custom_price": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_card_43XfwX",
+        "product_card_fC9PpU",
+        "product_card_JHeiam",
+        "product_card_YNigcU",
+        "product_card_qP8zJH"
+      ],
       "name": "Bestseller Carousel",
       "settings": {
         "heading": "Shop our Best Sellers",
-        "collection": "hydrogen",
-        "products_limit": 8,
-        "badge_text": "BEST SELLER"
+        "heading_font": "arapey_n4",
+        "heading_size": 48,
+        "heading_weight": 400,
+        "container_width": 1600,
+        "card_border_radius": 20,
+        "text_alignment": "center",
+        "star_color": "#ffc107",
+        "card_vendor_font": "montserrat_n4",
+        "card_vendor_size": 10,
+        "card_vendor_weight": 900,
+        "card_title_font": "montserrat_n4",
+        "card_title_size": 13,
+        "card_title_weight": 400,
+        "card_price_font": "montserrat_n4",
+        "card_price_size": 13,
+        "card_price_weight": 700,
+        "card_review_font": "open_sans_n4",
+        "card_review_size": 12,
+        "card_review_weight": 400,
+        "card_button_font": "montserrat_n4",
+        "card_button_size": 13,
+        "card_button_weight": 700,
+        "card_button_transform": "uppercase"
       }
     },
     "meet_the_range_VVPRbX": {
@@ -162,6 +252,7 @@
         "category_e3qtm4": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/KF_Hot_Chocolate_Desktop.webp",
             "title": "Beauty Bites",
             "url": ""
           }
@@ -169,6 +260,7 @@
         "category_bpJaXC": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/KF_Beauty_Bites_Desktop.webp",
             "title": "Collagen Peptides",
             "url": ""
           }
@@ -176,6 +268,7 @@
         "category_wg3B96": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/theme_cover_image.jpg",
             "title": "All Products",
             "url": ""
           }
@@ -189,11 +282,14 @@
       "name": "Meet the Range",
       "settings": {
         "heading": "Meet the range",
-        "heading_font": "serif",
-        "heading_size": 42,
+        "heading_font": "big_shoulders_n4",
+        "heading_size": 36,
         "background_color": "#ffffff",
         "top_padding": 60,
-        "bottom_padding": 60
+        "bottom_padding": 60,
+        "card_title_font": "arapey_n4",
+        "card_title_size": 23,
+        "card_title_weight": 300
       }
     },
     "reviews_section_JfEY8Q": {
@@ -205,7 +301,9 @@
             "customer_name": "Shannon C",
             "review_text": "Just joined as a Scrumbled mum these bars are fantastic. Delicious, quick, healthy snack, they are great! From the fridge and don't fall apart so no crumbs in the car!",
             "product_name": "LEMON COCONUT BEAUTY BITES™",
-            "background_color": "#f5f5f5"
+            "product_icon": "shopify://shop_images/Main_b13ad453-477c-4ed1-9b43-81f3345adfd6.jpg",
+            "background_color": "#fff5f0",
+            "hover_background_color": "#e7c6b2"
           }
         },
         "review_kig3NN": {
@@ -214,7 +312,9 @@
             "customer_name": "Kathy B",
             "review_text": "I've been a convert of Beauty Bites for a number of months, decide making a difference to my appearance, my nails and hair are definitely in better condition than before.",
             "product_name": "CHOC CHERRY COCONUT BEAUTY BITES™",
-            "background_color": "#f0e5e0"
+            "product_icon": "shopify://shop_images/KF_Hot_Chocolate_Desktop.webp",
+            "background_color": "#fff5f0",
+            "hover_background_color": "#e7c6b2"
           }
         },
         "review_kcYUkV": {
@@ -223,7 +323,9 @@
             "customer_name": "Louise H",
             "review_text": "Definitely daily beauty treatment for your whole body! These were delicious and I've incorporated them as part of my daily beauty and self care routine! Love!",
             "product_name": "SALTED CARAMEL BEAUTY BITES™ 4 CT",
-            "background_color": "#f5f5f5"
+            "product_icon": "shopify://shop_images/KF_Beauty_Bites_Desktop.webp",
+            "background_color": "#fff5f0",
+            "hover_background_color": "#e7c6b2"
           }
         }
       },
@@ -236,12 +338,21 @@
       "settings": {
         "top_label": "COMMUNITY LOVE",
         "heading": "Real Results from our Community",
-        "heading_font": "serif",
+        "heading_font": "arapey_n4",
         "heading_size": 42,
         "background_color": "#ffffff",
         "top_padding": 80,
         "bottom_padding": 80,
-        "show_arrows": true
+        "show_arrows": true,
+        "customer_name_font": "system_ui_n4",
+        "customer_name_size": 18,
+        "customer_name_weight": 600,
+        "review_text_font": "system_ui_n4",
+        "review_text_size": 14,
+        "review_text_weight": 400,
+        "product_name_font": "system_ui_n4",
+        "product_name_size": 11,
+        "product_name_weight": 600
       }
     },
     "evolution_tabs_WbxhF7": {
@@ -252,6 +363,9 @@
           "settings": {
             "tab_label": "BEAUTY BITES®",
             "content_text": "<p>Body Bites® collagen bars combine illuminating and age-defying ingredients in a convenient snack-only dose.</p><p>They are a delicious 100% natural, non-GMO & gluten-free bars and healthy snacks that can be enjoyed anytime and anywhere. They are pregnancy and breastfeeding safe. However if you are unsure, please consult your physician.</p>",
+            "desktop_image": "shopify://shop_images/Beauty_Bite_Icon_800x_d91e6e8d-8d01-467a-9e71-2caeba615e0e.webp",
+            "mobile_image": "shopify://shop_images/Beauty_Bites_Icon_Mobile_800x_9011172e-c583-4456-b0dc-42a662dbb4db.webp",
+            "image_width": 650,
             "icon_1_label": "GLUTEN FREE",
             "icon_2_label": "NATURAL INGREDIENTS",
             "icon_3_label": "NO ADDED SUGAR",
@@ -265,6 +379,9 @@
           "settings": {
             "tab_label": "COLLAGEN",
             "content_text": "<p>An innovative functional formula, with more collagen than most secrets on the market and less than 1.2g grams of sugar per serve.</p><p>Clinically proven to show a reduction in fine lines, increased skin hydration and elasticity, stronger ligaments and improved digestion in just 6 weeks.</p>",
+            "desktop_image": "shopify://shop_images/About_Icons_Desktop_800x_e244e429-714e-4564-9835-50f317bd9fbf.webp",
+            "mobile_image": "shopify://shop_images/About_Icons_Mobile_800x_bd6e98d1-acc7-40c7-b539-dac87762bb3d.webp",
+            "image_width": 640,
             "icon_1_label": "SKIN",
             "icon_2_label": "HAIR",
             "icon_3_label": "NAILS",
@@ -278,6 +395,7 @@
           "settings": {
             "tab_label": "SLEEP SUPPORT",
             "content_text": "<p>Our Advanced Magnesium Hot Chocolate is expertly formulated with a premium blend of sleep inducing ingredients, Magnesium, Ashwagandha, Amino Acids, and Botanicals—designed to ease stress, relax the body, and prime your mind for deep, uninterrupted sleep.</p>",
+            "image_width": 600,
             "icon_1_label": "",
             "icon_2_label": "",
             "icon_3_label": "",
@@ -295,23 +413,57 @@
       "name": "Evolution Tabs",
       "settings": {
         "heading": "The Evolution of Krumbled Foods",
-        "heading_font": "serif",
+        "heading_font": "arapey_n4",
         "heading_size": 42,
         "heading_color": "#111111",
+        "heading_weight": 400,
         "background_color": "#ffffff",
         "top_padding": 80,
         "bottom_padding": 80,
         "tab_container_bg": "#f8f4f0",
         "tab_text_color": "#111111",
         "tab_active_bg": "#f5e5d8",
-        "tab_border_color": "#d4b5a0",
-        "content_text_size": 14,
+        "tab_font": "montserrat_n4",
+        "tab_size": 11,
+        "tab_weight": 600,
+        "tab_border_color": "#111111",
+        "content_text_size": 13,
+        "content_font": "open_sans_n4",
+        "content_weight": 400,
         "content_text_color": "#333333"
       }
     },
     "journal_section_i88CF3": {
       "type": "journal-section",
       "blocks": {
+        "category_link_mhQPMR": {
+          "type": "category_link",
+          "settings": {
+            "label": "CATEGORY",
+            "url": ""
+          }
+        },
+        "category_link_AyXzTp": {
+          "type": "category_link",
+          "settings": {
+            "label": "CATEGORY",
+            "url": ""
+          }
+        },
+        "category_link_EtTxEH": {
+          "type": "category_link",
+          "settings": {
+            "label": "CATEGORY",
+            "url": ""
+          }
+        },
+        "category_link_WwRX3Q": {
+          "type": "category_link",
+          "settings": {
+            "label": "CATEGORY",
+            "url": ""
+          }
+        },
         "category_link_8GFTcf": {
           "type": "category_link",
           "settings": {
@@ -322,6 +474,7 @@
         "journal_article_QMxETw": {
           "type": "journal_article",
           "settings": {
+            "image": "shopify://shop_images/KF_Beauty_Bites_Desktop.webp",
             "category": "RECIPES",
             "title": "Article Title",
             "url": ""
@@ -330,6 +483,7 @@
         "journal_article_9PBaqN": {
           "type": "journal_article",
           "settings": {
+            "image": "shopify://shop_images/KF_Hot_Chocolate_Desktop.webp",
             "category": "RECIPES",
             "title": "Black Forest Trifle",
             "url": ""
@@ -337,6 +491,10 @@
         }
       },
       "block_order": [
+        "category_link_mhQPMR",
+        "category_link_AyXzTp",
+        "category_link_EtTxEH",
+        "category_link_WwRX3Q",
         "category_link_8GFTcf",
         "journal_article_QMxETw",
         "journal_article_9PBaqN"
@@ -344,18 +502,36 @@
       "name": "Journal Section",
       "settings": {
         "top_label": "EXPLORE OUR",
+        "top_label_font": "montserrat_n4",
+        "top_label_size": 11,
+        "top_label_weight": 900,
         "heading": "Journal",
-        "heading_font": "serif",
-        "heading_size": 56,
+        "heading_font": "arapey_n4",
+        "heading_size": 42,
+        "heading_weight": 400,
         "heading_color": "#111111",
         "description": "<p>The perfect online resource for anyone interested in beauty and inner health. From recipes to health tips and beyond. Dive into the world of healthy living.</p>",
-        "description_size": 14,
+        "description_size": 15,
+        "description_font": "open_sans_n4",
+        "description_weight": 400,
         "description_color": "#666666",
         "button_text": "READ THE JOURNAL",
         "button_url": "",
         "button_bg_color": "#f5e5d8",
         "button_text_color": "#111111",
-        "background_color": "#ffffff",
+        "button_font": "montserrat_n4",
+        "button_size": 11,
+        "button_weight": 700,
+        "nav_link_font": "montserrat_n4",
+        "nav_link_size": 10,
+        "nav_link_weight": 600,
+        "article_cat_font": "montserrat_n4",
+        "article_cat_size": 11,
+        "article_cat_weight": 700,
+        "article_title_font": "arapey_n4",
+        "article_title_size": 28,
+        "article_title_weight": 400,
+        "background_color": "#f8f4f0",
         "top_padding": 80,
         "bottom_padding": 80
       }

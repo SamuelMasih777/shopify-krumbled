@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Footer",
+  "name": "Footer (Habitual)",
   "settings": [
     {
       "type": "header",
@@ -323,12 +323,12 @@
   ],
   "presets": [
     {
-      "name": "Footer",
+      "name": "Footer (Habitual)",
       "blocks": [
         {
           "type": "menu",
           "settings": {
-            "heading": "KRUMBLED"
+            "heading": "HABITUAL"
           }
         },
         {
@@ -359,7 +359,7 @@
 {{ section.settings.menu_link_font | font_face }}
 {{ section.settings.copyright_font | font_face }}
 
-.footer {
+.footer-habitual {
   background-color: {{ section.settings.background_color }};
   color: {{ section.settings.text_color }};
   padding: 60px 0 30px;
@@ -496,7 +496,7 @@
 
 .newsletter-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(233, 66, 124, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .newsletter-disclaimer {
@@ -616,7 +616,7 @@
 }
 </style>
 
-<footer class="footer">
+<footer class="footer-habitual">
   <div class="footer-container">
     <div class="footer-top">
       <div class="footer-newsletter">

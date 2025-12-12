@@ -61,6 +61,90 @@
       "id": "show_arrows",
       "label": "Show Navigation Arrows",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Customer Name Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "customer_name_font",
+      "label": "Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "customer_name_size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "label": "Size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "customer_name_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Weight",
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Review Text Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "review_text_font",
+      "label": "Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "review_text_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "label": "Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "review_text_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Weight",
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Product Name Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "product_name_font",
+      "label": "Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "product_name_size",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "label": "Size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "product_name_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Weight",
+      "default": 600
     }
   ],
   "blocks": [
@@ -96,6 +180,12 @@
           "id": "background_color",
           "label": "Card Background Color",
           "default": "#f5f5f5"
+        },
+        {
+          "type": "color",
+          "id": "hover_background_color",
+          "label": "Hover Background Color",
+          "default": "#e0e0e0"
         }
       ]
     }
@@ -139,11 +229,23 @@
 
 <style>
 {{ section.settings.heading_font | font_face }}
+{{ section.settings.customer_name_font | font_face }}
+{{ section.settings.review_text_font | font_face }}
+{{ section.settings.product_name_font | font_face }}
 
 .reviews-section {
   background-color: {{ section.settings.background_color }};
   padding: {{ section.settings.top_padding }}px 0 {{ section.settings.bottom_padding }}px;
   overflow: hidden;
+  --customer-name-font-family: {{ section.settings.customer_name_font.family }}, {{ section.settings.customer_name_font.fallback_families }};
+  --customer-name-size: {{ section.settings.customer_name_size }}px;
+  --customer-name-weight: {{ section.settings.customer_name_weight }};
+  --review-text-font-family: {{ section.settings.review_text_font.family }}, {{ section.settings.review_text_font.fallback_families }};
+  --review-text-size: {{ section.settings.review_text_size }}px;
+  --review-text-weight: {{ section.settings.review_text_weight }};
+  --product-name-font-family: {{ section.settings.product_name_font.family }}, {{ section.settings.product_name_font.fallback_families }};
+  --product-name-size: {{ section.settings.product_name_size }}px;
+  --product-name-weight: {{ section.settings.product_name_weight }};
 }
 
 .reviews-container {
@@ -280,7 +382,9 @@
                 review_text: block.settings.review_text,
                 product_name: block.settings.product_name,
                 product_icon: block.settings.product_icon,
-                background_color: block.settings.background_color
+                product_icon: block.settings.product_icon,
+                background_color: block.settings.background_color,
+                hover_background_color: block.settings.hover_background_color
               %}
             </div>
           {% endfor %}

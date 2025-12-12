@@ -9,7 +9,8 @@
   %}
 {% endcomment %}
 
-<div class="review-card" style="background-color: {{ background_color | default: '#f5f5f5' }};">
+
+<div class="review-card" style="--bg-color: {{ background_color | default: '#f5f5f5' }}; --hover-bg-color: {{ hover_background_color | default: background_color | default: '#f5f5f5' }};">
   <div class="review-header">
     <h3 class="customer-name">{{ customer_name }}</h3>
   </div>
@@ -36,12 +37,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease;
+  background-color: var(--bg-color);
 }
 
 .review-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  background-color: var(--hover-bg-color);
 }
 
 .review-header {
@@ -49,11 +50,11 @@
 }
 
 .customer-name {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: var(--customer-name-size, 18px);
+  font-weight: var(--customer-name-weight, 600);
   color: #111;
   margin: 0;
-  font-family: sans-serif;
+  font-family: var(--customer-name-font-family, sans-serif);
 }
 
 .review-content {
@@ -62,10 +63,12 @@
 }
 
 .review-text {
-  font-size: 14px;
+  font-size: var(--review-text-size, 14px);
   line-height: 1.7;
   color: #333;
   margin: 0;
+  font-family: var(--review-text-font-family, sans-serif);
+  font-weight: var(--review-text-weight, 400);
 }
 
 .review-footer {
@@ -95,25 +98,19 @@
 }
 
 .product-name {
-  font-size: 11px;
+  font-size: var(--product-name-size, 11px);
   text-transform: uppercase;
   letter-spacing: 1px;
   color: #666;
   margin: 0;
-  font-weight: 600;
+  font-weight: var(--product-name-weight, 600);
+  font-family: var(--product-name-font-family, sans-serif);
 }
 
 @media (max-width: 768px) {
   .review-card {
     padding: 25px;
   }
-  
-  .customer-name {
-    font-size: 16px;
-  }
-  
-  .review-text {
-    font-size: 13px;
-  }
 }
 </style>
+

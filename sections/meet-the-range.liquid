@@ -49,6 +49,35 @@
       "unit": "px",
       "label": "Bottom Padding",
       "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Card Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "card_title_font",
+      "label": "Card Title Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "min": 14,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Title Size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "card_title_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Card Title Weight",
+      "default": 400
     }
   ],
   "blocks": [
@@ -103,12 +132,17 @@
 }
 {% endschema %}
 
+
 <style>
 {{ section.settings.heading_font | font_face }}
+{{ section.settings.card_title_font | font_face }}
 
 .meet-range-section {
   background-color: {{ section.settings.background_color }};
   padding: {{ section.settings.top_padding }}px 0 {{ section.settings.bottom_padding }}px;
+  --category-title-font-family: {{ section.settings.card_title_font.family }}, {{ section.settings.card_title_font.fallback_families }};
+  --category-title-font-size: {{ section.settings.card_title_size }}px;
+  --category-title-font-weight: {{ section.settings.card_title_weight }};
 }
 
 .meet-range-container {

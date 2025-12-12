@@ -9,6 +9,14 @@
     <body>
         {% section 'header' %}
         {{ content_for_layout }}
-        {% section 'footer' %}
+        {% include 'brand-context' %}
+        {% case current_brand %}
+          {% when 'mini-me' %}
+            {% section 'footer-mini' %}
+          {% when 'habitual' %}
+            {% section 'footer-habitual' %}
+          {% else %}
+            {% section 'footer' %}
+        {% endcase %}
     </body>
 </html>

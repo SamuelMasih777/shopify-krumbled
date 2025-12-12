@@ -13,43 +13,69 @@
       "header": {
         "type": "header",
         "blocks": {
+          "announcement_xGeD3J": {
+            "type": "announcement",
+            "settings": {
+              "text": "Free Product On more than $300 Purchase",
+              "url": "shopify://products/the-3p-fulfilled-snowboard"
+            }
+          },
           "announcement_QpKd7M": {
             "type": "announcement",
             "settings": {
-              "text": "Free Shipping Over $110 Australia Wide"
+              "text": "Free Shipping Over $110 Australia Wide",
+              "url": ""
             }
           },
           "brand_tab_zxEHMC": {
             "type": "brand_tab",
             "settings": {
               "title": "Krumbled",
+              "tab_image": "shopify://shop_images/Pi7_Screenshot_2025-12-10_052047-removebg-preview-Photoroom_1.png",
+              "use_image_in_tab": true,
+              "tab_image_size": 24,
+              "tab_width": 0,
+              "tab_height": 0,
               "brand_url": "",
-              "font_size": 14,
-              "font_family": "serif",
+              "font_size": 12,
+              "font_family": "montserrat_n4",
               "active_default": true,
               "color_bg": "#eb4586",
               "color_text": "#ffffff",
-              "menu": "main-menu",
+              "announcement_color_text": "#ffffff",
+              "announcement_font": "system_ui_n4",
+              "logo": "shopify://shop_images/Screenshot_2025-12-10_052047-removebg-preview-Photoroom.png",
+              "use_logo_image": true,
+              "menu": "home-page-menu",
               "mega_menu_trigger": "Shop",
               "mega_menu_sidebar_items": "Shop All | /collections/all\nBest Sellers | /collections/best-sellers",
               "mega_menu_sidebar_heading": "SHOP",
               "mega_menu_sidebar_link": "",
-              "mega_menu_product_1": "",
-              "mega_menu_product_2": "",
-              "mega_menu_product_3": "",
-              "mega_menu_product_4": ""
+              "mega_menu_product_1": "gift-card",
+              "mega_menu_product_2": "the-collection-snowboard-hydrogen",
+              "mega_menu_product_3": "the-collection-snowboard-oxygen",
+              "mega_menu_product_4": "the-multi-managed-snowboard"
             }
           },
           "brand_tab_N9cWNR": {
             "type": "brand_tab",
             "settings": {
               "title": "mini + me",
+              "tab_image": "shopify://shop_images/mini-me.png",
+              "use_image_in_tab": true,
+              "tab_image_size": 16,
+              "tab_width": 0,
+              "tab_height": 56,
               "brand_url": "shopify://pages/mini-me",
               "font_size": 14,
               "font_family": "system_ui_n4",
               "active_default": false,
               "color_bg": "#fb8f33",
               "color_text": "#ffffff",
+              "announcement_color_text": "#ffffff",
+              "announcement_font": "system_ui_n4",
+              "logo": "shopify://shop_images/HB_Master.jpg",
+              "use_logo_image": true,
               "menu": "mini-me",
               "mega_menu_trigger": "Shop",
               "mega_menu_sidebar_items": "Shop All | /collections/all\nBest Sellers | /collections/best-sellers\nPostpartum | /collections/best-seller",
@@ -65,12 +91,21 @@
             "type": "brand_tab",
             "settings": {
               "title": "HABITUAL BEAUTY",
-              "brand_url": "",
+              "tab_image": "shopify://shop_images/HB_Master-Photoroom.png",
+              "use_image_in_tab": true,
+              "tab_image_size": 16,
+              "tab_width": 215,
+              "tab_height": 54,
+              "brand_url": "shopify://pages/habitual-beauty",
               "font_size": 14,
               "font_family": "system_ui_n4",
               "active_default": false,
               "color_bg": "#eeeeee",
               "color_text": "#ffffff",
+              "announcement_color_text": "#090909",
+              "announcement_font": "acme_n4",
+              "logo": "shopify://shop_images/HB_Master-Photoroom.png",
+              "use_logo_image": true,
               "menu": "habitual-beauty",
               "mega_menu_trigger": "Shop",
               "mega_menu_sidebar_items": "Shop All | /collections/all\nBest Sellers | /collections/best-sellers",
@@ -84,13 +119,20 @@
           }
         },
         "block_order": [
+          "announcement_xGeD3J",
           "announcement_QpKd7M",
           "brand_tab_zxEHMC",
           "brand_tab_N9cWNR",
           "brand_tab_wz3bBy"
         ],
         "settings": {
-          "logo_width": 150
+          "logo_width": 150,
+          "logo_height": 30,
+          "pill_width": 150,
+          "pill_height": 48,
+          "pill_image_size": 24,
+          "carousel_speed": 4000,
+          "carousel_autoplay": true
         }
       },
       "footer": {

@@ -1,10 +1,20 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-    "sections":{
-        "welcome-mini-me":{
-            "type":"welcome-mini-me",
-        }
-    },
-    "order":[
-        "welcome-mini-me"
-    ]
+  "sections": {
+    "welcome-mini-me": {
+      "type": "welcome-mini-me",
+      "settings": {}
+    }
+  },
+  "order": [
+    "welcome-mini-me"
+  ]
 }

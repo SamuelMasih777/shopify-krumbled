@@ -24,7 +24,21 @@
       </div>
     {% endif %}
 
-    {% if sidebar_menu != blank %}
+    {% if sidebar_items != blank %}
+      <ul>
+        {% assign items = sidebar_items | newline_to_br | split: '<br />' %}
+        {% for item in items %}
+          {% assign parts = item | split: '|' %}
+          {% assign title = parts[0] | strip %}
+          {% assign url = parts[1] | strip %}
+          {% if title != blank %}
+            <li>
+              <a href="{{ url | default: '#' }}" class="mega-sidebar-link">{{ title }}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% elsif sidebar_menu != blank %}
       <ul>
         {% for link in linklists[sidebar_menu].links %}
           <li>
@@ -33,36 +47,50 @@
         {% endfor %}
       </ul>
     {% else %}
-      <p class="placeholder-text">Select a Sidebar Menu in settings</p>
+      <p class="placeholder-text">Enter "Title | URL" in Sidebar Items settings</p>
     {% endif %}
   </div>
 
   <!-- Right Product Grid -->
   <div class="mega-menu-products">
-    {%- assign product_handles = "" | split: "," -%}
-    {%- if product_1 != blank -%}{%- assign product_handles = product_handles | push: product_1 -%}{%- endif -%}
-    {%- if product_2 != blank -%}{%- assign product_handles = product_handles | push: product_2 -%}{%- endif -%}
-    {%- if product_3 != blank -%}{%- assign product_handles = product_handles | push: product_3 -%}{%- endif -%}
-    {%- if product_4 != blank -%}{%- assign product_handles = product_handles | push: product_4 -%}{%- endif -%}
+    {% assign active_count = 0 %}
     
-    {% if product_handles.size > 0 %}
+    {% comment %} Helper to render product card {% endcomment %}
+    {% capture product_cards %}
+      {% for i in (1..4) %}
+        {% assign handle_var = 'product_' | append: i %}
+        {% assign handle_val = [handle_var] %} <!-- Access variable dynamically? No, liquid doesn't support indirect var access easily in this scope context without passed args being cleaner -->
+        
+        {% comment %} Manual checks since dynamic var access is hard {% endcomment %}
+        {% assign current_handle = blank %}
+        {% if i == 1 %}{% assign current_handle = product_1 %}{% endif %}
+        {% if i == 2 %}{% assign current_handle = product_2 %}{% endif %}
+        {% if i == 3 %}{% assign current_handle = product_3 %}{% endif %}
+        {% if i == 4 %}{% assign current_handle = product_4 %}{% endif %}
 
-      {% for handle in product_handles %}
-        {% assign prod = all_products[handle] %}
-        {% if prod != empty %}
-          <div class="mega-product-card">
-            <a href="{{ prod.url }}" class="product-link">
-              <div class="product-image-wrap">
-                <img src="{{ prod.featured_image | image_url: width: 300 }}" alt="{{ prod.title }}" loading="lazy">
-              </div>
-              <div class="product-info">
-                <span class="product-title">{{ prod.title }}</span>
-                <span class="product-price">{{ prod.price | money }}</span>
-              </div>
-            </a>
-          </div>
+        {% if current_handle != blank %}
+          {% assign prod = all_products[current_handle] %}
+          {% if prod == empty %}{% assign prod = current_handle %}{% endif %}
+          
+          {% if prod.featured_image != blank or prod.title != blank %}
+            {% assign active_count = active_count | plus: 1 %}
+            <div class="mega-product-card">
+              <a href="{{ prod.url }}" class="product-link">
+                <div class="product-image-wrap">
+                  <img src="{{ prod.featured_image | image_url: width: 300 }}" alt="{{ prod.title }}" loading="lazy">
+                </div>
+                <div class="product-info">
+                  <span class="product-title">{{ prod.title }}</span>
+                </div>
+              </a>
+            </div>
+          {% endif %}
         {% endif %}
       {% endfor %}
+    {% endcapture %}
+
+    {% if active_count > 0 %}
+      {{ product_cards }}
     {% else %}
       <!-- Placeholders if no products selected -->
       {% for i in (1..4) %}

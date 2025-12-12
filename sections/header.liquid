@@ -523,7 +523,7 @@
     <!-- Mega Menu Containers (Dynamic per Block) -->
     {% for block in section.blocks %}
       {% if block.type == 'brand_tab' %}
-        <div class="mega-menu-wrapper" data-brand-index="{{ forloop.index0 }}">
+        <div class="mega-menu-wrapper" data-brand-index="{{ forloop.index0 }}" style="font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};">
             {% render 'mega-menu', 
                sidebar_items: block.settings.mega_menu_sidebar_items,
                sidebar_heading: block.settings.mega_menu_sidebar_heading,

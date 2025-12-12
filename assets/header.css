@@ -7,10 +7,18 @@
   --white-bg: #ffffff;
   --promo-height: 32px;
   --header-height: 50px;
+  --header-height: 50px;
   --max-width: 1400px;
 }
 
 *{box-sizing:border-box}
+
+.custom-header-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
 
 /* --- BRAND PILLS --- */
 .brand-pills-container {

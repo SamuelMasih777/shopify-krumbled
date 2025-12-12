@@ -9,29 +9,289 @@
       "default": "Shop our Best Sellers"
     },
     {
-      "type": "collection",
-      "id": "collection",
-      "label": "Collection"
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "serif"
     },
     {
       "type": "range",
-      "id": "products_limit",
-      "min": 4,
-      "max": 20,
-      "step": 1,
-      "label": "Number of Products",
-      "default": 8
+      "id": "heading_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size",
+      "default": 42
     },
     {
-      "type": "text",
-      "id": "badge_text",
-      "label": "Badge Text",
-      "default": "BEST SELLER"
+      "type": "range",
+      "id": "heading_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Heading Weight",
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Global Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Container Max Width",
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Card Border Radius",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star Color",
+      "default": "#ffc107"
+    },
+    {
+      "type": "header",
+      "content": "Typography: Vendor"
+    },
+    {
+      "type": "font_picker",
+      "id": "card_vendor_font",
+      "label": "Font Family",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "card_vendor_size",
+      "min": 8,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_vendor_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Font Weight",
+      "default": 700
+    },
+    {
+      "type": "header",
+      "content": "Typography: Title"
+    },
+    {
+      "type": "font_picker",
+      "id": "card_title_font",
+      "label": "Font Family",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_title_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Font Weight",
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Typography: Price"
+    },
+    {
+      "type": "font_picker",
+      "id": "card_price_font",
+      "label": "Font Family",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "card_price_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_price_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Font Weight",
+      "default": 700
+    },
+    {
+      "type": "header",
+      "content": "Typography: Reviews"
+    },
+    {
+      "type": "font_picker",
+      "id": "card_review_font",
+      "label": "Font Family",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "card_review_size",
+      "min": 8,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_review_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Font Weight",
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Typography: Button"
+    },
+    {
+      "type": "font_picker",
+      "id": "card_button_font",
+      "label": "Font Family",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "card_button_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "card_button_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Font Weight",
+      "default": 700
+    },
+    {
+      "type": "select",
+      "id": "card_button_transform",
+      "options": [
+        { "value": "uppercase", "label": "Uppercase" },
+        { "value": "capitalize", "label": "Capitalize" },
+        { "value": "none", "label": "None" }
+      ],
+      "label": "Text Transform",
+      "default": "uppercase"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product Card",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Image (Override)"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_badge",
+          "label": "Custom Badge SVG/Image"
+        },
+        {
+          "type": "text",
+          "id": "custom_title",
+          "label": "Custom Title"
+        },
+        {
+          "type": "text",
+          "id": "custom_vendor",
+          "label": "Custom Vendor/Type"
+        },
+        {
+          "type": "text",
+          "id": "review_count",
+          "label": "Review Count Text",
+          "default": "148 Reviews"
+        },
+        {
+          "type": "range",
+          "id": "star_rating",
+          "min": 0,
+          "max": 5,
+          "step": 0.5,
+          "label": "Star Rating",
+          "default": 5
+        },
+         {
+          "type": "text",
+          "id": "custom_price",
+          "label": "Custom Price Display"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Bestseller Carousel"
+      "name": "Bestseller Carousel",
+      "blocks": [
+        { "type": "product_card" },
+        { "type": "product_card" },
+        { "type": "product_card" },
+        { "type": "product_card" }
+      ]
     }
   ]
 }
@@ -45,24 +305,24 @@
       <h2 class="section-heading">{{ section.settings.heading }}</h2>
     {% endif %}
     
-    {% if section.settings.collection != blank %}
-      {% assign collection = collections[section.settings.collection] %}
-      
+    {% if section.blocks.size > 0 %}
       <div class="carousel-wrapper">
         <button class="carousel-btn prev" id="prev-{{ section.id }}">‹</button>
-        
         <div class="carousel" id="carousel-{{ section.id }}">
-          {% for product in collection.products limit: section.settings.products_limit %}
+          {% for block in section.blocks %}
             <div class="carousel-item">
-              {% render 'product-card', product: product, badge_text: section.settings.badge_text %}
+              {% render 'bestseller-card', 
+                 product: block.settings.product, 
+                 section: section, 
+                 block_settings: block.settings 
+              %}
             </div>
           {% endfor %}
         </div>
-        
         <button class="carousel-btn next" id="next-{{ section.id }}">›</button>
       </div>
     {% else %}
-      <p style="text-align: center; color: #999;">Please select a collection</p>
+       <p style="text-align: center; color: #999;">Please add Product Cards in the theme editor.</p>
     {% endif %}
   </div>
 </section>
@@ -75,38 +335,53 @@
   
   if (!carousel) return;
   
-  let scrollAmount = 0;
-  const slideWidth = 300; // Approximate card width + gap
+  const moveCarousel = (direction) => {
+    const item = carousel.querySelector('.carousel-item');
+    if (!item) return;
+    
+    // Calculate width + gap dynamically
+    const itemWidth = item.offsetWidth;
+    const style = window.getComputedStyle(carousel);
+    const gap = parseFloat(style.columnGap) || parseFloat(style.gap) || 0;
+    const slideWidth = itemWidth + gap;
+    
+    // Use native scrolling
+    carousel.scrollBy({
+      left: direction * slideWidth,
+      behavior: 'smooth'
+    });
+  };
   
-  prevBtn.addEventListener('click', () => {
-    scrollAmount = Math.max(0, scrollAmount - slideWidth);
-    carousel.style.transform = `translateX(-${scrollAmount}px)`;
-  });
-  
-  nextBtn.addEventListener('click', () => {
-    const maxScroll = carousel.scrollWidth - carousel.parentElement.offsetWidth;
-    scrollAmount = Math.min(maxScroll, scrollAmount + slideWidth);
-    carousel.style.transform = `translateX(-${scrollAmount}px)`;
-  });
+  prevBtn.addEventListener('click', () => moveCarousel(-1));
+  nextBtn.addEventListener('click', () => moveCarousel(1));
 })();
 </script>
 
 <style>
+/* Load dynamic fonts */
+{{ section.settings.heading_font | font_face }}
+{{ section.settings.card_vendor_font | font_face }}
+{{ section.settings.card_title_font | font_face }}
+{{ section.settings.card_price_font | font_face }}
+{{ section.settings.card_button_font | font_face }}
+{{ section.settings.card_review_font | font_face }}
+
 .bestseller-section {
   padding: 60px 0;
   background: white;
 }
 
 .container {
-  max-width: 1400px;
+  max-width: {{ section.settings.container_width }}px;
   margin: 0 auto;
   padding: 0 40px;
 }
 
 .section-heading {
   text-align: center;
-  font-size: 42px;
-  font-family: serif;
+  font-size: {{ section.settings.heading_size }}px;
+  font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  font-weight: {{ section.settings.heading_weight }};
   margin-bottom: 50px;
   color: #111;
 }
@@ -121,14 +396,63 @@
 .carousel {
   display: flex;
   gap: 30px;
-  overflow: hidden;
-  transition: transform 0.5s ease;
+  overflow-x: auto; /* Enable native scroll */
+  scroll-snap-type: x mandatory; /* Enable snapping */
+  scroll-behavior: smooth;
   flex: 1;
+  padding: 40px 10px; /* Generous padding for hover effects/badges */
+  margin: -40px -10px; /* Compensate padding */
+  
+  /* Hide scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+}
+
+/* Hide scrollbar for Chrome/Safari/Opera */
+.carousel::-webkit-scrollbar {
+  display: none;
 }
 
 .carousel-item {
   flex: 0 0 280px;
   min-width: 280px;
+  scroll-snap-align: center; /* Center snap on mobile */
+}
+
+/* Dynamic Styles from Schema */
+.bestseller-image {
+  border-radius: {{ section.settings.card_border_radius }}px;
+}
+
+.bestseller-vendor {
+  font-family: {{ section.settings.card_vendor_font.family }}, {{ section.settings.card_vendor_font.fallback_families }};
+  font-weight: {{ section.settings.card_vendor_weight }};
+  font-size: {{ section.settings.card_vendor_size }}px;
+}
+
+.bestseller-title {
+  font-family: {{ section.settings.card_title_font.family }}, {{ section.settings.card_title_font.fallback_families }};
+  font-weight: {{ section.settings.card_title_weight }};
+  font-size: {{ section.settings.card_title_size }}px;
+}
+
+.review-count {
+  font-family: {{ section.settings.card_review_font.family }}, {{ section.settings.card_review_font.fallback_families }};
+  font-weight: {{ section.settings.card_review_weight }};
+  font-size: {{ section.settings.card_review_size }}px;
+}
+
+.bestseller-price, .bestseller-compare-price {
+  font-family: {{ section.settings.card_price_font.family }}, {{ section.settings.card_price_font.fallback_families }};
+  font-weight: {{ section.settings.card_price_weight }};
+  font-size: {{ section.settings.card_price_size }}px;
+}
+
+.bestseller-add-to-cart {
+  font-family: {{ section.settings.card_button_font.family }}, {{ section.settings.card_button_font.fallback_families }};
+  font-weight: {{ section.settings.card_button_weight }};
+  font-size: {{ section.settings.card_button_size }}px;
+  text-transform: {{ section.settings.card_button_transform }};
 }
 
 .carousel-btn {
@@ -144,11 +468,16 @@
   justify-content: center;
   transition: all 0.3s ease;
   flex-shrink: 0;
+  color: #1a73e8;
+  z-index: 20; /* Ensure button is above carousel items */
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Slight shadow for visibility */
 }
 
 .carousel-btn:hover {
   background: #f5f5f5;
   border-color: #ccc;
+  transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
@@ -162,14 +491,20 @@
   }
   
   .carousel-item {
-    flex: 0 0 220px;
-    min-width: 220px;
+    flex: 0 0 100%; /* Full width on mobile */
+    min-width: 100%;
   }
   
   .carousel-btn {
     width: 40px;
     height: 40px;
     font-size: 24px;
+    position: absolute; /* Float buttons on mobile */
+    top: 50%;
+    transform: translateY(-50%);
   }
+  
+  .carousel-btn.prev { left: 0; }
+  .carousel-btn.next { right: 0; }
 }
 </style>

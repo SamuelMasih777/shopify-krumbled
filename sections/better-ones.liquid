@@ -39,6 +39,21 @@
       "default": 2
     },
     {
+      "type": "font_picker",
+      "id": "top_label_font",
+      "label": "Font Family",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "top_label_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Font Weight",
+      "default": 600
+    },
+    {
       "type": "header",
       "content": "Main Heading"
     },
@@ -69,6 +84,15 @@
       "id": "heading_font",
       "label": "Font Family",
       "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "heading_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Font Weight",
+      "default": 400
     },
     {
       "type": "header",
@@ -105,6 +129,21 @@
       "unit": "px",
       "label": "Link Font Size",
       "default": 13
+    },
+    {
+      "type": "font_picker",
+      "id": "link_font",
+      "label": "Link Font Family",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "link_weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "label": "Link Font Weight",
+      "default": 600
     },
     {
       "type": "color",
@@ -173,6 +212,8 @@
 
 <style>
 {{ section.settings.heading_font | font_face }}
+{{ section.settings.top_label_font | font_face }}
+{{ section.settings.link_font | font_face }}
 
 .better-ones-section {
   background-color: {{ section.settings.background_color }};
@@ -192,7 +233,8 @@
 .better-ones-top-label {
   font-size: {{ section.settings.top_label_size }}px;
   color: {{ section.settings.top_label_color }};
-  font-weight: 600;
+  font-family: {{ section.settings.top_label_font.family }}, {{ section.settings.top_label_font.fallback_families }};
+  font-weight: {{ section.settings.top_label_weight }};
   letter-spacing: {{ section.settings.top_label_spacing }}px;
   margin-bottom: 20px;
   text-transform: uppercase;
@@ -202,7 +244,7 @@
   font-size: {{ section.settings.heading_size }}px;
   color: {{ section.settings.heading_color }};
   font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
-  font-weight: 400;
+  font-weight: {{ section.settings.heading_weight }};
   line-height: 1.2;
   margin-bottom: 30px;
 }
@@ -219,7 +261,8 @@
   font-size: {{ section.settings.link_size }}px;
   color: {{ section.settings.link_color }};
   text-decoration: none;
-  font-weight: 600;
+  font-family: {{ section.settings.link_font.family }}, {{ section.settings.link_font.fallback_families }};
+  font-weight: {{ section.settings.link_weight }};
   letter-spacing: {{ section.settings.link_spacing }}px;
   text-transform: uppercase;
   position: relative;

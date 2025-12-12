@@ -1,0 +1,14 @@
+{
+    "sections": {
+        "product":{
+            "type":"product-detail"
+        },
+        "advanced-product":{
+            "type":"advanced-product"
+        }
+    },
+    "order": [
+        "product",
+        "advanced-product"
+    ]
+}

@@ -74,7 +74,7 @@
               "color_text": "#ffffff",
               "announcement_color_text": "#ffffff",
               "announcement_font": "system_ui_n4",
-              "logo": "shopify://shop_images/HB_Master.jpg",
+              "logo": "shopify://shop_images/mini-me.png",
               "use_logo_image": true,
               "menu": "mini-me",
               "mega_menu_trigger": "Shop",
@@ -137,8 +137,50 @@
       },
       "footer": {
         "type": "footer",
+        "blocks": {
+          "menu_ykp7Ad": {
+            "type": "menu",
+            "settings": {
+              "heading": "Menu",
+              "menu": "home-page-menu"
+            }
+          },
+          "menu_yYrJG4": {
+            "type": "menu",
+            "settings": {
+              "heading": "Menu",
+              "menu": "main-menu"
+            }
+          },
+          "menu_NiQ6M3": {
+            "type": "menu",
+            "settings": {
+              "heading": "Menu",
+              "menu": "mini-me"
+            }
+          },
+          "social_DwGHCQ": {
+            "type": "social",
+            "settings": {
+              "heading": "SOCIALS",
+              "instagram_label": "Instagram",
+              "instagram_url": "shopify://products/gift-card",
+              "facebook_label": "Facebook",
+              "facebook_url": "shopify://products/gift-card",
+              "tiktok_label": "TikTok",
+              "tiktok_url": "shopify://products/selling-plans-ski-wax"
+            }
+          }
+        },
+        "block_order": [
+          "menu_ykp7Ad",
+          "menu_yYrJG4",
+          "menu_NiQ6M3",
+          "social_DwGHCQ"
+        ],
         "settings": {
-          "logo_width": 180,
+          "logo": "shopify://shop_images/Screenshot_2025-12-10_052047-removebg-preview-Photoroom.png",
+          "logo_width": 220,
           "newsletter_heading": "SIGN UP AND SAVE",
           "newsletter_button_text": "Sign Up",
           "newsletter_button_color": "#e9427c",

@@ -1,0 +1,56 @@
+<style>
+  .product-detail-wrapper {
+    padding: 60px 40px;
+    background-color: #ffffff;
+  }
+  .product-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .product-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  .product-title {
+    font-size: 48px;
+    font-family: serif;
+    margin-bottom: 20px;
+  }
+  .add-to-cart-btn {
+    width: 100%;
+    padding: 16px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+</style>
+
+<div class="product-detail-wrapper">
+  <div class="product-container">
+    <div class="product-image-section">
+      <img src="{{ product.featured_image | image_url: width: 800 }}" class="product-image" alt="{{ product.title }}">
+    </div>
+
+    <div class="product-info-section">
+      <div style="font-size: 12px; color: #999; letter-spacing: 1px; margin-bottom: 10px;">HABITUAL BEAUTY</div>
+      <h1 class="product-title">{{ product.title }}</h1>
+      <div style="font-size: 28px; font-weight: 600; margin-bottom: 30px;">{{ product.price | money }}</div>
+      
+      <div style="margin-bottom: 30px; line-height: 1.6; color: #666;">
+        {{ product.description }}
+      </div>
+
+      {% form 'product', product %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+      {% endform %}
+    </div>
+  </div>
+</div>

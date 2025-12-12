@@ -1,0 +1,33 @@
+{% schema %}
+{
+  "name": "Main Product",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Main Product"
+    }
+  ]
+}
+{% endschema %}
+
+{% assign brand = product.metafields.custom.brand | downcase %}
+
+<script>
+  console.log("DEBUG: Main Product Section Loaded");
+  console.log("DEBUG: Raw Metafield Value:", "{{ product.metafields.custom.brand }}");
+  console.log("DEBUG: Processed Brand Variable:", "{{ brand }}");
+</script>
+
+<div style="background: yellow; color: black; padding: 10px; font-weight: bold; text-align: center; border: 2px solid red;">
+  DEBUG MODE: Brand is "{{ brand }}" (Raw: "{{ product.metafields.custom.brand }}")
+</div>
+
+{% if brand contains 'mini' %}
+  {% render 'product-mini-me' %}
+{% elsif brand contains 'krumbled' %}
+  {% render 'product-krumbled' %}
+{% elsif brand contains 'habitual' %}
+  {% render 'product-habitual-beauty' %}
+{% else %}
+  {% render 'product-default' %}
+{% endif %}

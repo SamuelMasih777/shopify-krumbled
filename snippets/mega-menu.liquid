@@ -46,18 +46,22 @@
     {%- if product_4 != blank -%}{%- assign product_handles = product_handles | push: product_4 -%}{%- endif -%}
     
     {% if product_handles.size > 0 %}
-      {% for prod in product_handles %}
-        <div class="mega-product-card">
-          <a href="{{ prod.url }}" class="product-link">
-            <div class="product-image-wrap">
-              <img src="{{ prod.featured_image | image_url: width: 300 }}" alt="{{ prod.title }}" loading="lazy">
-            </div>
-            <div class="product-info">
-              <span class="product-title">{{ prod.title }}</span>
-              <span class="product-price">{{ prod.price | money }}</span>
-            </div>
-          </a>
-        </div>
+
+      {% for handle in product_handles %}
+        {% assign prod = all_products[handle] %}
+        {% if prod != empty %}
+          <div class="mega-product-card">
+            <a href="{{ prod.url }}" class="product-link">
+              <div class="product-image-wrap">
+                <img src="{{ prod.featured_image | image_url: width: 300 }}" alt="{{ prod.title }}" loading="lazy">
+              </div>
+              <div class="product-info">
+                <span class="product-title">{{ prod.title }}</span>
+                <span class="product-price">{{ prod.price | money }}</span>
+              </div>
+            </a>
+          </div>
+        {% endif %}
       {% endfor %}
     {% else %}
       <!-- Placeholders if no products selected -->

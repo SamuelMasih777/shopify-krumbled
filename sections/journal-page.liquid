@@ -1,0 +1,858 @@
+{% schema %}
+{
+  "name": "Journal Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Left Sidebar Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Journal"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 36,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size",
+      "default": 64
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#111111"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>A place to pause, explore the latest in skincare, uncover expert advice and find delicious recipes.</p>"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Description Size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "text",
+      "id": "filter_label",
+      "label": "Filter Label",
+      "default": "FILTER"
+    },
+    {
+      "type": "text",
+      "id": "back_to_top_text",
+      "label": "Back to Top Text",
+      "default": "BACK TO TOP"
+    },
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#fafafa"
+    },
+    {
+      "type": "range",
+      "id": "top_padding",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "bottom_padding",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "sidebar_width",
+      "min": 250,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Sidebar Width",
+      "default": 320
+    },
+    {
+      "type": "range",
+      "id": "grid_columns",
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "label": "Grid Columns (Desktop)",
+      "default": 1
+    }
+  ],
+  "blocks": [
+    {
+      "type": "filter_category",
+      "name": "Filter Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category_name",
+          "label": "Category Name",
+          "default": "Category"
+        },
+        {
+          "type": "text",
+          "id": "category_value",
+          "label": "Category Value",
+          "default": "category",
+          "info": "Used for filtering (lowercase, no spaces)"
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "name": "Article",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Article Image"
+        },
+        {
+          "type": "text",
+          "id": "category",
+          "label": "Category",
+          "default": "SKIN HEALTH",
+          "info": "Must match one of the filter category values"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Article Title",
+          "default": "Article Title"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Article URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Journal Page",
+      "blocks": [
+        {
+          "type": "filter_category",
+          "settings": {
+            "category_name": "Events",
+            "category_value": "events"
+          }
+        },
+        {
+          "type": "filter_category",
+          "settings": {
+            "category_name": "Founder",
+            "category_value": "founder"
+          }
+        },
+        {
+          "type": "filter_category",
+          "settings": {
+            "category_name": "Lifestyle",
+            "category_value": "lifestyle"
+          }
+        },
+        {
+          "type": "filter_category",
+          "settings": {
+            "category_name": "Motherhood",
+            "category_value": "motherhood"
+          }
+        },
+        {
+          "type": "filter_category",
+          "settings": {
+            "category_name": "Nutritionist + Naturopath",
+            "category_value": "nutritionist-naturopath"
+          }
+        },
+        {
+          "type": "filter_category",
+          "settings": {
+            "category_name": "Recipe",
+            "category_value": "recipe"
+          }
+        },
+        {
+          "type": "filter_category",
+          "settings": {
+            "category_name": "Science",
+            "category_value": "science"
+          }
+        },
+        {
+          "type": "filter_category",
+          "settings": {
+            "category_name": "Skin Health",
+            "category_value": "skin-health"
+          }
+        },
+        {
+          "type": "filter_category",
+          "settings": {
+            "category_name": "Wellbeing",
+            "category_value": "wellbeing"
+          }
+        },
+        {
+          "type": "article",
+          "settings": {
+            "category": "SKIN HEALTH",
+            "title": "4 Environmental Stressors That Could Be Affecting Your Skin"
+          }
+        },
+        {
+          "type": "article",
+          "settings": {
+            "category": "SKIN HEALTH",
+            "title": "The Benefits of Antioxidants in Skincare"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+{{ section.settings.heading_font | font_face }}
+
+.journal-page-section {
+  background-color: {{ section.settings.background_color }};
+  padding: {{ section.settings.top_padding }}px 0 {{ section.settings.bottom_padding }}px;
+  min-height: 100vh;
+}
+
+.journal-page-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 60px;
+  display: grid;
+  grid-template-columns: {{ section.settings.sidebar_width }}px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* Left Sidebar */
+.journal-sidebar {
+  position: sticky;
+  top: 120px;
+  height: fit-content;
+}
+
+.journal-heading {
+  font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  font-size: {{ section.settings.heading_size }}px;
+  font-weight: 400;
+  color: {{ section.settings.heading_color }};
+  margin: 0 0 30px 0;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.journal-description {
+  font-size: {{ section.settings.description_size }}px;
+  line-height: 1.7;
+  color: {{ section.settings.description_color }};
+  margin: 0 0 50px 0;
+}
+
+.journal-description p {
+  margin: 0;
+}
+
+.journal-filters {
+  margin-bottom: 60px;
+}
+
+.filter-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.filter-dropdown-wrapper {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.filter-dropdown {
+  width: 100%;
+  padding: 12px 16px;
+  padding-right: 40px;
+  background: transparent;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #111;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.filter-dropdown:hover {
+  border-color: #999;
+}
+
+.filter-dropdown:focus {
+  outline: none;
+  border-color: #111;
+}
+
+.filter-dropdown-arrow {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #111;
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+.filter-dropdown-wrapper.active .filter-dropdown-arrow {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.filter-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.filter-checkbox-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter-checkbox-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  margin-right: 12px;
+  cursor: pointer;
+  accent-color: #111;
+  flex-shrink: 0;
+}
+
+.filter-checkbox-item label {
+  font-size: 14px;
+  color: #111;
+  cursor: pointer;
+  line-height: 1.4;
+  transition: opacity 0.3s ease;
+  flex: 1;
+}
+
+.filter-checkbox-item:hover label {
+  opacity: 0.7;
+}
+
+.back-to-top {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 40px;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.back-to-top:hover {
+  opacity: 0.6;
+}
+
+/* Right Content Grid */
+.journal-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.journal-grid {
+  display: grid;
+  grid-template-columns: repeat({{ section.settings.grid_columns }}, 1fr);
+  gap: 40px;
+  transition: opacity 0.3s ease;
+}
+
+.journal-grid.filtering {
+  opacity: 0.5;
+}
+
+.article-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  opacity: 1;
+}
+
+.article-card.hidden {
+  display: none;
+}
+
+.article-card.fade-out {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.article-card:hover {
+  transform: translateY(-8px);
+}
+
+.article-image-wrapper {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: #f0f0f0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.article-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.article-card:hover .article-image-wrapper img {
+  transform: scale(1.05);
+}
+
+.article-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+  color: #999;
+  font-size: 13px;
+}
+
+.article-category {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.article-title {
+  font-size: 20px;
+  font-weight: 400;
+  color: #111;
+  line-height: 1.4;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  font-size: 16px;
+  display: none;
+}
+
+.no-results.show {
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .journal-page-container {
+    gap: 60px;
+    padding: 0 40px;
+  }
+  
+  .journal-grid {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .journal-page-container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    padding: 0 40px;
+  }
+  
+  .journal-sidebar {
+    position: relative;
+    top: 0;
+  }
+  
+  .journal-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .journal-page-container {
+    padding: 0 20px;
+    gap: 40px;
+  }
+  
+  .journal-heading {
+    font-size: clamp(42px, 10vw, {{ section.settings.heading_size }}px);
+  }
+  
+  .journal-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .article-title {
+    font-size: 18px;
+  }
+  
+  .filter-checkboxes {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .journal-page-section {
+    padding: 40px 0 60px;
+  }
+  
+  .journal-heading {
+    font-size: 36px;
+  }
+  
+  .journal-description {
+    font-size: 13px;
+  }
+}
+</style>
+
+<section class="journal-page-section" id="journalPageSection">
+  <div class="journal-page-container">
+    <!-- Left Sidebar -->
+    <aside class="journal-sidebar">
+      {% if section.settings.heading != blank %}
+        <h1 class="journal-heading">{{ section.settings.heading }}</h1>
+      {% endif %}
+      
+      {% if section.settings.description != blank %}
+        <div class="journal-description">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+      
+      <div class="journal-filters">
+        {% if section.settings.filter_label != blank %}
+          <span class="filter-label">{{ section.settings.filter_label }}</span>
+        {% endif %}
+        
+        <div class="filter-dropdown-wrapper" id="filterDropdownWrapper">
+          <select class="filter-dropdown" id="filterDropdown">
+            <option value="all">All</option>
+            {% for block in section.blocks %}
+              {% if block.type == 'filter_category' %}
+                <option value="{{ block.settings.category_value | downcase | replace: ' ', '-' }}">
+                  {{ block.settings.category_name }}
+                </option>
+              {% endif %}
+            {% endfor %}
+          </select>
+          <span class="filter-dropdown-arrow">▼</span>
+        </div>
+        
+        <div class="filter-checkboxes" id="filterCheckboxes">
+          {% for block in section.blocks %}
+            {% if block.type == 'filter_category' %}
+              <div class="filter-checkbox-item" {{ block.shopify_attributes }}>
+                <input 
+                  type="checkbox" 
+                  id="filter-{{ block.settings.category_value | downcase | replace: ' ', '-' }}" 
+                  value="{{ block.settings.category_value | downcase | replace: ' ', '-' }}"
+                  class="filter-checkbox"
+                >
+                <label for="filter-{{ block.settings.category_value | downcase | replace: ' ', '-' }}">
+                  {{ block.settings.category_name }}
+                </label>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      
+      {% if section.settings.back_to_top_text != blank %}
+        <a href="#journalPageSection" class="back-to-top" id="backToTop">
+          {{ section.settings.back_to_top_text }}
+        </a>
+      {% endif %}
+    </aside>
+    
+    <!-- Right Content Grid -->
+    <div class="journal-content">
+      <div class="journal-grid" id="journalGrid">
+        {% for block in section.blocks %}
+          {% if block.type == 'article' %}
+            {% assign article_category = block.settings.category | downcase | replace: ' ', '-' %}
+            <a 
+              href="{{ block.settings.url }}" 
+              class="article-card" 
+              data-category="{{ article_category }}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="article-image-wrapper">
+                {% if block.settings.image %}
+                  <img 
+                    src="{{ block.settings.image | image_url: width: 800 }}" 
+                    alt="{{ block.settings.title }}"
+                    loading="lazy"
+                  >
+                {% else %}
+                  <div class="article-placeholder">
+                    <span>Add Image</span>
+                  </div>
+                {% endif %}
+              </div>
+              
+              {% if block.settings.category != blank %}
+                <p class="article-category">{{ block.settings.category }}</p>
+              {% endif %}
+              
+              {% if block.settings.title != blank %}
+                <h3 class="article-title">{{ block.settings.title }}</h3>
+              {% endif %}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+      
+      <div class="no-results" id="noResults">
+        <p>No articles found matching your filters.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  'use strict';
+  
+  const sectionId = '{{ section.id }}';
+  const grid = document.querySelector(`#journalPageSection #journalGrid`);
+  const articles = grid ? grid.querySelectorAll('.article-card') : [];
+  const dropdown = document.querySelector(`#journalPageSection #filterDropdown`);
+  const checkboxes = document.querySelectorAll(`#journalPageSection .filter-checkbox`);
+  const dropdownWrapper = document.querySelector(`#journalPageSection #filterDropdownWrapper`);
+  const noResults = document.querySelector(`#journalPageSection #noResults`);
+  
+  if (!grid || articles.length === 0) return;
+  
+  // Normalize category values
+  function normalizeCategory(category) {
+    return category.toLowerCase().replace(/\s+/g, '-');
+  }
+  
+  // Get active filters
+  function getActiveFilters() {
+    const activeFilters = [];
+    
+    // Check dropdown
+    if (dropdown && dropdown.value !== 'all') {
+      activeFilters.push(normalizeCategory(dropdown.value));
+    }
+    
+    // Check checkboxes
+    checkboxes.forEach(checkbox => {
+      if (checkbox.checked) {
+        activeFilters.push(normalizeCategory(checkbox.value));
+      }
+    });
+    
+    return activeFilters;
+  }
+  
+  // Filter articles
+  function filterArticles() {
+    const activeFilters = getActiveFilters();
+    let visibleCount = 0;
+    
+    // If no filters active, show all
+    if (activeFilters.length === 0) {
+      articles.forEach(article => {
+        article.classList.remove('hidden', 'fade-out');
+        visibleCount++;
+      });
+    } else {
+      articles.forEach(article => {
+        const articleCategory = normalizeCategory(article.getAttribute('data-category') || '');
+        const matches = activeFilters.some(filter => {
+          return articleCategory.includes(filter) || filter.includes(articleCategory);
+        });
+        
+        if (matches) {
+          article.classList.remove('hidden', 'fade-out');
+          visibleCount++;
+        } else {
+          article.classList.add('fade-out');
+          setTimeout(() => {
+            article.classList.add('hidden');
+          }, 300);
+        }
+      });
+    }
+    
+    // Show/hide no results message
+    if (noResults) {
+      if (visibleCount === 0) {
+        noResults.classList.add('show');
+      } else {
+        noResults.classList.remove('show');
+      }
+    }
+    
+    // Update grid opacity during filtering
+    if (grid) {
+      grid.classList.add('filtering');
+      setTimeout(() => {
+        grid.classList.remove('filtering');
+      }, 300);
+    }
+  }
+  
+  // Sync dropdown with checkboxes
+  function syncDropdownWithCheckboxes() {
+    if (!dropdown) return;
+    
+    const checkedBoxes = Array.from(checkboxes).filter(cb => cb.checked);
+    
+    if (checkedBoxes.length === 0) {
+      dropdown.value = 'all';
+    } else if (checkedBoxes.length === 1) {
+      dropdown.value = checkedBoxes[0].value;
+    } else {
+      dropdown.value = 'all';
+    }
+    
+    if (dropdownWrapper) {
+      dropdownWrapper.classList.toggle('active', dropdown.value !== 'all');
+    }
+  }
+  
+  // Sync checkboxes with dropdown
+  function syncCheckboxesWithDropdown() {
+    if (!dropdown) return;
+    
+    checkboxes.forEach(checkbox => {
+      checkbox.checked = false;
+    });
+    
+    if (dropdown.value !== 'all') {
+      const matchingCheckbox = Array.from(checkboxes).find(
+        cb => normalizeCategory(cb.value) === normalizeCategory(dropdown.value)
+      );
+      if (matchingCheckbox) {
+        matchingCheckbox.checked = true;
+      }
+    }
+  }
+  
+  // Event listeners
+  if (dropdown) {
+    dropdown.addEventListener('change', function() {
+      syncCheckboxesWithDropdown();
+      filterArticles();
+      
+      if (dropdownWrapper) {
+        dropdownWrapper.classList.toggle('active', this.value !== 'all');
+      }
+    });
+  }
+  
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      syncDropdownWithCheckboxes();
+      filterArticles();
+    });
+  });
+  
+  // Dropdown wrapper click (for mobile)
+  if (dropdownWrapper) {
+    dropdownWrapper.addEventListener('click', function(e) {
+      if (e.target !== dropdown && dropdown) {
+        dropdown.focus();
+      }
+    });
+  }
+  
+  // Smooth scroll for back to top
+  const backToTop = document.querySelector(`#journalPageSection #backToTop`);
+  if (backToTop) {
+    backToTop.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+  
+  // Initialize
+  filterArticles();
+})();
+</script>
+

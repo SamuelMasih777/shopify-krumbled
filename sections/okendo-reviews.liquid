@@ -1,0 +1,327 @@
+{% schema %}
+{
+  "name": "Reviews Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "text",
+      "id": "section_label",
+      "label": "Section Label",
+      "default": "REVIEWS"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Label Size",
+      "default": 12
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 32,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size",
+      "default": 48
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "min": 30,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Heading Bottom Margin",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Padding",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Okendo Integration"
+    },
+    {
+      "type": "text",
+      "id": "okendo_container_id",
+      "label": "Okendo Container ID",
+      "info": "The container ID where Okendo widget will be placed",
+      "default": "okendo-reviews-container"
+    },
+    {
+      "type": "text",
+      "id": "okendo_script_url",
+      "label": "Okendo Script URL",
+      "info": "Your Okendo embed script URL (optional - can be added globally)"
+    },
+    {
+      "type": "header",
+      "content": "Display Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_label",
+      "label": "Show Section Label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show Section Heading",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "widget_max_width",
+      "min": 800,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Widget Max Width",
+      "default": 1200
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews Section",
+      "settings": {
+        "section_label": "REVIEWS",
+        "section_heading": "Customer Reviews",
+        "okendo_container_id": "okendo-reviews-container"
+      }
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.reviews-section {
+  padding: {{ section.settings.section_padding }}px 40px;
+  background-color: {{ section.settings.bg_color }};
+}
+
+.reviews-wrapper {
+  max-width: {{ section.settings.widget_max_width }}px;
+  margin: 0 auto;
+}
+
+.reviews-label {
+  {% if section.settings.show_label %}
+    display: block;
+  {% else %}
+    display: none;
+  {% endif %}
+  font-size: {{ section.settings.label_size }}px;
+  color: {{ section.settings.label_color }};
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.reviews-heading {
+  {% if section.settings.show_heading %}
+    display: block;
+  {% else %}
+    display: none;
+  {% endif %}
+  font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  font-size: {{ section.settings.heading_size }}px;
+  font-weight: 400;
+  color: {{ section.settings.heading_color }};
+  margin: 0 0 {{ section.settings.heading_margin_bottom }}px 0;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  text-align: center;
+}
+
+/* Okendo Widget Container */
+.reviews-widget-container {
+  width: 100%;
+  margin: 0 auto;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.reviews-widget-container iframe {
+  max-width: 100% !important;
+}
+
+/* Container for loading state */
+.reviews-loading {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+.reviews-loading::after {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #333;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .reviews-section {
+    padding: {{ section.settings.section_padding | minus: 20 }}px 30px;
+  }
+
+  .reviews-heading {
+    font-size: clamp(32px, 6vw, {{ section.settings.heading_size }}px);
+    margin-bottom: {{ section.settings.heading_margin_bottom | minus: 15 }}px;
+  }
+}
+
+@media (max-width: 768px) {
+  .reviews-section {
+    padding: {{ section.settings.section_padding | minus: 30 }}px 20px;
+  }
+
+  .reviews-heading {
+    font-size: clamp(28px, 7vw, 42px);
+    margin-bottom: {{ section.settings.heading_margin_bottom | minus: 25 }}px;
+  }
+
+  .reviews-label {
+    font-size: {{ section.settings.label_size | minus: 1 }}px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviews-section {
+    padding: 40px 15px;
+  }
+
+  .reviews-heading {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  .reviews-label {
+    font-size: 11px;
+  }
+}
+</style>
+
+<section class="reviews-section">
+  <div class="reviews-wrapper">
+    {% if section.settings.show_label and section.settings.section_label %}
+      <div class="reviews-label">{{ section.settings.section_label }}</div>
+    {% endif %}
+
+    {% if section.settings.show_heading and section.settings.section_heading %}
+      <h2 class="reviews-heading">{{ section.settings.section_heading }}</h2>
+    {% endif %}
+
+    <!-- Okendo Widget Container -->
+    <div id="{{ section.settings.okendo_container_id }}" class="reviews-widget-container">
+      <div class="reviews-loading">Loading reviews...</div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize Okendo widget
+  const containerId = '{{ section.settings.okendo_container_id }}';
+  const scriptUrl = '{{ section.settings.okendo_script_url }}';
+
+  // If custom script URL is provided, load it
+  if (scriptUrl) {
+    const script = document.createElement('script');
+    script.src = scriptUrl;
+    script.async = true;
+    script.onload = function() {
+      // Okendo script loaded - widget should initialize automatically
+      if (window.Okendo) {
+        console.log('Okendo loaded successfully');
+      }
+    };
+    document.body.appendChild(script);
+  } else {
+    // Otherwise, assume Okendo script is loaded globally (via theme settings)
+    if (window.Okendo) {
+      console.log('Okendo already loaded');
+    } else {
+      console.warn('Okendo script not found. Please add your Okendo script URL to the section settings or install Okendo globally.');
+    }
+  }
+
+  // Smooth scroll to reviews section
+  window.scrollToReviews = function() {
+    const reviewsSection = document.querySelector('.reviews-section');
+    if (reviewsSection) {
+      reviewsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+});
+</script>

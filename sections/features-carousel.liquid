@@ -1,0 +1,686 @@
+{% schema %}
+{
+  "name": "Features Carousel Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Padding",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#faf8f5"
+    },
+    {
+      "type": "header",
+      "content": "Left Side - Content"
+    },
+    {
+      "type": "text",
+      "id": "section_label",
+      "label": "Section Label",
+      "default": "KEY INGREDIENTS"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label Color",
+      "default": "#999999"
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Label Size",
+      "default": 12
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading",
+      "default": "We only use natural & high quality ingredients."
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 32,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size",
+      "default": 48
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "heading_width",
+      "min": 300,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "label": "Heading Max Width",
+      "default": 500
+    },
+    {
+      "type": "header",
+      "content": "Right Side - Carousel"
+    },
+    {
+      "type": "range",
+      "id": "carousel_height",
+      "min": 300,
+      "max": 600,
+      "step": 50,
+      "unit": "px",
+      "label": "Carousel Height",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "circle_size",
+      "min": 80,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Item Circle Size",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "min": 15,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap Between Items",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 2,
+      "max": 8,
+      "step": 0.5,
+      "unit": "s",
+      "label": "Autoplay Speed",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "transition_speed",
+      "min": 0.3,
+      "max": 2,
+      "step": 0.1,
+      "unit": "s",
+      "label": "Transition Speed",
+      "default": 0.8
+    },
+    {
+      "type": "range",
+      "id": "circle_border_width",
+      "min": 1,
+      "max": 3,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Circle Border Width",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "circle_border_color",
+      "label": "Circle Border Color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "header",
+      "content": "Item Label Settings"
+    },
+    {
+      "type": "font_picker",
+      "id": "item_label_font",
+      "label": "Item Label Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "item_label_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Item Label Size",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "item_label_color",
+      "label": "Item Label Color",
+      "default": "#666666"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_item",
+      "name": "Feature Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "item_image",
+          "label": "Item Image/Icon"
+        },
+        {
+          "type": "text",
+          "id": "item_label",
+          "label": "Item Label",
+          "default": "LABEL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features Carousel Section",
+      "settings": {
+        "section_label": "KEY INGREDIENTS",
+        "section_heading": "We only use natural & high quality ingredients."
+      },
+      "blocks": [
+        {
+          "type": "feature_item",
+          "settings": {
+            "item_label": "VITAMIN C"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "item_label": "VITAMIN B6"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "item_label": "METHYLATED FOLATE"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "item_label": "GINGER"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "item_label": "ALL NATURAL"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "item_label": "PREGNANCY SAFE"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "item_label": "GLUTEN FREE"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "item_label": "SUGAR FREE"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.features-carousel-section {
+  padding: {{ section.settings.section_padding }}px 40px;
+  background-color: {{ section.settings.bg_color }};
+}
+
+.features-carousel-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* LEFT SIDE - CONTENT */
+.features-left-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.features-label {
+  font-size: {{ section.settings.label_size }}px;
+  color: {{ section.settings.label_color }};
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 0 24px 0;
+}
+
+.features-heading {
+  font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  font-size: {{ section.settings.heading_size }}px;
+  font-weight: 400;
+  color: {{ section.settings.heading_color }};
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  max-width: {{ section.settings.heading_width }}px;
+}
+
+/* RIGHT SIDE - CAROUSEL */
+.features-carousel-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: {{ section.settings.carousel_height }}px;
+}
+
+.carousel-container {
+  width: 100%;
+  height: {{ section.settings.carousel_height }}px;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  height: 100%;
+  gap: {{ section.settings.item_gap }}px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  align-items: center;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-item {
+  flex: 0 0 {{ section.settings.circle_size }}px;
+  height: {{ section.settings.circle_size }}px;
+  min-width: {{ section.settings.circle_size }}px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  background: #ffffff;
+  border: {{ section.settings.circle_border_width }}px solid {{ section.settings.circle_border_color }};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all {{ section.settings.transition_speed }}s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.carousel-item:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.carousel-item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 15px;
+  display: block;
+}
+
+.carousel-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 11px;
+  text-align: center;
+  padding: 10px;
+}
+
+.item-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+  color: white;
+  padding: 12px 8px 8px;
+  font-family: {{ section.settings.item_label_font.family }}, {{ section.settings.item_label_font.fallback_families }};
+  font-size: {{ section.settings.item_label_size }}px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity {{ section.settings.transition_speed }}s ease;
+}
+
+.carousel-item:hover .item-label {
+  opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .features-carousel-section {
+    padding: {{ section.settings.section_padding | minus: 20 }}px 30px;
+  }
+
+  .features-carousel-wrapper {
+    gap: 60px;
+  }
+
+  .features-heading {
+    font-size: clamp(32px, 6vw, {{ section.settings.heading_size }}px);
+  }
+
+  .carousel-item {
+    flex: 0 0 {{ section.settings.circle_size | minus: 20 }}px;
+    height: {{ section.settings.circle_size | minus: 20 }}px;
+    min-width: {{ section.settings.circle_size | minus: 20 }}px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .features-carousel-section {
+    padding: {{ section.settings.section_padding | minus: 25 }}px 25px;
+  }
+
+  .features-carousel-wrapper {
+    gap: 50px;
+  }
+
+  .carousel-item {
+    flex: 0 0 {{ section.settings.circle_size | minus: 30 }}px;
+    height: {{ section.settings.circle_size | minus: 30 }}px;
+    min-width: {{ section.settings.circle_size | minus: 30 }}px;
+  }
+
+  .item-label {
+    font-size: {{ section.settings.item_label_size | minus: 1 }}px;
+    padding: 10px 6px 6px;
+  }
+}
+
+@media (max-width: 900px) {
+  .features-carousel-section {
+    padding: {{ section.settings.section_padding | minus: 30 }}px 20px;
+  }
+
+  .features-carousel-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  .features-left-content {
+    min-height: auto;
+  }
+
+  .features-heading {
+    font-size: clamp(28px, 7vw, 48px);
+    max-width: 100%;
+  }
+
+  .carousel-container {
+    height: {{ section.settings.carousel_height | minus: 100 }}px;
+  }
+
+  .carousel-item {
+    flex: 0 0 {{ section.settings.circle_size | minus: 40 }}px;
+    height: {{ section.settings.circle_size | minus: 40 }}px;
+    min-width: {{ section.settings.circle_size | minus: 40 }}px;
+  }
+}
+
+@media (max-width: 768px) {
+  .features-carousel-section {
+    padding: {{ section.settings.section_padding | minus: 40 }}px 15px;
+  }
+
+  .features-heading {
+    font-size: 36px;
+  }
+
+  .carousel-container {
+    height: {{ section.settings.carousel_height | minus: 150 }}px;
+  }
+
+  .carousel-item {
+    flex: 0 0 100px;
+    height: 100px;
+    min-width: 100px;
+  }
+
+  .item-label {
+    font-size: 10px;
+    padding: 8px 6px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .features-carousel-section {
+    padding: 40px 15px;
+  }
+
+  .features-heading {
+    font-size: 28px;
+  }
+
+  .carousel-container {
+    height: 280px;
+  }
+
+  .carousel-item {
+    flex: 0 0 80px;
+    height: 80px;
+    min-width: 80px;
+    border-width: 1.5px;
+  }
+
+  .carousel-item-image {
+    padding: 12px;
+  }
+
+  .item-label {
+    font-size: 9px;
+    padding: 6px 4px 4px;
+  }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.features-heading {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.carousel-item {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.carousel-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.carousel-item:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.carousel-item:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.carousel-item:nth-child(4) {
+  animation-delay: 0.25s;
+}
+
+.carousel-item:nth-child(n+5) {
+  animation-delay: calc(0.05s * (var(--item-index, 0) - 4));
+}
+</style>
+
+<section class="features-carousel-section">
+  <div class="features-carousel-wrapper">
+    <!-- LEFT SIDE - CONTENT -->
+    <div class="features-left-content">
+      {% if section.settings.section_label %}
+        <div class="features-label">{{ section.settings.section_label }}</div>
+      {% endif %}
+
+      {% if section.settings.section_heading %}
+        <h2 class="features-heading">{{ section.settings.section_heading }}</h2>
+      {% endif %}
+    </div>
+
+    <!-- RIGHT SIDE - CAROUSEL -->
+    <div class="features-carousel-right">
+      <div class="carousel-container">
+        <div class="carousel-track" id="carouselTrack">
+          {% for block in section.blocks %}
+            {% if block.type == 'feature_item' %}
+              <div class="carousel-item" {{ block.shopify_attributes }} style="--item-index: {{ forloop.index }};">
+                {% if block.settings.item_image %}
+                  <img src="{{ block.settings.item_image | image_url: width: 300 }}" alt="{{ block.settings.item_label }}" class="carousel-item-image" width="140" height="140" loading="lazy">
+                {% else %}
+                  <div class="carousel-placeholder">
+                    <div>
+                      <p style="margin: 0; font-size: 11px; font-weight: 500;">Add Image</p>
+                    </div>
+                  </div>
+                {% endif %}
+                
+                {% if block.settings.item_label %}
+                  <div class="item-label">{{ block.settings.item_label }}</div>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const carouselTrack = document.getElementById('carouselTrack');
+  const carouselItems = document.querySelectorAll('.carousel-item');
+  
+  if (!carouselTrack || carouselItems.length === 0) return;
+
+  const autoplaySpeed = {{ section.settings.autoplay_speed | times: 1000 }};
+  const itemWidth = carouselItems[0].offsetWidth + {{ section.settings.item_gap }};
+  
+  let currentScroll = 0;
+  let autoplayInterval;
+  let isAutoScrolling = false;
+
+  // Auto-scroll function
+  function autoScroll() {
+    if (isAutoScrolling) return;
+    
+    isAutoScrolling = true;
+    currentScroll += itemWidth;
+    
+    // Check if we've scrolled past the middle, then reset
+    const maxScroll = carouselTrack.scrollWidth - carouselTrack.offsetWidth;
+    if (currentScroll > maxScroll) {
+      currentScroll = 0;
+    }
+    
+    carouselTrack.scrollLeft = currentScroll;
+    
+    setTimeout(() => {
+      isAutoScrolling = false;
+    }, 500);
+  }
+
+  // Start autoplay
+  function startAutoplay() {
+    autoplayInterval = setInterval(autoScroll, autoplaySpeed);
+  }
+
+  // Pause on hover
+  carouselTrack.addEventListener('mouseenter', () => {
+    clearInterval(autoplayInterval);
+  });
+
+  carouselTrack.addEventListener('mouseleave', () => {
+    startAutoplay();
+  });
+
+  // Handle manual scroll
+  let scrollTimeout;
+  carouselTrack.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    clearInterval(autoplayInterval);
+    
+    scrollTimeout = setTimeout(() => {
+      startAutoplay();
+    }, 1500);
+  });
+
+  // Initialize
+  startAutoplay();
+
+  // Handle window resize
+  window.addEventListener('resize', () => {
+    const newItemWidth = carouselItems[0].offsetWidth + {{ section.settings.item_gap }};
+    currentScroll = 0;
+    carouselTrack.scrollLeft = 0;
+  });
+});
+</script>

@@ -1,0 +1,980 @@
+{% schema %}
+{
+  "name": "Advanced Product Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Selection"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Padding",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#faf5f0"
+    },
+    {
+      "type": "header",
+      "content": "Left Side - Images"
+    },
+    {
+      "type": "range",
+      "id": "main_image_height",
+      "min": 400,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "Main Image Height",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "thumbnail_size",
+      "min": 60,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Thumbnail Size",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Image Border Radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Right Side - Product Info"
+    },
+    {
+      "type": "text",
+      "id": "product_type_label",
+      "label": "Product Type Label",
+      "default": "HYDRAMAMA"
+    },
+    {
+      "type": "color",
+      "id": "product_type_color",
+      "label": "Product Type Color",
+      "default": "#999999"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Title Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 28,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "label": "Title Size",
+      "default": 42
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Rating & Price"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show Rating",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price Color",
+      "default": "#e07835"
+    },
+    {
+      "type": "color",
+      "id": "sale_price_color",
+      "label": "Sale Price Color",
+      "default": "#e07835"
+    },
+    {
+      "type": "header",
+      "content": "Button Settings"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "ADD TO CART"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button Background",
+      "default": "#e07835"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Button Border Radius",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Collapsible Sections"
+    },
+    {
+      "type": "text",
+      "id": "description_label",
+      "label": "Description Label",
+      "default": "DESCRIPTION"
+    },
+    {
+      "type": "text",
+      "id": "why_label",
+      "label": "Why Label",
+      "default": "WHY HYDRAMAMA?"
+    },
+    {
+      "type": "text",
+      "id": "how_use_label",
+      "label": "How to Use Label",
+      "default": "HOW TO USE"
+    },
+    {
+      "type": "font_picker",
+      "id": "collapsible_title_font",
+      "label": "Collapsible Title Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "collapsible_title_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Collapsible Title Size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "collapsible_border_color",
+      "label": "Collapsible Border Color",
+      "default": "#ddd"
+    },
+    {
+      "type": "header",
+      "content": "Related Products"
+    },
+    {
+      "type": "text",
+      "id": "related_products_heading",
+      "label": "Related Products Heading",
+      "default": "MULTI BUY"
+    },
+    {
+      "type": "text",
+      "id": "related_products_subheading",
+      "label": "Related Products Subheading",
+      "default": "Add more flavours to unlock discounted price in cart"
+    },
+    {
+      "type": "range",
+      "id": "related_products_limit",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "label": "Number of Related Products",
+      "default": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "Advanced Product Section"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.advanced-product-section {
+  padding: {{ section.settings.section_padding }}px;
+  background-color: {{ section.settings.bg_color }};
+}
+
+.advanced-product-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: flex-start;
+}
+
+/* LEFT SIDE - IMAGES */
+.product-images-side {
+  position: sticky;
+  top: 100px;
+}
+
+.product-main-image-container {
+  width: 100%;
+  height: {{ section.settings.main_image_height }}px;
+  border-radius: {{ section.settings.image_border_radius }}px;
+  overflow: hidden;
+  background-color: #fff;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-thumbnails {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  max-height: calc({{ section.settings.main_image_height }}px + 40px);
+  padding-right: 8px;
+}
+
+.product-thumbnails::-webkit-scrollbar {
+  width: 6px;
+}
+
+.product-thumbnails::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.product-thumbnails::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+.product-thumbnails::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+.product-thumbnail {
+  width: {{ section.settings.thumbnail_size }}px;
+  height: {{ section.settings.thumbnail_size }}px;
+  border-radius: {{ section.settings.image_border_radius }}px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  flex-shrink: 0;
+}
+
+.product-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-thumbnail:hover {
+  border-color: #999;
+  transform: scale(1.05);
+}
+
+.product-thumbnail.active {
+  border-color: #333;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* RIGHT SIDE - CONTENT */
+.product-content-side {
+  padding: 20px 0;
+}
+
+.product-type {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: {{ section.settings.product_type_color }};
+  margin-bottom: 12px;
+}
+
+.product-title {
+  font-family: {{ section.settings.title_font.family }}, {{ section.settings.title_font.fallback_families }};
+  font-size: {{ section.settings.title_size }}px;
+  font-weight: 400;
+  color: {{ section.settings.title_color }};
+  margin: 0 0 16px 0;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.product-stars {
+  display: flex;
+  gap: 3px;
+}
+
+.product-star {
+  color: #ffc107;
+  font-size: 16px;
+}
+
+.product-review-count {
+  font-size: 13px;
+  color: #666;
+}
+
+.product-info-box {
+  background-color: rgba(0, 0, 0, 0.03);
+  padding: 14px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.product-pricing {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.product-price-original {
+  font-size: 14px;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.product-price-current {
+  font-size: 18px;
+  font-weight: 600;
+  color: {{ section.settings.price_color }};
+}
+
+.product-sale-badge {
+  background-color: {{ section.settings.button_bg }};
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.product-financing {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.product-quantity {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.quantity-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+}
+
+.quantity-btn:hover {
+  background-color: #f9f9f9;
+}
+
+.quantity-input {
+  width: 45px;
+  height: 32px;
+  border: 1px solid #ddd;
+  border-left: none;
+  border-right: none;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.quantity-input:focus {
+  outline: none;
+  background-color: #f9f9f9;
+}
+
+.product-add-to-cart {
+  width: 100%;
+  padding: 14px;
+  background-color: {{ section.settings.button_bg }};
+  color: {{ section.settings.button_text_color }};
+  border: none;
+  border-radius: {{ section.settings.button_border_radius }}px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.product-add-to-cart:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(224, 120, 53, 0.2);
+}
+
+/* Collapsible Sections */
+.product-collapsibles {
+  border-top: 1px solid {{ section.settings.collapsible_border_color }};
+  margin-top: 30px;
+  padding-top: 20px;
+}
+
+.collapsible-item {
+  border-bottom: 1px solid {{ section.settings.collapsible_border_color }};
+  padding-bottom: 0;
+}
+
+.collapsible-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+.collapsible-header:hover {
+  opacity: 0.7;
+}
+
+.collapsible-title {
+  font-family: {{ section.settings.collapsible_title_font.family }}, {{ section.settings.collapsible_title_font.fallback_families }};
+  font-size: {{ section.settings.collapsible_title_size }}px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.collapsible-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  color: #999;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.collapsible-icon.open {
+  transform: rotate(45deg);
+}
+
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0;
+}
+
+.collapsible-content.open {
+  max-height: 1000px;
+  padding-bottom: 16px;
+}
+
+.collapsible-text {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #555;
+  margin: 0;
+}
+
+.collapsible-text p {
+  margin: 0 0 10px 0;
+}
+
+.collapsible-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Related Products */
+.related-products-section {
+  margin-top: 40px;
+  border-top: 1px solid {{ section.settings.collapsible_border_color }};
+  padding-top: 20px;
+}
+
+.related-products-heading {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 4px 0;
+}
+
+.related-products-subheading {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.related-products-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.related-product-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px;
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.related-product-item:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.related-product-image {
+  width: 60px;
+  height: 60px;
+  border-radius: {{ section.settings.image_border_radius }}px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: #fff;
+}
+
+.related-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.related-product-info {
+  flex: 1;
+}
+
+.related-product-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.related-product-price {
+  font-size: 12px;
+  color: {{ section.settings.price_color }};
+  font-weight: 600;
+  margin: 0;
+}
+
+.related-product-button {
+  background-color: {{ section.settings.button_bg }};
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  align-self: center;
+}
+
+.related-product-button:hover {
+  opacity: 0.9;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .advanced-product-wrapper {
+    gap: 40px;
+  }
+
+  .product-main-image-container {
+    height: {{ section.settings.main_image_height | minus: 100 }}px;
+  }
+
+  .product-title {
+    font-size: clamp(28px, 5vw, {{ section.settings.title_size }}px);
+  }
+}
+
+@media (max-width: 900px) {
+  .advanced-product-section {
+    padding: {{ section.settings.section_padding | minus: 15 }}px;
+  }
+
+  .advanced-product-wrapper {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .product-images-side {
+    position: static;
+  }
+
+  .product-main-image-container {
+    height: {{ section.settings.main_image_height | minus: 150 }}px;
+  }
+
+  .product-title {
+    font-size: clamp(28px, 7vw, 42px);
+  }
+}
+
+@media (max-width: 768px) {
+  .advanced-product-section {
+    padding: {{ section.settings.section_padding | minus: 20 }}px;
+  }
+
+  .product-thumbnails {
+    flex-direction: row;
+    max-height: none;
+    margin-top: 16px;
+  }
+
+  .product-thumbnail {
+    width: {{ section.settings.thumbnail_size | minus: 20 }}px;
+    height: {{ section.settings.thumbnail_size | minus: 20 }}px;
+  }
+
+  .product-title {
+    font-size: 32px;
+  }
+
+  .product-add-to-cart {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .advanced-product-section {
+    padding: 20px;
+  }
+
+  .product-main-image-container {
+    height: 350px;
+  }
+
+  .product-title {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .product-thumbnails {
+    gap: 8px;
+  }
+
+  .product-thumbnail {
+    width: 70px;
+    height: 70px;
+  }
+
+  .related-product-item {
+    padding: 10px;
+  }
+
+  .related-product-image {
+    width: 50px;
+    height: 50px;
+  }
+}
+</style>
+
+<section class="advanced-product-section">
+  {% if section.settings.product %}
+    {% assign product = section.settings.product %}
+
+    <div class="advanced-product-wrapper">
+      <!-- LEFT SIDE - IMAGES -->
+      <div class="product-images-side">
+        <div class="product-main-image-container">
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title }}" id="mainImage" class="product-main-image">
+          {% else %}
+            <div style="width: 100%; height: 100%; background: #f5f5f5; display: flex; align-items: center; justify-content: center;">
+              <span style="color: #999;">No Image</span>
+            </div>
+          {% endif %}
+        </div>
+
+        {% if product.images.size > 1 %}
+          <div class="product-thumbnails">
+            {% for image in product.images %}
+              <div class="product-thumbnail {% if forloop.first %}active{% endif %}" data-src="{{ image | image_url: width: 800 }}" data-index="{{ forloop.index0 }}">
+                <img src="{{ image | image_url: width: 200 }}" alt="{{ product.title }}" width="100" height="100">
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- RIGHT SIDE - CONTENT -->
+      <div class="product-content-side">
+        <div class="product-type">{{ section.settings.product_type_label }}</div>
+
+        <h1 class="product-title">{{ product.title }}</h1>
+
+        {% if section.settings.show_rating %}
+          <div class="product-rating">
+            <div class="product-stars">
+              {% for i in (1..5) %}
+                <span class="product-star">★</span>
+              {% endfor %}
+            </div>
+            <span class="product-review-count">3,627 Reviews</span>
+          </div>
+        {% endif %}
+
+        {% if product.description %}
+          <div class="product-info-box">{{ product.description | strip_html | truncatewords: 30 }}</div>
+        {% endif %}
+
+        <div class="product-pricing">
+          {% if product.compare_at_price %}
+            <span class="product-price-original">${{ product.compare_at_price | money_without_currency }}</span>
+            <span class="product-price-current">${{ product.price | money_without_currency }}</span>
+            <span class="product-sale-badge">Sale</span>
+          {% else %}
+            <span class="product-price-current">${{ product.price | money_without_currency }}</span>
+          {% endif %}
+        </div>
+
+        <div class="product-financing">
+          or 4 interest-free payments of <strong>${{ product.price | divided_by: 4 | money_without_currency }}</strong> with Afterpay
+        </div>
+
+        <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 20px;">
+          <div class="product-quantity">
+            <button class="quantity-btn" id="decreaseQty">−</button>
+            <input type="number" class="quantity-input" id="quantity" value="1" min="1">
+            <button class="quantity-btn" id="increaseQty">+</button>
+          </div>
+        </div>
+
+        <button class="product-add-to-cart" id="addToCartBtn">{{ section.settings.button_text }}</button>
+
+        <!-- Collapsible Sections -->
+        <div class="product-collapsibles">
+          <div class="collapsible-item">
+            <div class="collapsible-header" data-target="description">
+              <h3 class="collapsible-title">{{ section.settings.description_label }}</h3>
+              <span class="collapsible-icon">+</span>
+            </div>
+            <div class="collapsible-content" id="description">
+              <p class="collapsible-text">{{ product.description }}</p>
+            </div>
+          </div>
+
+          <div class="collapsible-item">
+            <div class="collapsible-header" data-target="why">
+              <h3 class="collapsible-title">{{ section.settings.why_label }}</h3>
+              <span class="collapsible-icon">+</span>
+            </div>
+            <div class="collapsible-content" id="why">
+              <p class="collapsible-text">Discover the unique benefits and quality that make this product stand out from the rest.</p>
+            </div>
+          </div>
+
+          <div class="collapsible-item">
+            <div class="collapsible-header" data-target="how">
+              <h3 class="collapsible-title">{{ section.settings.how_use_label }}</h3>
+              <span class="collapsible-icon">+</span>
+            </div>
+            <div class="collapsible-content" id="how">
+              <p class="collapsible-text">Mix one sachet with 250ml of water or your favorite beverage. Stir well and consume immediately. Can be enjoyed hot or cold.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Related Products -->
+        {% if product.variants.size > 1 %}
+          <div class="related-products-section">
+            <h3 class="related-products-heading">{{ section.settings.related_products_heading }}</h3>
+            <p class="related-products-subheading">{{ section.settings.related_products_subheading }}</p>
+
+            <div class="related-products-list">
+              {% assign variant_count = 0 %}
+              {% for variant in product.variants %}
+                {% if variant_count < section.settings.related_products_limit %}
+                  {% unless variant == product.selected_or_first_available_variant %}
+                    <div class="related-product-item">
+                      {% if variant.featured_image %}
+                        <div class="related-product-image">
+                          <img src="{{ variant.featured_image | image_url: width: 120 }}" alt="{{ variant.title }}" width="60" height="60">
+                        </div>
+                      {% endif %}
+                      <div class="related-product-info">
+                        <p class="related-product-name">{{ product.title }} {{ variant.title }}</p>
+                        <p class="related-product-price">${{ variant.price | money_without_currency }}</p>
+                      </div>
+                      <button class="related-product-button" data-variant-id="{{ variant.id }}">Add to Cart</button>
+                    </div>
+                    {% assign variant_count = variant_count | plus: 1 %}
+                  {% endunless %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% else %}
+    <div style="text-align: center; padding: 60px 20px; background: #f9f9f9; border-radius: 8px;">
+      <p style="font-size: 16px; color: #666; margin: 0;">Please select a product to display</p>
+    </div>
+  {% endif %}
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Image Thumbnails
+  const thumbnails = document.querySelectorAll('.product-thumbnail');
+  const mainImage = document.getElementById('mainImage');
+
+  if (thumbnails.length && mainImage) {
+    thumbnails.forEach(thumb => {
+      thumb.addEventListener('click', function() {
+        thumbnails.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        mainImage.src = this.dataset.src;
+        mainImage.style.opacity = '0.8';
+        setTimeout(() => {
+          mainImage.style.opacity = '1';
+        }, 100);
+      });
+    });
+  }
+
+  // Quantity Controls
+  const quantityInput = document.getElementById('quantity');
+  const decreaseBtn = document.getElementById('decreaseQty');
+  const increaseBtn = document.getElementById('increaseQty');
+
+  if (decreaseBtn) {
+    decreaseBtn.addEventListener('click', () => {
+      let value = parseInt(quantityInput.value) || 1;
+      if (value > 1) {
+        quantityInput.value = value - 1;
+      }
+    });
+  }
+
+  if (increaseBtn) {
+    increaseBtn.addEventListener('click', () => {
+      let value = parseInt(quantityInput.value) || 1;
+      quantityInput.value = value + 1;
+    });
+  }
+
+  // Collapsible Sections
+  const headers = document.querySelectorAll('.collapsible-header');
+  
+  headers.forEach(header => {
+    header.addEventListener('click', function() {
+      const targetId = this.dataset.target;
+      const content = document.getElementById(targetId);
+      const icon = this.querySelector('.collapsible-icon');
+      
+      if (content) {
+        content.classList.toggle('open');
+        icon.classList.toggle('open');
+      }
+    });
+  });
+
+  // Add to Cart
+  const addToCartBtn = document.getElementById('addToCartBtn');
+  if (addToCartBtn) {
+    addToCartBtn.addEventListener('click', function() {
+      const quantity = parseInt(quantityInput.value) || 1;
+      alert(`Added ${quantity} item(s) to cart!`);
+    });
+  }
+
+  // Related Product Buttons
+  const relatedButtons = document.querySelectorAll('.related-product-button');
+  relatedButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      alert('Added to cart!');
+    });
+  });
+});
+</script>

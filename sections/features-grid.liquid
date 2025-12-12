@@ -1,0 +1,619 @@
+{% schema %}
+{
+  "name": "Features Grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "text",
+      "id": "section_label",
+      "label": "Section Label",
+      "default": "KEY INGREDIENTS"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Label Size",
+      "default": 12
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading",
+      "default": "We only use natural & high quality ingredients."
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 32,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size",
+      "default": 52
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "min": 30,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Heading Bottom Margin",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Padding",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#fafafa"
+    },
+    {
+      "type": "header",
+      "content": "Grid Settings"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "Gap Between Items",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "circle_size",
+      "min": 80,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Circle Size",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "circle_border_width",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Circle Border Width",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "circle_border_color",
+      "label": "Circle Border Color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "header",
+      "content": "Item Label Settings"
+    },
+    {
+      "type": "font_picker",
+      "id": "item_label_font",
+      "label": "Item Label Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "item_label_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Item Label Size",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "item_label_color",
+      "label": "Item Label Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "item_label_spacing",
+      "min": 0,
+      "max": 3,
+      "step": 0.5,
+      "label": "Label Letter Spacing",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Item Name Settings"
+    },
+    {
+      "type": "font_picker",
+      "id": "item_name_font",
+      "label": "Item Name Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "item_name_size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Item Name Size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "item_name_color",
+      "label": "Item Name Color",
+      "default": "#1a1a1a"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_item",
+      "name": "Feature Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "item_image",
+          "label": "Item Image/Icon"
+        },
+        {
+          "type": "text",
+          "id": "item_label",
+          "label": "Item Label",
+          "default": "LABEL"
+        },
+        {
+          "type": "text",
+          "id": "item_name",
+          "label": "Item Name",
+          "default": "Item Name"
+        },
+        {
+          "type": "textarea",
+          "id": "item_description",
+          "label": "Item Description (Optional)"
+        },
+        {
+          "type": "text",
+          "id": "anchor_id",
+          "label": "Anchor ID (for scrolling)",
+          "info": "e.g., 'ingredient-collagen' - used to link from tabs"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features Grid",
+      "settings": {
+        "section_label": "KEY INGREDIENTS",
+        "section_heading": "We only use natural & high quality ingredients."
+      },
+      "blocks": [
+        {
+          "type": "feature_item",
+          "settings": {
+            "item_label": "5,000MG COLLAGEN",
+            "item_name": "Hydrolysed Collagen Peptides",
+            "anchor_id": "ingredient-collagen"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "item_label": "1 BILLION PROBIOTICS",
+            "item_name": "Probiotics",
+            "anchor_id": "ingredient-probiotics"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "item_label": "8G PREBIOTIC FIBRE",
+            "item_name": "Prebiotics",
+            "anchor_id": "ingredient-prebiotics"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "item_label": "VITAMIN E",
+            "item_name": "Vitamin E",
+            "anchor_id": "ingredient-vitamine"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "item_label": "VITAMIN C",
+            "item_name": "Vitamin C",
+            "anchor_id": "ingredient-vitaminc"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.features-grid-section {
+  padding: {{ section.settings.section_padding }}px 40px;
+  background-color: {{ section.settings.bg_color }};
+  scroll-behavior: smooth;
+}
+
+.features-grid-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.features-grid-label {
+  font-size: {{ section.settings.label_size }}px;
+  color: {{ section.settings.label_color }};
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.features-grid-heading {
+  font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  font-size: {{ section.settings.heading_size }}px;
+  font-weight: 400;
+  color: {{ section.settings.heading_color }};
+  margin: 0 0 {{ section.settings.heading_margin_bottom }}px 0;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  text-align: center;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: {{ section.settings.grid_gap }}px;
+  align-items: flex-start;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out forwards;
+  scroll-margin-top: 100px;
+  transition: all 0.3s ease;
+}
+
+.feature-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.feature-item:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.feature-item:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.feature-item:nth-child(4) {
+  animation-delay: 0.25s;
+}
+
+.feature-item:nth-child(5) {
+  animation-delay: 0.3s;
+}
+
+.feature-item:hover {
+  cursor: pointer;
+}
+
+.feature-circle {
+  width: {{ section.settings.circle_size }}px;
+  height: {{ section.settings.circle_size }}px;
+  border-radius: 50%;
+  border: {{ section.settings.circle_border_width }}px solid {{ section.settings.circle_border_color }};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-item:hover .feature-circle {
+  transform: scale(1.08);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.feature-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 20px;
+  display: block;
+}
+
+.feature-label {
+  font-family: {{ section.settings.item_label_font.family }}, {{ section.settings.item_label_font.fallback_families }};
+  font-size: {{ section.settings.item_label_size }}px;
+  color: {{ section.settings.item_label_color }};
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: {{ section.settings.item_label_spacing }}px;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.feature-name {
+  font-family: {{ section.settings.item_name_font.family }}, {{ section.settings.item_name_font.fallback_families }};
+  font-size: {{ section.settings.item_name_size }}px;
+  color: {{ section.settings.item_name_color }};
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.feature-description {
+  font-size: 13px;
+  color: #666;
+  margin: 8px 0 0 0;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .features-grid-section {
+    padding: {{ section.settings.section_padding | minus: 20 }}px 30px;
+  }
+
+  .features-grid-heading {
+    font-size: clamp(32px, 6vw, {{ section.settings.heading_size }}px);
+    margin-bottom: {{ section.settings.heading_margin_bottom | minus: 15 }}px;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: {{ section.settings.grid_gap | minus: 10 }}px;
+  }
+
+  .feature-circle {
+    width: {{ section.settings.circle_size | minus: 20 }}px;
+    height: {{ section.settings.circle_size | minus: 20 }}px;
+    margin-bottom: 16px;
+  }
+
+  .feature-name {
+    font-size: {{ section.settings.item_name_size | minus: 2 }}px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .features-grid-section {
+    padding: {{ section.settings.section_padding | minus: 25 }}px 25px;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: {{ section.settings.grid_gap | minus: 15 }}px;
+  }
+
+  .feature-circle {
+    width: {{ section.settings.circle_size | minus: 30 }}px;
+    height: {{ section.settings.circle_size | minus: 30 }}px;
+    margin-bottom: 14px;
+  }
+
+  .feature-label {
+    font-size: {{ section.settings.item_label_size | minus: 1 }}px;
+  }
+
+  .feature-name {
+    font-size: {{ section.settings.item_name_size | minus: 2 }}px;
+  }
+}
+
+@media (max-width: 768px) {
+  .features-grid-section {
+    padding: {{ section.settings.section_padding | minus: 30 }}px 20px;
+  }
+
+  .features-grid-heading {
+    font-size: clamp(28px, 7vw, 42px);
+    margin-bottom: {{ section.settings.heading_margin_bottom | minus: 25 }}px;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: {{ section.settings.grid_gap | minus: 20 }}px;
+  }
+
+  .feature-circle {
+    width: {{ section.settings.circle_size | minus: 40 }}px;
+    height: {{ section.settings.circle_size | minus: 40 }}px;
+    margin-bottom: 12px;
+  }
+
+  .feature-label {
+    font-size: {{ section.settings.item_label_size | minus: 2 }}px;
+  }
+
+  .feature-name {
+    font-size: {{ section.settings.item_name_size | minus: 3 }}px;
+  }
+}
+
+@media (max-width: 480px) {
+  .features-grid-section {
+    padding: 40px 15px;
+  }
+
+  .features-grid-heading {
+    font-size: 28px;
+    margin-bottom: 35px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .feature-circle {
+    width: {{ section.settings.circle_size | minus: 50 }}px;
+    height: {{ section.settings.circle_size | minus: 50 }}px;
+    margin-bottom: 12px;
+  }
+
+  .feature-label {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .feature-name {
+    font-size: 16px;
+  }
+
+  .feature-description {
+    font-size: 12px;
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.feature-item:hover {
+  transform: translateY(-4px);
+}
+</style>
+
+<section class="features-grid-section">
+  <div class="features-grid-wrapper">
+    {% if section.settings.section_label %}
+      <div class="features-grid-label">{{ section.settings.section_label }}</div>
+    {% endif %}
+
+    {% if section.settings.section_heading %}
+      <h2 class="features-grid-heading">{{ section.settings.section_heading }}</h2>
+    {% endif %}
+
+    <div class="features-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'feature_item' %}
+          <div class="feature-item" id="{% if block.settings.anchor_id %}{{ block.settings.anchor_id }}{% else %}feature-{{ block.id }}{% endif %}" {{ block.shopify_attributes }} data-anchor="{% if block.settings.anchor_id %}{{ block.settings.anchor_id }}{% else %}feature-{{ block.id }}{% endif %}">
+            <div class="feature-circle">
+              {% if block.settings.item_image %}
+                <img src="{{ block.settings.item_image | image_url: width: 300 }}" alt="{{ block.settings.item_name }}" class="feature-image" width="140" height="140" loading="lazy">
+              {% else %}
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%); display: flex; align-items: center; justify-content: center;">
+                  <span style="color: #999; font-size: 12px; text-align: center; padding: 10px;">Add Image</span>
+                </div>
+              {% endif %}
+            </div>
+
+            {% if block.settings.item_label %}
+              <p class="feature-label">{{ block.settings.item_label }}</p>
+            {% endif %}
+
+            {% if block.settings.item_name %}
+              <p class="feature-name">{{ block.settings.item_name }}</p>
+            {% endif %}
+
+            {% if block.settings.item_description %}
+              <p class="feature-description">{{ block.settings.item_description }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Make feature items clickable for scrolling
+  const featureItems = document.querySelectorAll('.feature-item');
+  
+  featureItems.forEach(item => {
+    item.addEventListener('click', function() {
+      const anchorId = this.dataset.anchor;
+      if (anchorId) {
+        // Find element with this anchor ID anywhere on the page
+        const targetElement = document.getElementById(anchorId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  });
+
+  // Smooth scroll reveal animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  featureItems.forEach(item => {
+    observer.observe(item);
+  });
+});
+</script>

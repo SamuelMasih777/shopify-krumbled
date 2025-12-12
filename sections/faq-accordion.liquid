@@ -1,0 +1,876 @@
+{%- liquid
+  assign section_heading = section.settings.section_heading
+  assign heading_alignment = section.settings.heading_alignment
+-%}
+
+<style>
+  .faq-wrapper {
+    padding: {{ section.settings.section_padding_top }}px {{ section.settings.section_padding_horizontal }}px {{ section.settings.section_padding_bottom }}px;
+    background-color: {{ section.settings.section_bg_color }};
+  }
+
+  .faq-header {
+    text-align: {{ heading_alignment }};
+    margin-bottom: 60px;
+    animation: fadeInDown 0.8s ease-out;
+  }
+
+  .faq-heading {
+    font-size: {{ section.settings.heading_font_size }}px;
+    font-weight: {{ section.settings.heading_font_weight }};
+    color: {{ section.settings.heading_color }};
+    margin-bottom: 0;
+    line-height: 1.2;
+    font-family: {{ section.settings.heading_font_family }};
+    letter-spacing: {{ section.settings.heading_letter_spacing }}px;
+  }
+
+  .faq-container {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  .faq-category {
+    margin-bottom: 0;
+    border-bottom: 1px solid {{ section.settings.border_color }};
+  }
+
+  .faq-category:first-child {
+    border-top: 1px solid {{ section.settings.border_color }};
+  }
+
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: {{ section.settings.category_padding }}px 0;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+  }
+
+  .category-header:hover {
+    padding-left: 12px;
+  }
+
+  .category-title {
+    font-size: {{ section.settings.category_title_size }}px;
+    font-weight: {{ section.settings.category_title_weight }};
+    color: {{ section.settings.category_title_color }};
+    transition: color 0.3s ease;
+  }
+
+  .category-header:hover .category-title {
+    color: {{ section.settings.category_hover_color }};
+  }
+
+  .category-toggle {
+    font-size: 20px;
+    color: {{ section.settings.toggle_color }};
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .category-header:hover .category-toggle {
+    color: {{ section.settings.category_hover_color }};
+  }
+
+  .category-toggle.open {
+    transform: rotate(45deg);
+  }
+
+  .category-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    opacity: 0;
+  }
+
+  .category-content.open {
+    max-height: 5000px;
+    opacity: 1;
+  }
+
+  .faq-questions {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background-color: {{ section.settings.category_content_bg }};
+  }
+
+  .faq-item {
+    border-bottom: 1px solid {{ section.settings.question_border_color }};
+    padding: {{ section.settings.question_padding }}px 0;
+    padding-left: {{ section.settings.question_indent }}px;
+  }
+
+  .faq-item:first-child {
+    padding-top: {{ section.settings.question_padding }}px;
+  }
+
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+
+  .faq-question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+    gap: 12px;
+  }
+
+  .faq-question-header:hover {
+    padding-left: 8px;
+  }
+
+  .question-text {
+    font-size: {{ section.settings.question_font_size }}px;
+    font-weight: {{ section.settings.question_font_weight }};
+    color: {{ section.settings.question_color }};
+    transition: color 0.3s ease;
+    line-height: 1.4;
+  }
+
+  .faq-question-header:hover .question-text {
+    color: {{ section.settings.question_hover_color }};
+  }
+
+  .question-toggle {
+    font-size: 18px;
+    color: {{ section.settings.question_toggle_color }};
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .faq-question-header:hover .question-toggle {
+    color: {{ section.settings.question_hover_color }};
+  }
+
+  .question-toggle.open {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    opacity: 0;
+  }
+
+  .faq-answer.open {
+    max-height: 1000px;
+    opacity: 1;
+  }
+
+  .answer-content {
+    font-size: {{ section.settings.answer_font_size }}px;
+    color: {{ section.settings.answer_color }};
+    line-height: {{ section.settings.answer_line_height }};
+    padding: 16px 0 0 0;
+    margin: 0;
+    font-family: {{ section.settings.answer_font_family }};
+  }
+
+  .answer-content p {
+    margin: 0 0 12px 0;
+  }
+
+  .answer-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .answer-content strong {
+    color: {{ section.settings.answer_bold_color }};
+    font-weight: 600;
+  }
+
+  .answer-content a {
+    color: {{ section.settings.answer_link_color }};
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+
+  .answer-content a:hover {
+    color: {{ section.settings.category_hover_color }};
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .faq-heading {
+      font-size: clamp(24px, 6vw, {{ section.settings.heading_font_size }}px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .faq-wrapper {
+      padding: {{ section.settings.section_padding_top | divided_by: 1.5 | round }}px {{ section.settings.section_padding_horizontal | divided_by: 1.5 | round }}px {{ section.settings.section_padding_bottom | divided_by: 1.5 | round }}px;
+    }
+
+    .faq-header {
+      margin-bottom: 40px;
+    }
+
+    .faq-heading {
+      font-size: clamp(20px, 5vw, 32px);
+    }
+
+    .category-header:hover {
+      padding-left: 0;
+    }
+
+    .category-title {
+      font-size: clamp(14px, 4vw, {{ section.settings.category_title_size }}px);
+    }
+
+    .category-header {
+      padding: 16px 0;
+    }
+
+    .category-toggle {
+      width: 20px;
+      height: 20px;
+      font-size: 18px;
+    }
+
+    .faq-question-header:hover {
+      padding-left: 0;
+    }
+
+    .question-text {
+      font-size: 14px;
+    }
+
+    .faq-item {
+      padding: 14px 0;
+      padding-left: {{ section.settings.question_indent | divided_by: 1.5 | round }}px;
+    }
+
+    .faq-item:first-child {
+      padding-top: 14px;
+    }
+
+    .answer-content {
+      font-size: 13px;
+    }
+
+    .faq-container {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .faq-wrapper {
+      padding: 40px 20px;
+    }
+
+    .faq-header {
+      margin-bottom: 30px;
+    }
+
+    .faq-heading {
+      font-size: 24px;
+    }
+
+    .category-title {
+      font-size: 15px;
+    }
+
+    .question-text {
+      font-size: 13px;
+    }
+
+    .answer-content {
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .faq-item {
+      padding: 12px 0;
+      padding-left: 12px;
+    }
+
+    .category-header {
+      padding: 14px 0;
+    }
+  }
+</style>
+
+<div class="faq-wrapper">
+  <div class="faq-header">
+    <h2 class="faq-heading">{{ section_heading }}</h2>
+  </div>
+
+  <div class="faq-container">
+    {%- assign current_category = null -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'faq_category' -%}
+        {%- if current_category != null -%}
+            </div>
+          </div>
+        </div>
+        {%- endif -%}
+        {%- assign current_category = block -%}
+        <div class="faq-category" data-block-id="{{ block.id }}">
+          <div class="category-header" data-toggle="category-{{ block.id }}">
+            <span class="category-title">{{ block.settings.category_name }}</span>
+            <span class="category-toggle" data-icon="cat-{{ block.id }}">+</span>
+          </div>
+
+          <div class="category-content" id="category-{{ block.id }}">
+            <div class="faq-questions">
+      {%- elsif block.type == 'faq_question' -%}
+                <div class="faq-item" data-question-id="{{ block.id }}">
+                  <div class="faq-question-header" data-toggle="answer-{{ block.id }}">
+                    <span class="question-text">{{ block.settings.question }}</span>
+                    <span class="question-toggle" data-icon="q-{{ block.id }}">+</span>
+                  </div>
+                  <div class="faq-answer" id="answer-{{ block.id }}">
+                    <div class="answer-content">
+                      {{ block.settings.answer }}
+                    </div>
+                  </div>
+                </div>
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if current_category != null -%}
+            </div>
+          </div>
+        </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Category toggles
+    const categoryHeaders = document.querySelectorAll('.category-header');
+    
+    categoryHeaders.forEach(header => {
+      header.addEventListener('click', function() {
+        const toggleId = this.getAttribute('data-toggle');
+        const contentEl = document.getElementById(toggleId);
+        const iconEl = this.querySelector('.category-toggle');
+
+        // Close all other categories
+        document.querySelectorAll('.category-content.open').forEach(el => {
+          if (el.id !== toggleId) {
+            el.classList.remove('open');
+            document.querySelector(`[data-toggle="${el.id}"]`)?.querySelector('.category-toggle')?.classList.remove('open');
+            // Close all nested questions in other categories
+            el.querySelectorAll('.faq-answer.open').forEach(answer => {
+              answer.classList.remove('open');
+              document.querySelector(`[data-toggle="${answer.id}"]`)?.querySelector('.question-toggle')?.classList.remove('open');
+            });
+          }
+        });
+
+        // Toggle current category
+        contentEl?.classList.toggle('open');
+        iconEl?.classList.toggle('open');
+      });
+    });
+
+    // Question toggles
+    const questionHeaders = document.querySelectorAll('.faq-question-header');
+    
+    questionHeaders.forEach(header => {
+      header.addEventListener('click', function(e) {
+        e.stopPropagation();
+        
+        const toggleId = this.getAttribute('data-toggle');
+        const answerEl = document.getElementById(toggleId);
+        const iconEl = this.querySelector('.question-toggle');
+
+        // Close all other answers in the same category
+        const parentCategory = this.closest('.category-content');
+        if (parentCategory) {
+          parentCategory.querySelectorAll('.faq-answer.open').forEach(el => {
+            if (el.id !== toggleId) {
+              el.classList.remove('open');
+              document.querySelector(`[data-toggle="${el.id}"]`)?.querySelector('.question-toggle')?.classList.remove('open');
+            }
+          });
+        }
+
+        // Toggle current answer
+        answerEl?.classList.toggle('open');
+        iconEl?.classList.toggle('open');
+      });
+    });
+
+    // Auto-open first category
+    const firstCategoryHeader = document.querySelector('.category-header');
+    if (firstCategoryHeader) {
+      const toggleId = firstCategoryHeader.getAttribute('data-toggle');
+      const contentEl = document.getElementById(toggleId);
+      const iconEl = firstCategoryHeader.querySelector('.category-toggle');
+      contentEl?.classList.add('open');
+      iconEl?.classList.add('open');
+
+      // Auto-open first question in first category
+      const firstQuestion = contentEl?.querySelector('.faq-question-header');
+      if (firstQuestion) {
+        const questionToggleId = firstQuestion.getAttribute('data-toggle');
+        const answerEl = document.getElementById(questionToggleId);
+        const questionIcon = firstQuestion.querySelector('.question-toggle');
+        answerEl?.classList.add('open');
+        questionIcon?.classList.add('open');
+      }
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Accordion",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_horizontal",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Horizontal",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 500,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Container Max Width",
+      "default": 1200
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading",
+      "default": "Explore our FAQs"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font_family",
+      "label": "Heading Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 20,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Font Size",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "heading_font_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Heading Font Weight",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "min": -2,
+      "max": 3,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Heading Letter Spacing",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Borders & Spacing"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Category Border Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "question_border_color",
+      "label": "Question Border Color",
+      "default": "#f0f0f0"
+    },
+    {
+      "type": "range",
+      "id": "category_padding",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Category Padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "question_padding",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Question Padding",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "question_indent",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Question Indent from Left",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Category Styling"
+    },
+    {
+      "type": "range",
+      "id": "category_title_size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Category Title Font Size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "category_title_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Category Title Font Weight",
+      "default": 600
+    },
+    {
+      "type": "color",
+      "id": "category_title_color",
+      "label": "Category Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "category_content_bg",
+      "label": "Category Content Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "category_hover_color",
+      "label": "Category Hover Color",
+      "default": "#ccaf67"
+    },
+    {
+      "type": "header",
+      "content": "Question Styling"
+    },
+    {
+      "type": "range",
+      "id": "question_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Question Font Size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "question_font_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Question Font Weight",
+      "default": 500
+    },
+    {
+      "type": "color",
+      "id": "question_color",
+      "label": "Question Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "question_hover_color",
+      "label": "Question Hover Color",
+      "default": "#ccaf67"
+    },
+    {
+      "type": "header",
+      "content": "Toggle Icons"
+    },
+    {
+      "type": "color",
+      "id": "toggle_color",
+      "label": "Category Toggle Color",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "question_toggle_color",
+      "label": "Question Toggle Color",
+      "default": "#ccaf67"
+    },
+    {
+      "type": "header",
+      "content": "Answer Styling"
+    },
+    {
+      "type": "font_picker",
+      "id": "answer_font_family",
+      "label": "Answer Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "answer_font_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Answer Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "answer_line_height",
+      "min": 1.2,
+      "max": 2,
+      "step": 0.1,
+      "label": "Answer Line Height",
+      "default": 1.6
+    },
+    {
+      "type": "color",
+      "id": "answer_color",
+      "label": "Answer Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "answer_bold_color",
+      "label": "Answer Bold Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "answer_link_color",
+      "label": "Answer Link Color",
+      "default": "#0066cc"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_category",
+      "name": "FAQ Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category_name",
+          "label": "Category Name",
+          "default": "Category Name"
+        }
+      ]
+    },
+    {
+      "type": "faq_question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Your question here?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Your answer here</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Accordion",
+      "blocks": [
+        {
+          "type": "faq_category",
+          "settings": {
+            "category_name": "Skincare"
+          }
+        },
+        {
+          "type": "faq_question",
+          "settings": {
+            "question": "Are your skincare products \"clean\"?",
+            "answer": "<p>We are committed to creating products that are non toxic and sit under the 'Clean Beauty' Category. Our products will never contain sulphates, SLS and SLES, parabens, formaldehydes and formaldehyde releasing agents, phthalates, mineral oil, retinyl palmitate, coal tar, oxybenzone, triclosan and triclocarban. We have a blacklist of ingredients that we stand by with over 2,000+ ingredients we will not use to environmental and safety concerns.</p>"
+          }
+        },
+        {
+          "type": "faq_question",
+          "settings": {
+            "question": "Are your skincare products cruelty free?",
+            "answer": "<p>Yes, all our skincare products are cruelty-free and we do not test on animals. We are committed to ethical and humane practices in all our product development.</p>"
+          }
+        },
+        {
+          "type": "faq_question",
+          "settings": {
+            "question": "Are your skincare products safe to use while pregnant or breastfeeding?",
+            "answer": "<p>Our products are formulated with pregnancy-safe ingredients. However, we always recommend consulting with your healthcare provider before using any new skincare products during pregnancy or while breastfeeding.</p>"
+          }
+        },
+        {
+          "type": "faq_category",
+          "settings": {
+            "category_name": "Ingestible Beauty"
+          }
+        },
+        {
+          "type": "faq_question",
+          "settings": {
+            "question": "How long until I see results?",
+            "answer": "<p>Results vary by individual, but many customers report visible improvements in 3-8 weeks with consistent daily use. For best results, maintain a healthy lifestyle and use as directed.</p>"
+          }
+        },
+        {
+          "type": "faq_category",
+          "settings": {
+            "category_name": "Beauty Tools"
+          }
+        },
+        {
+          "type": "faq_question",
+          "settings": {
+            "question": "How often should I use beauty tools?",
+            "answer": "<p>Usage recommendations vary by tool type. Refer to the specific product instructions for optimal frequency and technique. Generally, 3-5 times per week is recommended for most beauty tools.</p>"
+          }
+        },
+        {
+          "type": "faq_category",
+          "settings": {
+            "category_name": "Order"
+          }
+        },
+        {
+          "type": "faq_question",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We offer a 30-day return policy on all products. Items must be unused and in original packaging. Please contact our customer service team to initiate a return.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

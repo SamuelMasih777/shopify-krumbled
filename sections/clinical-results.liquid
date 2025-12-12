@@ -1,0 +1,638 @@
+{%- liquid
+  assign section_heading = section.settings.section_heading
+  assign section_subheading = section.settings.section_subheading
+  assign show_subheading = section.settings.show_subheading
+-%}
+
+<style>
+  .clinical-results-wrapper {
+    padding: {{ section.settings.section_padding_top }}px {{ section.settings.section_padding_horizontal }}px {{ section.settings.section_padding_bottom }}px;
+    background-color: {{ section.settings.section_bg_color }};
+  }
+
+  .results-header {
+    text-align: center;
+    margin-bottom: 80px;
+    animation: fadeInDown 0.8s ease-out;
+  }
+
+  .results-heading {
+    font-size: {{ section.settings.heading_font_size }}px;
+    font-weight: {{ section.settings.heading_font_weight }};
+    color: {{ section.settings.heading_color }};
+    margin-bottom: 16px;
+    line-height: 1.2;
+    font-family: {{ section.settings.heading_font_family }};
+    letter-spacing: {{ section.settings.heading_letter_spacing }}px;
+  }
+
+  .results-subheading {
+    font-size: {{ section.settings.subheading_font_size }}px;
+    color: {{ section.settings.subheading_color }};
+    margin-bottom: 0;
+    font-weight: {{ section.settings.subheading_font_weight }};
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .results-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: {{ section.settings.card_gap }}px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .result-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: {{ section.settings.card_padding }}px;
+    background-color: {{ section.settings.card_bg_color }};
+    border-radius: {{ section.settings.card_border_radius }}px;
+    border: {{ section.settings.card_border_width }}px solid {{ section.settings.card_border_color }};
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.8s ease-out both;
+  }
+
+  .result-card:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  .result-card:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .result-card:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .result-card:hover {
+    transform: translateY(-8px);
+    box-shadow: {{ section.settings.card_hover_shadow }};
+    border-color: {{ section.settings.card_hover_border_color }};
+  }
+
+  .result-percentage {
+    font-size: {{ section.settings.percentage_font_size }}px;
+    font-weight: {{ section.settings.percentage_font_weight }};
+    color: {{ section.settings.percentage_color }};
+    margin-bottom: 16px;
+    line-height: 1;
+    font-family: {{ section.settings.percentage_font_family }};
+    letter-spacing: -1px;
+  }
+
+  .result-label {
+    font-size: {{ section.settings.label_font_size }}px;
+    font-weight: {{ section.settings.label_font_weight }};
+    color: {{ section.settings.label_color }};
+    text-transform: uppercase;
+    letter-spacing: {{ section.settings.label_letter_spacing }}px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .result-description {
+    font-size: {{ section.settings.description_font_size }}px;
+    color: {{ section.settings.description_color }};
+    line-height: {{ section.settings.description_line_height }};
+    margin: 0;
+    font-family: {{ section.settings.description_font_family }};
+  }
+
+  .result-card:hover .result-percentage {
+    color: {{ section.settings.percentage_hover_color }};
+  }
+
+  .result-card:hover .result-label {
+    color: {{ section.settings.label_hover_color }};
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .result-percentage {
+      font-size: clamp(32px, 8vw, {{ section.settings.percentage_font_size }}px);
+    }
+
+    .results-heading {
+      font-size: clamp(24px, 6vw, {{ section.settings.heading_font_size }}px);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .results-container {
+      grid-template-columns: repeat(2, 1fr);
+      gap: {{ section.settings.card_gap | divided_by: 1.2 | round }}px;
+    }
+
+    .results-header {
+      margin-bottom: 60px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .clinical-results-wrapper {
+      padding: {{ section.settings.section_padding_top | divided_by: 1.5 | round }}px {{ section.settings.section_padding_horizontal | divided_by: 1.5 | round }}px {{ section.settings.section_padding_bottom | divided_by: 1.5 | round }}px;
+    }
+
+    .results-container {
+      grid-template-columns: 1fr;
+      gap: {{ section.settings.card_gap | divided_by: 1.5 | round }}px;
+    }
+
+    .result-card {
+      padding: {{ section.settings.card_padding | divided_by: 1.2 | round }}px;
+    }
+
+    .results-heading {
+      font-size: clamp(20px, 5vw, 32px);
+      margin-bottom: 12px;
+    }
+
+    .results-subheading {
+      font-size: 12px;
+    }
+
+    .results-header {
+      margin-bottom: 40px;
+    }
+
+    .result-percentage {
+      font-size: clamp(24px, 7vw, 48px);
+      margin-bottom: 12px;
+    }
+
+    .result-label {
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+
+    .result-description {
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .clinical-results-wrapper {
+      padding: 40px 20px;
+    }
+
+    .result-card {
+      padding: 24px 16px;
+    }
+
+    .results-heading {
+      font-size: 24px;
+    }
+
+    .result-percentage {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .result-label {
+      font-size: 11px;
+      letter-spacing: 0.3px;
+      margin-bottom: 12px;
+    }
+
+    .result-description {
+      font-size: 12px;
+      line-height: 1.5;
+    }
+  }
+</style>
+
+<div class="clinical-results-wrapper">
+  <div class="results-header">
+    <h2 class="results-heading">{{ section_heading }}</h2>
+    {%- if show_subheading and section_subheading != blank -%}
+      <p class="results-subheading">{{ section_subheading }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="results-container">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'stat_card' -%}
+        <div class="result-card">
+          <div class="result-percentage">{{ block.settings.stat_percentage }}</div>
+          <span class="result-label">{{ block.settings.stat_label }}</span>
+          <p class="result-description">{{ block.settings.stat_description }}</p>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Clinical Results",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_horizontal",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Horizontal",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Header Text"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Main Heading",
+      "default": "Clinically Proven Results"
+    },
+    {
+      "type": "text",
+      "id": "section_subheading",
+      "label": "Subheading",
+      "default": "Third Party Trial Team conducted by BeautyHeaven"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subheading",
+      "label": "Show Subheading",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Heading Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font_family",
+      "label": "Heading Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 24,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Font Size",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "heading_font_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Heading Font Weight",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "min": -2,
+      "max": 3,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Heading Letter Spacing",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Subheading Typography"
+    },
+    {
+      "type": "range",
+      "id": "subheading_font_size",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Subheading Font Size",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "subheading_font_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Subheading Font Weight",
+      "default": 400
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading Color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Card Design"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card Border Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "card_hover_border_color",
+      "label": "Card Hover Border Color",
+      "default": "#ccaf67"
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Border Width",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Card Border Radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Card Padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap Between Cards",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "card_hover_shadow",
+      "label": "Card Hover Shadow",
+      "default": "0 12px 32px rgba(0, 0, 0, 0.1)"
+    },
+    {
+      "type": "header",
+      "content": "Percentage Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "percentage_font_family",
+      "label": "Percentage Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "percentage_font_size",
+      "min": 32,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Percentage Font Size",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "percentage_font_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Percentage Font Weight",
+      "default": 300
+    },
+    {
+      "type": "color",
+      "id": "percentage_color",
+      "label": "Percentage Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "percentage_hover_color",
+      "label": "Percentage Hover Color",
+      "default": "#ccaf67"
+    },
+    {
+      "type": "header",
+      "content": "Label Typography"
+    },
+    {
+      "type": "range",
+      "id": "label_font_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Label Font Size",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "label_font_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Label Font Weight",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "label_letter_spacing",
+      "min": 0,
+      "max": 3,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Label Letter Spacing",
+      "default": 0.5
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label Color",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "label_hover_color",
+      "label": "Label Hover Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Description Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "description_font_family",
+      "label": "Description Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "description_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Description Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "description_line_height",
+      "min": 1.2,
+      "max": 2,
+      "step": 0.1,
+      "label": "Description Line Height",
+      "default": 1.6
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#666666"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat_card",
+      "name": "Stat Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "stat_percentage",
+          "label": "Percentage/Stat",
+          "default": "90%"
+        },
+        {
+          "type": "text",
+          "id": "stat_label",
+          "label": "Label",
+          "default": "Noticed Improvement"
+        },
+        {
+          "type": "textarea",
+          "id": "stat_description",
+          "label": "Description",
+          "default": "90% found their skin appeared more hydrated and/or nourished after using the Hydrating Sleep Mask."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Clinical Results",
+      "blocks": [
+        {
+          "type": "stat_card",
+          "settings": {
+            "stat_percentage": "90%",
+            "stat_label": "NOTICED IMPROVEMENT",
+            "stat_description": "90% found their skin appeared more hydrated and/or nourished after using the Hydrating Sleep Mask."
+          }
+        },
+        {
+          "type": "stat_card",
+          "settings": {
+            "stat_percentage": "90%",
+            "stat_label": "NOTICED IMPROVEMENT",
+            "stat_description": "90% noticed an improvement in the overall appearance or radiance of their skin from using the Habitual Beauty range."
+          }
+        },
+        {
+          "type": "stat_card",
+          "settings": {
+            "stat_percentage": "95%",
+            "stat_label": "WOULD RECOMMEND",
+            "stat_description": "95% would recommend the Habitual Beauty products to friends and family."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

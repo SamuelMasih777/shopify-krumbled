@@ -1,0 +1,812 @@
+{%- liquid
+  assign product_title = section.settings.product_title
+  assign product_category = section.settings.product_category
+  assign product_type = section.settings.product_type
+  assign rating = section.settings.rating | default: 5
+  assign review_count = section.settings.review_count | default: 33
+  assign price = section.settings.price | default: 80
+  assign currency = section.settings.currency | default: '$'
+  assign product_description = section.settings.product_description
+  assign product_image = section.settings.product_image
+  assign show_breadcrumb = section.settings.show_breadcrumb
+  assign breadcrumb_text = section.settings.breadcrumb_text
+-%}
+
+<style>
+  .product-detail-wrapper {
+    padding: {{ section.settings.section_padding_top }}px {{ section.settings.section_padding_horizontal }}px {{ section.settings.section_padding_bottom }}px;
+    background-color: {{ section.settings.section_bg_color }};
+  }
+
+  .breadcrumb-nav {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .breadcrumb-nav a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .breadcrumb-nav a:hover {
+    color: #000;
+  }
+
+  .breadcrumb-nav span {
+    color: #999;
+    margin: 0 8px;
+  }
+
+  .breadcrumb-nav .current {
+    color: #000;
+    font-weight: 500;
+  }
+
+  .product-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .product-image-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-image {
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    border-radius: 8px;
+    animation: fadeInScale 0.6s ease-out;
+  }
+
+  .product-info-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 20px;
+  }
+
+  .product-label {
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .product-title {
+    font-size: {{ section.settings.title_font_size }}px;
+    font-weight: {{ section.settings.title_font_weight }};
+    color: {{ section.settings.title_color }};
+    line-height: 1.2;
+    margin-bottom: 20px;
+    font-family: {{ section.settings.title_font_family }};
+  }
+
+  .product-rating {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .stars {
+    display: flex;
+    gap: 4px;
+    font-size: 16px;
+  }
+
+  .star {
+    color: #ffd700;
+  }
+
+  .review-count {
+    font-size: 14px;
+    color: #666;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .review-count:hover {
+    color: #000;
+  }
+
+  .product-price {
+    font-size: {{ section.settings.price_font_size }}px;
+    font-weight: 600;
+    color: {{ section.settings.price_color }};
+    margin-bottom: 30px;
+    letter-spacing: -0.5px;
+  }
+
+  .product-description {
+    font-size: {{ section.settings.description_font_size }}px;
+    line-height: 1.6;
+    color: {{ section.settings.description_color }};
+    margin-bottom: 30px;
+    font-family: {{ section.settings.description_font_family }};
+  }
+
+  .product-description strong {
+    display: block;
+    margin-top: 12px;
+    font-weight: 600;
+    color: {{ section.settings.title_color }};
+  }
+
+  .product-features {
+    margin-bottom: 40px;
+  }
+
+  .feature-item {
+    border-bottom: 1px solid #e5e5e5;
+    padding: 20px 0;
+  }
+
+  .feature-item:first-child {
+    padding-top: 0;
+  }
+
+  .feature-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+  }
+
+  .feature-header:hover .feature-title {
+    color: {{ section.settings.accent_color }};
+  }
+
+  .feature-title {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: {{ section.settings.title_color }};
+    transition: color 0.3s ease;
+  }
+
+  .feature-toggle {
+    font-size: 20px;
+    color: #999;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  .feature-toggle.open {
+    transform: rotate(45deg);
+    color: {{ section.settings.accent_color }};
+  }
+
+  .feature-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    margin-top: 0;
+  }
+
+  .feature-content.open {
+    max-height: 500px;
+    margin-top: 20px;
+  }
+
+  .feature-content p {
+    font-size: {{ section.settings.description_font_size }}px;
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
+    animation: slideDown 0.3s ease;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .quantity-section {
+    margin-bottom: 30px;
+  }
+
+  .quantity-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: {{ section.settings.title_color }};
+    margin-bottom: 15px;
+  }
+
+  .quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid #e5e5e5;
+    width: fit-content;
+    background: #fff;
+  }
+
+  .quantity-btn {
+    width: 45px;
+    height: 45px;
+    border: none;
+    background: #f5f5f5;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quantity-btn:hover {
+    background: #e8e8e8;
+  }
+
+  .quantity-input {
+    width: 60px;
+    height: 45px;
+    border: none;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    background: #fff;
+  }
+
+  .quantity-input:focus {
+    outline: none;
+  }
+
+  .add-to-cart-btn {
+    width: 100%;
+    padding: 16px;
+    background-color: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    border-radius: {{ section.settings.button_border_radius }}px;
+  }
+
+  .add-to-cart-btn:hover {
+    background-color: {{ section.settings.button_hover_color }};
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+
+  .wishlist-btn {
+    width: 100%;
+    padding: 16px;
+    background-color: transparent;
+    color: {{ section.settings.title_color }};
+    border: 1px solid #e5e5e5;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: {{ section.settings.button_border_radius }}px;
+  }
+
+  .wishlist-btn:hover {
+    border-color: {{ section.settings.title_color }};
+    background-color: #f5f5f5;
+  }
+
+  @media (max-width: 1024px) {
+    .product-container {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .product-title {
+      font-size: clamp(24px, 5vw, {{ section.settings.title_font_size }}px);
+    }
+
+    .product-image {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .product-detail-wrapper {
+      padding: {{ section.settings.section_padding_top | divided_by: 1.5 | round }}px {{ section.settings.section_padding_horizontal | divided_by: 1.5 | round }}px {{ section.settings.section_padding_bottom | divided_by: 1.5 | round }}px;
+    }
+
+    .product-container {
+      gap: 30px;
+    }
+
+    .breadcrumb-nav {
+      font-size: 11px;
+      margin-bottom: 30px;
+    }
+
+    .product-price {
+      font-size: clamp(18px, 5vw, {{ section.settings.price_font_size }}px);
+    }
+
+    .product-title {
+      font-size: clamp(20px, 6vw, 32px);
+      margin-bottom: 16px;
+    }
+
+    .quantity-btn {
+      width: 40px;
+      height: 40px;
+      font-size: 16px;
+    }
+
+    .quantity-input {
+      width: 50px;
+      height: 40px;
+    }
+
+    .add-to-cart-btn,
+    .wishlist-btn {
+      font-size: 13px;
+      padding: 14px;
+    }
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
+
+<div class="product-detail-wrapper">
+  {%- if show_breadcrumb -%}
+    <div class="breadcrumb-nav">
+      {%- if breadcrumb_text != blank -%}
+        {{ breadcrumb_text }}
+      {%- else -%}
+        <a href="/">HOME</a>
+        <span>/</span>
+        <a href="/">HABITUAL BEAUTY</a>
+        <span>/</span>
+        <span class="current">{{ product_title }}</span>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="product-container">
+    {%- if product_image -%}
+      <div class="product-image-section">
+        <img
+          src="{{ product_image | image_url: width: 600 }}"
+          alt="{{ product_title }}"
+          class="product-image"
+          loading="lazy"
+          width="500"
+          height="500"
+        />
+      </div>
+    {%- else -%}
+      <div class="product-image-section">
+        <div class="product-image" style="display: flex; align-items: center; justify-content: center; color: #999;">
+          <span>Product Image</span>
+        </div>
+      </div>
+    {%- endif -%}
+
+    <div class="product-info-section">
+      {%- if product_type != blank -%}
+        <div class="product-label">{{ product_type }}</div>
+      {%- endif -%}
+
+      <h1 class="product-title">{{ product_title }}</h1>
+
+      <div class="product-rating">
+        <div class="stars">
+          {%- for i in (1..5) -%}
+            <span class="star">{%- if i <= rating -%}★{%- else -%}☆{%- endif -%}</span>
+          {%- endfor -%}
+        </div>
+        <a href="#reviews" class="review-count">{{ review_count }} Reviews</a>
+      </div>
+
+      <div class="product-price">{{ currency }}{{ price }}</div>
+
+      {%- if product_description != blank -%}
+        <div class="product-description">
+          {{ product_description }}
+        </div>
+      {%- endif -%}
+
+      <div class="product-features">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'feature' -%}
+            <div class="feature-item" data-feature-id="{{ block.id }}">
+              <div class="feature-header" data-toggle="feature-{{ block.id }}">
+                <span class="feature-title">{{ block.settings.feature_title }}</span>
+                <span class="feature-toggle" data-icon="feature-{{ block.id }}">+</span>
+              </div>
+              <div class="feature-content" id="feature-{{ block.id }}">
+                <p>{{ block.settings.feature_content }}</p>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <div class="quantity-section">
+        <label class="quantity-label">Quantity</label>
+        <div class="quantity-selector">
+          <button class="quantity-btn" id="decrease-qty" aria-label="Decrease quantity">−</button>
+          <input
+            type="number"
+            class="quantity-input"
+            id="quantity-input"
+            value="1"
+            min="1"
+            max="100"
+            readonly
+          />
+          <button class="quantity-btn" id="increase-qty" aria-label="Increase quantity">+</button>
+        </div>
+      </div>
+
+      <button class="add-to-cart-btn" id="add-to-cart-btn">Add to cart</button>
+      <button class="wishlist-btn">Add to Wishlist</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const decreaseBtn = document.getElementById('decrease-qty');
+    const increaseBtn = document.getElementById('increase-qty');
+    const quantityInput = document.getElementById('quantity-input');
+
+    decreaseBtn?.addEventListener('click', function() {
+      const current = parseInt(quantityInput.value) || 1;
+      if (current > 1) {
+        quantityInput.value = current - 1;
+      }
+    });
+
+    increaseBtn?.addEventListener('click', function() {
+      const current = parseInt(quantityInput.value) || 1;
+      if (current < 100) {
+        quantityInput.value = current + 1;
+      }
+    });
+
+    // Feature toggles
+    document.querySelectorAll('.feature-header').forEach(header => {
+      header.addEventListener('click', function() {
+        const toggleId = this.dataset.toggle;
+        const contentEl = document.getElementById(toggleId);
+        const toggleIcon = this.querySelector('.feature-toggle');
+
+        contentEl?.classList.toggle('open');
+        toggleIcon?.classList.toggle('open');
+      });
+    });
+
+    // Add to cart
+    document.getElementById('add-to-cart-btn')?.addEventListener('click', function() {
+      alert(`Added ${quantityInput.value} item(s) to cart`);
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product Detail",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_horizontal",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Horizontal",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Breadcrumb"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumb",
+      "label": "Show Breadcrumb",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "breadcrumb_text",
+      "label": "Custom Breadcrumb Text",
+      "placeholder": "Leave empty for default breadcrumb"
+    },
+    {
+      "type": "header",
+      "content": "Product Information"
+    },
+    {
+      "type": "text",
+      "id": "product_type",
+      "label": "Product Type/Category",
+      "default": "OVERNIGHT SLEEP MASK"
+    },
+    {
+      "type": "text",
+      "id": "product_title",
+      "label": "Product Title",
+      "default": "Hydrating Sleep Mask"
+    },
+    {
+      "type": "textarea",
+      "id": "product_description",
+      "label": "Product Description",
+      "default": "For when beauty sleep is a myth. This overnight microbiome-boosting treatment works while you don't, delivering deep hydration, barrier repair and skin renewal while you catch whatever rest you can. Powered by microbiome-supporting actives, brightening antioxidants and skin-plumping hydrators, it resets dull, tired skin overnight, so you can wake up looking refreshed, even if you don't feel it. Deep hydration, skin renewal and overnight repair incoming.\n\nBeauty sleep isn't always guaranteed but waking up with glowing skin can be."
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product Image"
+    },
+    {
+      "type": "header",
+      "content": "Product Details"
+    },
+    {
+      "type": "range",
+      "id": "rating",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "label": "Star Rating",
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Review Count",
+      "default": "33"
+    },
+    {
+      "type": "text",
+      "id": "price",
+      "label": "Price",
+      "default": "80.00"
+    },
+    {
+      "type": "text",
+      "id": "currency",
+      "label": "Currency Symbol",
+      "default": "$"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font_family",
+      "label": "Title Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title Font Size",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "title_font_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Title Font Weight",
+      "default": 400
+    },
+    {
+      "type": "font_picker",
+      "id": "description_font_family",
+      "label": "Description Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "description_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "price_font_size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Price Font Size",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#ccaf67"
+    },
+    {
+      "type": "header",
+      "content": "Button Settings"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button Hover Color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Button Border Radius",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Collapsible Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature_title",
+          "label": "Feature Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "feature_content",
+          "label": "Feature Content",
+          "default": "Add your feature details here"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Detail",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "feature_title": "KEY BENEFITS",
+            "feature_content": "Deep hydration with microbiome-boosting actives. Barrier repair and renewal. Brightening antioxidants for refreshed skin appearance. Skin-plumping hydrators for overnight recovery."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "feature_title": "KEY INGREDIENTS",
+            "feature_content": "Probiotics - Microbiome support. Vitamins - Brightening and repair. Grape Skin Extract - Antioxidant protection. Hyaluronic Acid - Deep hydration. Ceramides - Barrier support."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "feature_title": "HOW TO USE",
+            "feature_content": "Apply to clean, toned skin before bed. Use 2-3 pumps and smooth evenly across face and neck. Leave overnight and wash off in the morning. Use 3-4 times per week or as needed."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

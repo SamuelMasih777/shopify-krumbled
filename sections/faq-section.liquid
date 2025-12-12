@@ -1,0 +1,598 @@
+{% schema %}
+{
+  "name": "FAQ Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Padding",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Left Side - Header"
+    },
+    {
+      "type": "text",
+      "id": "left_title",
+      "label": "Section Title",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Title Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 32,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Title Size",
+      "default": 48
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "textarea",
+      "id": "left_description",
+      "label": "Left Side Description",
+      "default": "You asked, we answered! We're here to help answer all of your questions about our Krumbled Foods products."
+    },
+    {
+      "type": "font_picker",
+      "id": "description_font",
+      "label": "Description Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Description Size",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#555555"
+    },
+    {
+      "type": "header",
+      "content": "Right Side - FAQ Settings"
+    },
+    {
+      "type": "range",
+      "id": "faq_gap",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap Between FAQs",
+      "default": 30
+    },
+    {
+      "type": "font_picker",
+      "id": "question_font",
+      "label": "Question Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "question_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Question Size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "question_color",
+      "label": "Question Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "font_picker",
+      "id": "answer_font",
+      "label": "Answer Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "answer_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Answer Size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "answer_color",
+      "label": "Answer Color",
+      "default": "#555555"
+    },
+    {
+      "type": "range",
+      "id": "answer_line_height",
+      "min": 1.4,
+      "max": 2.2,
+      "step": 0.1,
+      "label": "Answer Line Height",
+      "default": 1.8
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#dddddd"
+    },
+    {
+      "type": "color",
+      "id": "toggle_icon_color",
+      "label": "Toggle Icon Color",
+      "default": "#1a1a1a"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is your question?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "This is the answer to your question. You can add as much detail as needed."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Section",
+      "settings": {
+        "left_title": "Frequently Asked Questions",
+        "left_description": "You asked, we answered! We're here to help answer all of your questions about our Krumbled Foods products."
+      },
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Which Krumbled Foods collagen product is best for me?",
+            "answer": "The best product for you depends on your specific health goals. Our Collagen Peptides support skin, gut, and joint health. We recommend starting with our Classic Collagen Peptides if you're new to collagen supplementation."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "I already eat Beauty Bites. Can I take more than one collagen product at a time?",
+            "answer": "Yes, you can take multiple collagen products together. However, we recommend consulting with your healthcare provider to ensure you're not exceeding recommended daily collagen intake."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How is Collagen Peptides different from other collagens available?",
+            "answer": "Our Collagen Peptides are hydrolysed, which means they're broken down into smaller molecules for better absorption. They're also sourced from grass-fed, pasture-raised bovine, ensuring quality and purity."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are the Collagen Peptides pregnancy and breastfeeding safe?",
+            "answer": "Our Collagen Peptides are made from natural ingredients. However, if you're pregnant or breastfeeding, we recommend consulting with your healthcare provider before adding any new supplements to your routine."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is the Collagen Peptides gluten and dairy free?",
+            "answer": "Yes, our Collagen Peptides are completely gluten and dairy free, making them suitable for those with dietary restrictions."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are the Collagen Peptides breastfeeding safe?",
+            "answer": "While our ingredients are natural, we recommend speaking with your healthcare provider before using any new supplements while breastfeeding."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.faq-section {
+  padding: {{ section.settings.section_padding }}px 40px;
+  background-color: {{ section.settings.bg_color }};
+}
+
+.faq-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: flex-start;
+}
+
+/* LEFT SIDE */
+.faq-left {
+  position: sticky;
+  top: 100px;
+}
+
+.faq-title {
+  font-family: {{ section.settings.title_font.family }}, {{ section.settings.title_font.fallback_families }};
+  font-size: {{ section.settings.title_size }}px;
+  font-weight: 400;
+  color: {{ section.settings.title_color }};
+  margin: 0 0 30px 0;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+.faq-description {
+  font-family: {{ section.settings.description_font.family }}, {{ section.settings.description_font.fallback_families }};
+  font-size: {{ section.settings.description_size }}px;
+  color: {{ section.settings.description_color }};
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* RIGHT SIDE */
+.faq-right {
+  display: flex;
+  flex-direction: column;
+  gap: {{ section.settings.faq_gap }}px;
+}
+
+.faq-item {
+  border-bottom: 1px solid {{ section.settings.border_color }};
+  padding-bottom: {{ section.settings.faq_gap }}px;
+  transition: all 0.3s ease;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.faq-question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  cursor: pointer;
+  user-select: none;
+  padding: 12px 0;
+  transition: all 0.3s ease;
+}
+
+.faq-question-header:hover {
+  opacity: 0.7;
+}
+
+.faq-question-text {
+  font-family: {{ section.settings.question_font.family }}, {{ section.settings.question_font.fallback_families }};
+  font-size: {{ section.settings.question_size }}px;
+  font-weight: 400;
+  color: {{ section.settings.question_color }};
+  margin: 0;
+  line-height: 1.4;
+  flex: 1;
+  letter-spacing: -0.3px;
+}
+
+.faq-toggle-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: {{ section.settings.toggle_icon_color }};
+  font-size: 20px;
+  font-weight: 300;
+  flex-shrink: 0;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 4px;
+}
+
+.faq-toggle-icon.open {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
+  padding: 0;
+}
+
+.faq-answer.open {
+  max-height: 1000px;
+  padding: 20px 0 0 0;
+}
+
+.faq-answer-text {
+  font-family: {{ section.settings.answer_font.family }}, {{ section.settings.answer_font.fallback_families }};
+  font-size: {{ section.settings.answer_size }}px;
+  color: {{ section.settings.answer_color }};
+  line-height: {{ section.settings.answer_line_height }};
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .faq-wrapper {
+    gap: 60px;
+    grid-template-columns: 1fr 1.1fr;
+  }
+
+  .faq-left {
+    top: 80px;
+  }
+
+  .faq-title {
+    font-size: clamp(32px, 6vw, {{ section.settings.title_size }}px);
+    margin-bottom: 24px;
+  }
+
+  .faq-question-text {
+    font-size: {{ section.settings.question_size | minus: 2 }}px;
+  }
+}
+
+@media (max-width: 900px) {
+  .faq-section {
+    padding: {{ section.settings.section_padding | minus: 20 }}px 30px;
+  }
+
+  .faq-wrapper {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .faq-left {
+    position: static;
+  }
+
+  .faq-title {
+    font-size: clamp(32px, 7vw, 48px);
+  }
+}
+
+@media (max-width: 768px) {
+  .faq-section {
+    padding: {{ section.settings.section_padding | minus: 30 }}px 20px;
+  }
+
+  .faq-wrapper {
+    gap: 40px;
+  }
+
+  .faq-title {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+
+  .faq-description {
+    font-size: {{ section.settings.description_size | minus: 1 }}px;
+  }
+
+  .faq-right {
+    gap: {{ section.settings.faq_gap | minus: 10 }}px;
+  }
+
+  .faq-item {
+    padding-bottom: {{ section.settings.faq_gap | minus: 10 }}px;
+  }
+
+  .faq-question-text {
+    font-size: {{ section.settings.question_size | minus: 2 }}px;
+  }
+}
+
+@media (max-width: 480px) {
+  .faq-section {
+    padding: 40px 15px;
+  }
+
+  .faq-title {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .faq-description {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .faq-right {
+    gap: 15px;
+  }
+
+  .faq-item {
+    padding-bottom: 15px;
+  }
+
+  .faq-question-header {
+    gap: 12px;
+    padding: 10px 0;
+  }
+
+  .faq-question-text {
+    font-size: 16px;
+  }
+
+  .faq-answer-text {
+    font-size: {{ section.settings.answer_size | minus: 1 }}px;
+    line-height: 1.6;
+  }
+
+  .faq-toggle-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 18px;
+  }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.faq-item {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.faq-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.faq-item:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.faq-item:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.faq-item:nth-child(4) {
+  animation-delay: 0.25s;
+}
+
+.faq-item:nth-child(5) {
+  animation-delay: 0.3s;
+}
+
+.faq-item:nth-child(n+6) {
+  animation-delay: calc(0.05s * (var(--faq-index, 0) - 5));
+}
+</style>
+
+<section class="faq-section">
+  <div class="faq-wrapper">
+    <!-- LEFT SIDE -->
+    <div class="faq-left">
+      {% if section.settings.left_title %}
+        <h2 class="faq-title">{{ section.settings.left_title }}</h2>
+      {% endif %}
+
+      {% if section.settings.left_description %}
+        <p class="faq-description">{{ section.settings.left_description }}</p>
+      {% endif %}
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="faq-right">
+      {% for block in section.blocks %}
+        {% if block.type == 'faq_item' %}
+          <div class="faq-item" {{ block.shopify_attributes }} style="--faq-index: {{ forloop.index }};">
+            <div class="faq-question-header" data-faq-toggle="faq-{{ block.id }}">
+              {% if block.settings.question %}
+                <h3 class="faq-question-text">{{ block.settings.question }}</h3>
+              {% endif %}
+              <span class="faq-toggle-icon">+</span>
+            </div>
+
+            {% if block.settings.answer %}
+              <div class="faq-answer" id="faq-{{ block.id }}">
+                <p class="faq-answer-text">{{ block.settings.answer }}</p>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const faqHeaders = document.querySelectorAll('.faq-question-header');
+
+  faqHeaders.forEach(header => {
+    header.addEventListener('click', function() {
+      const targetId = this.dataset.faqToggle;
+      const content = document.getElementById(targetId);
+      const icon = this.querySelector('.faq-toggle-icon');
+      const item = this.closest('.faq-item');
+
+      // Toggle current item
+      content.classList.toggle('open');
+      icon.classList.toggle('open');
+
+      // Optional: Close other open items (uncomment for accordion behavior)
+      // faqHeaders.forEach(otherHeader => {
+      //   if (otherHeader !== header) {
+      //     const otherId = otherHeader.dataset.faqToggle;
+      //     const otherContent = document.getElementById(otherId);
+      //     const otherIcon = otherHeader.querySelector('.faq-toggle-icon');
+      //     otherContent.classList.remove('open');
+      //     otherIcon.classList.remove('open');
+      //   }
+      // });
+    });
+  });
+
+  // Smooth scroll to FAQ on page load if hash is present
+  if (window.location.hash) {
+    const targetId = window.location.hash.substring(1);
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      setTimeout(() => {
+        targetElement.classList.add('open');
+        const header = targetElement.previousElementSibling;
+        if (header) {
+          const icon = header.querySelector('.faq-toggle-icon');
+          if (icon) icon.classList.add('open');
+        }
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 300);
+    }
+  }
+});
+</script>

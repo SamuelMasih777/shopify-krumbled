@@ -1,0 +1,688 @@
+{%- liquid
+  assign section_title = section.settings.section_title
+  assign show_title = section.settings.show_title
+  assign media_type = section.settings.media_type
+  assign video_url = section.settings.video_url
+  assign gif_url = section.settings.gif_url
+  assign media_image = section.settings.media_image
+  assign enable_autoplay = section.settings.enable_autoplay
+  assign enable_loop = section.settings.enable_loop
+-%}
+
+<style>
+  .video-details-wrapper {
+    padding: {{ section.settings.section_padding_top }}px {{ section.settings.section_padding_horizontal }}px {{ section.settings.section_padding_bottom }}px;
+    background-color: {{ section.settings.section_bg_color }};
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: {{ section.settings.section_title_size }}px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: {{ section.settings.section_title_color }};
+    margin-bottom: 60px;
+  }
+
+  .video-details-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: flex-start;
+  }
+
+  .media-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .media-wrapper {
+    width: 100%;
+    max-width: 550px;
+    aspect-ratio: 3 / 4;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    border-radius: {{ section.settings.media_border_radius }}px;
+    overflow: hidden;
+    animation: mediaFadeIn 0.8s ease-out;
+  }
+
+  .media-content {
+    width: 100%;
+    height: 100%;
+  }
+
+  .media-content video,
+  .media-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .details-section {
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+  }
+
+  .details-title {
+    font-size: {{ section.settings.details_title_size }}px;
+    font-weight: {{ section.settings.details_title_weight }};
+    color: {{ section.settings.details_title_color }};
+    margin-bottom: 40px;
+    line-height: 1.3;
+    font-family: {{ section.settings.details_title_font }};
+  }
+
+  .collapsible-item {
+    border-bottom: 1px solid {{ section.settings.border_color }};
+    margin-bottom: 0;
+  }
+
+  .collapsible-item:first-child {
+    border-top: 1px solid {{ section.settings.border_color }};
+  }
+
+  .collapsible-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: {{ section.settings.collapsible_padding }}px 0;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .collapsible-header:hover {
+    padding-left: 10px;
+  }
+
+  .collapsible-title {
+    font-size: {{ section.settings.collapsible_title_size }}px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: {{ section.settings.collapsible_letter_spacing }}px;
+    color: {{ section.settings.collapsible_title_color }};
+    transition: color 0.3s ease;
+  }
+
+  .collapsible-header:hover .collapsible-title {
+    color: {{ section.settings.collapsible_hover_color }};
+  }
+
+  .toggle-icon {
+    font-size: 24px;
+    color: {{ section.settings.toggle_icon_color }};
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+    font-weight: 300;
+  }
+
+  .collapsible-header:hover .toggle-icon {
+    color: {{ section.settings.collapsible_hover_color }};
+  }
+
+  .toggle-icon.open {
+    transform: rotate(45deg);
+  }
+
+  .collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    opacity: 0;
+    margin-bottom: 0;
+  }
+
+  .collapsible-content.open {
+    max-height: 800px;
+    opacity: 1;
+    margin-bottom: 0;
+  }
+
+  .content-text {
+    font-size: {{ section.settings.content_font_size }}px;
+    line-height: {{ section.settings.content_line_height }};
+    color: {{ section.settings.content_color }};
+    padding: 20px 0 20px 0;
+    margin: 0;
+    font-family: {{ section.settings.content_font_family }};
+  }
+
+  .content-text p {
+    margin: 0 0 12px 0;
+  }
+
+  .content-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .content-text strong {
+    color: {{ section.settings.details_title_color }};
+    font-weight: 600;
+  }
+
+  @keyframes mediaFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .video-details-container {
+      gap: 60px;
+    }
+
+    .details-title {
+      font-size: clamp(20px, 4vw, {{ section.settings.details_title_size }}px);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .video-details-container {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .media-wrapper {
+      max-width: 100%;
+    }
+
+    .details-section {
+      padding-top: 0;
+    }
+
+    .section-title {
+      margin-bottom: 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .video-details-wrapper {
+      padding: {{ section.settings.section_padding_top | divided_by: 1.5 | round }}px {{ section.settings.section_padding_horizontal | divided_by: 1.5 | round }}px {{ section.settings.section_padding_bottom | divided_by: 1.5 | round }}px;
+    }
+
+    .section-title {
+      font-size: clamp(16px, 4vw, 24px);
+      margin-bottom: 30px;
+    }
+
+    .details-title {
+      font-size: clamp(18px, 5vw, 28px);
+      margin-bottom: 30px;
+    }
+
+    .collapsible-header {
+      padding: 18px 0;
+    }
+
+    .collapsible-title {
+      font-size: 13px;
+    }
+
+    .toggle-icon {
+      font-size: 20px;
+    }
+
+    .content-text {
+      font-size: 14px;
+    }
+  }
+</style>
+
+<div class="video-details-wrapper">
+  {%- if show_title and section_title != blank -%}
+    <div class="section-title">{{ section_title }}</div>
+  {%- endif -%}
+
+  <div class="video-details-container">
+    <div class="media-section">
+      <div class="media-wrapper">
+        <div class="media-content">
+          {%- if media_type == 'video' and video_url != blank -%}
+            {%- if video_url contains 'youtube' or video_url contains 'vimeo' -%}
+              <iframe
+                width="100%"
+                height="100%"
+                src="{{ video_url }}"
+                frameborder="0"
+                allowfullscreen
+                allow="autoplay; encrypted-media"
+                style="border: none;"
+              ></iframe>
+            {%- else -%}
+              <video
+                width="100%"
+                height="100%"
+                {%- if enable_autoplay %} autoplay{% endif %}
+                {%- if enable_loop %} loop{% endif %}
+                muted
+                style="object-fit: cover;"
+              >
+                <source src="{{ video_url }}" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            {%- endif -%}
+          {%- elsif media_type == 'gif' and gif_url != blank -%}
+            <img
+              src="{{ gif_url }}"
+              alt="Product demo GIF"
+              style="width: 100%; height: 100%; object-fit: cover;"
+              loading="lazy"
+            />
+          {%- elsif media_image -%}
+            <img
+              src="{{ media_image | image_url: width: 600 }}"
+              alt="Product showcase"
+              width="600"
+              height="800"
+              style="width: 100%; height: 100%; object-fit: cover;"
+              loading="lazy"
+            />
+          {%- else -%}
+            <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #999; font-size: 16px;">
+              Media Placeholder
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    <div class="details-section">
+      <h2 class="details-title">{{ section.settings.details_heading }}</h2>
+
+      <div class="collapsibles-wrapper">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'collapsible' -%}
+            <div class="collapsible-item" data-block-id="{{ block.id }}">
+              <div class="collapsible-header" data-toggle="content-{{ block.id }}">
+                <span class="collapsible-title">{{ block.settings.item_title }}</span>
+                <span class="toggle-icon" data-icon="icon-{{ block.id }}">+</span>
+              </div>
+              <div class="collapsible-content" id="content-{{ block.id }}">
+                <div class="content-text">
+                  {{ block.settings.item_content }}
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const headers = document.querySelectorAll('.collapsible-header');
+
+    headers.forEach(header => {
+      header.addEventListener('click', function() {
+        const toggleId = this.getAttribute('data-toggle');
+        const contentEl = document.getElementById(toggleId);
+        const iconEl = this.querySelector('.toggle-icon');
+
+        // Close all other items
+        document.querySelectorAll('.collapsible-content.open').forEach(el => {
+          if (el.id !== toggleId) {
+            el.classList.remove('open');
+            document.querySelector(`[data-toggle="${el.id}"]`)?.querySelector('.toggle-icon')?.classList.remove('open');
+          }
+        });
+
+        // Toggle current item
+        contentEl?.classList.toggle('open');
+        iconEl?.classList.toggle('open');
+      });
+    });
+
+    // Auto-open first item
+    const firstHeader = document.querySelector('.collapsible-header');
+    if (firstHeader) {
+      const toggleId = firstHeader.getAttribute('data-toggle');
+      const contentEl = document.getElementById(toggleId);
+      const iconEl = firstHeader.querySelector('.toggle-icon');
+      contentEl?.classList.add('open');
+      iconEl?.classList.add('open');
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Video Details Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_horizontal",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Horizontal",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Section Title"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show Section Title",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "The Essentials"
+    },
+    {
+      "type": "range",
+      "id": "section_title_size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Title Font Size",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "section_title_color",
+      "label": "Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Media Settings"
+    },
+    {
+      "type": "select",
+      "id": "media_type",
+      "label": "Media Type",
+      "options": [
+        {
+          "value": "video",
+          "label": "Video"
+        },
+        {
+          "value": "gif",
+          "label": "GIF"
+        },
+        {
+          "value": "image",
+          "label": "Image"
+        }
+      ],
+      "default": "video"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video URL (MP4, YouTube, or Vimeo)"
+    },
+    {
+      "type": "url",
+      "id": "gif_url",
+      "label": "GIF URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "media_image",
+      "label": "Fallback Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Auto-play Video",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_loop",
+      "label": "Loop Video",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "media_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Media Border Radius",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Details Section"
+    },
+    {
+      "type": "text",
+      "id": "details_heading",
+      "label": "Details Heading",
+      "default": "Why Choose"
+    },
+    {
+      "type": "range",
+      "id": "details_title_size",
+      "min": 20,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Font Size",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "details_title_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Heading Font Weight",
+      "default": 400
+    },
+    {
+      "type": "font_picker",
+      "id": "details_title_font",
+      "label": "Heading Font",
+      "default": "serif"
+    },
+    {
+      "type": "color",
+      "id": "details_title_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Collapsible Styling"
+    },
+    {
+      "type": "range",
+      "id": "collapsible_title_size",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Collapsible Title Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "collapsible_letter_spacing",
+      "min": 0,
+      "max": 3,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Collapsible Letter Spacing",
+      "default": 0.5
+    },
+    {
+      "type": "range",
+      "id": "collapsible_padding",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Collapsible Item Padding",
+      "default": 22
+    },
+    {
+      "type": "color",
+      "id": "collapsible_title_color",
+      "label": "Collapsible Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "collapsible_hover_color",
+      "label": "Collapsible Hover Color",
+      "default": "#ccaf67"
+    },
+    {
+      "type": "color",
+      "id": "toggle_icon_color",
+      "label": "Toggle Icon Color",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "header",
+      "content": "Content Typography"
+    },
+    {
+      "type": "range",
+      "id": "content_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Content Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "content_line_height",
+      "min": 1.2,
+      "max": 2,
+      "step": 0.1,
+      "label": "Content Line Height",
+      "default": 1.6
+    },
+    {
+      "type": "font_picker",
+      "id": "content_font_family",
+      "label": "Content Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "label": "Content Color",
+      "default": "#666666"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collapsible",
+      "name": "Collapsible Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "item_title",
+          "label": "Item Title",
+          "default": "Section Title"
+        },
+        {
+          "type": "richtext",
+          "id": "item_content",
+          "label": "Item Content",
+          "default": "<p>Add your detailed content here. You can use rich text formatting.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Details",
+      "blocks": [
+        {
+          "type": "collapsible",
+          "settings": {
+            "item_title": "WHY CHOOSE",
+            "item_content": "<p><strong>Advanced Hydration Technology:</strong> Infused with high-performance hydrators like Hyaluronic Acid and Glycerin, our sleep mask delivers deep moisturisation throughout the night.</p><p><strong>Barrier Enhancement:</strong> Enriched with fatty acid hydrators like Shea Butter, INCA Omega Oil, and Squalane to strengthen the skin's barrier, protecting against environmental damage and moisture loss.</p>"
+          }
+        },
+        {
+          "type": "collapsible",
+          "settings": {
+            "item_title": "APPLICATION & ROUTINE",
+            "item_content": "<p>Apply to clean, toned skin before bed. Use 2-3 pumps and smooth evenly across face and neck. Leave overnight and wash off in the morning. Use 3-4 times per week or as needed for best results.</p>"
+          }
+        },
+        {
+          "type": "collapsible",
+          "settings": {
+            "item_title": "DAY VS NIGHT",
+            "item_content": "<p>This overnight treatment is specifically formulated for nighttime use when your skin's natural repair processes are most active. The rich formula works while you sleep to restore hydration and support your skin barrier.</p>"
+          }
+        },
+        {
+          "type": "collapsible",
+          "settings": {
+            "item_title": "KEIRAS TIP",
+            "item_content": "<p>For extra hydration boost, apply to damp skin to lock in moisture. You can also layer this over your regular moisturiser for intensive overnight treatment. Perfect for winter months or dehydrated skin types.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

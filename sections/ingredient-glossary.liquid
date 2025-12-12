@@ -1,0 +1,958 @@
+{%- liquid
+  assign section_heading = section.settings.section_heading
+  assign section_description = section.settings.section_description
+  assign glossary_image = section.settings.glossary_image
+-%}
+
+<style>
+  .glossary-wrapper {
+    padding: {{ section.settings.section_padding_top }}px {{ section.settings.section_padding_horizontal }}px {{ section.settings.section_padding_bottom }}px;
+    background-color: {{ section.settings.section_bg_color }};
+  }
+
+  .glossary-container {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 80px;
+    max-width: 1500px;
+    margin: 0 auto;
+    align-items: flex-start;
+  }
+
+  .left-scrollable {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    animation: fadeInLeft 0.8s ease-out;
+  }
+
+  .glossary-header {
+    margin-bottom: 40px;
+  }
+
+  .glossary-title {
+    font-size: {{ section.settings.heading_font_size }}px;
+    font-weight: {{ section.settings.heading_font_weight }};
+    color: {{ section.settings.heading_color }};
+    margin-bottom: 20px;
+    line-height: 1.2;
+    font-family: {{ section.settings.heading_font_family }};
+    letter-spacing: {{ section.settings.heading_letter_spacing }}px;
+  }
+
+  .glossary-intro {
+    font-size: {{ section.settings.intro_font_size }}px;
+    color: {{ section.settings.intro_color }};
+    line-height: {{ section.settings.intro_line_height }};
+    margin-bottom: 16px;
+    font-family: {{ section.settings.intro_font_family }};
+  }
+
+  .glossary-intro p {
+    margin: 0 0 12px 0;
+  }
+
+  .glossary-intro p:last-child {
+    margin-bottom: 0;
+  }
+
+  .glossary-intro strong {
+    color: {{ section.settings.heading_color }};
+    font-weight: 600;
+  }
+
+  .section-label {
+    font-size: {{ section.settings.label_font_size }}px;
+    font-weight: {{ section.settings.label_font_weight }};
+    text-transform: uppercase;
+    letter-spacing: {{ section.settings.label_letter_spacing }}px;
+    color: {{ section.settings.label_color }};
+    margin-top: 32px;
+    margin-bottom: 24px;
+  }
+
+  .glossary-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px;
+    max-height: calc(100vh - 400px);
+    scroll-behavior: smooth;
+  }
+
+  .glossary-items::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .glossary-items::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .glossary-items::-webkit-scrollbar-thumb {
+    background: {{ section.settings.scrollbar_color }};
+    border-radius: 3px;
+  }
+
+  .glossary-items::-webkit-scrollbar-thumb:hover {
+    background: {{ section.settings.scrollbar_hover_color }};
+  }
+
+  .glossary-item {
+    border-bottom: 1px solid {{ section.settings.item_border_color }};
+    padding: {{ section.settings.item_padding }}px 0;
+  }
+
+  .glossary-item:first-child {
+    border-top: 1px solid {{ section.settings.item_border_color }};
+    padding-top: {{ section.settings.item_padding }}px;
+  }
+
+  .glossary-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+    gap: 12px;
+  }
+
+  .glossary-item-header:hover {
+    padding-left: 8px;
+  }
+
+  .item-name {
+    font-size: {{ section.settings.item_name_size }}px;
+    font-weight: {{ section.settings.item_name_weight }};
+    color: {{ section.settings.item_name_color }};
+    transition: color 0.3s ease;
+  }
+
+  .glossary-item-header:hover .item-name {
+    color: {{ section.settings.item_hover_color }};
+  }
+
+  .item-toggle {
+    font-size: 20px;
+    color: {{ section.settings.toggle_color }};
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .glossary-item-header:hover .item-toggle {
+    color: {{ section.settings.item_hover_color }};
+  }
+
+  .item-toggle.open {
+    transform: rotate(45deg);
+  }
+
+  .glossary-item-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    opacity: 0;
+  }
+
+  .glossary-item-content.open {
+    max-height: 1000px;
+    opacity: 1;
+  }
+
+  .item-details {
+    padding: 20px 0 0 0;
+  }
+
+  .item-description {
+    font-size: {{ section.settings.description_size }}px;
+    color: {{ section.settings.description_color }};
+    line-height: {{ section.settings.description_line_height }};
+    margin-bottom: 20px;
+    font-family: {{ section.settings.description_font_family }};
+  }
+
+  .item-description p {
+    margin: 0 0 12px 0;
+  }
+
+  .item-description p:last-child {
+    margin-bottom: 0;
+  }
+
+  .detail-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+  }
+
+  .detail-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .detail-label {
+    font-size: {{ section.settings.detail_label_size }}px;
+    font-weight: {{ section.settings.detail_label_weight }};
+    color: {{ section.settings.detail_label_color }};
+    text-transform: uppercase;
+    letter-spacing: {{ section.settings.detail_label_spacing }}px;
+    margin-bottom: 8px;
+  }
+
+  .detail-value {
+    font-size: {{ section.settings.detail_value_size }}px;
+    color: {{ section.settings.detail_value_color }};
+    line-height: 1.6;
+  }
+
+  .detail-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .detail-list-item {
+    font-size: {{ section.settings.detail_value_size }}px;
+    color: {{ section.settings.detail_value_color }};
+  }
+
+  .detail-list-item a {
+    color: {{ section.settings.detail_value_color }};
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+
+  .detail-list-item a:hover {
+    color: {{ section.settings.item_hover_color }};
+  }
+
+  .right-image-section {
+    position: sticky;
+    top: {{ section.settings.sticky_top }}px;
+    animation: fadeInRight 0.8s ease-out;
+  }
+
+  .glossary-image-wrapper {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: {{ section.settings.image_border_radius }}px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  }
+
+  .glossary-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .glossary-container {
+      gap: 60px;
+    }
+
+    .glossary-title {
+      font-size: clamp(24px, 5vw, {{ section.settings.heading_font_size }}px);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .glossary-container {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .right-image-section {
+      position: static;
+    }
+
+    .glossary-items {
+      max-height: none;
+    }
+
+    .glossary-item-header:hover {
+      padding-left: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .glossary-wrapper {
+      padding: {{ section.settings.section_padding_top | divided_by: 1.5 | round }}px {{ section.settings.section_padding_horizontal | divided_by: 1.5 | round }}px {{ section.settings.section_padding_bottom | divided_by: 1.5 | round }}px;
+    }
+
+    .glossary-container {
+      gap: 30px;
+    }
+
+    .glossary-title {
+      font-size: clamp(20px, 5vw, 32px);
+      margin-bottom: 16px;
+    }
+
+    .glossary-intro {
+      font-size: 13px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      margin-top: 24px;
+      margin-bottom: 16px;
+    }
+
+    .item-name {
+      font-size: 13px;
+    }
+
+    .item-toggle {
+      font-size: 18px;
+    }
+
+    .item-description {
+      font-size: 13px;
+    }
+
+    .detail-label {
+      font-size: 10px;
+      margin-bottom: 6px;
+    }
+
+    .detail-value {
+      font-size: 13px;
+    }
+
+    .glossary-item {
+      padding: 16px 0;
+    }
+
+    .glossary-item:first-child {
+      padding-top: 16px;
+    }
+
+    .glossary-image-wrapper {
+      aspect-ratio: 4 / 5;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .glossary-wrapper {
+      padding: 40px 20px;
+    }
+
+    .glossary-container {
+      gap: 20px;
+    }
+
+    .glossary-title {
+      font-size: 22px;
+    }
+
+    .glossary-intro {
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .glossary-image-wrapper {
+      aspect-ratio: 1 / 1;
+    }
+  }
+</style>
+
+<div class="glossary-wrapper">
+  <div class="glossary-container">
+    <div class="left-scrollable">
+      <div class="glossary-header">
+        <h2 class="glossary-title">{{ section_heading }}</h2>
+        
+        {%- if section_description != blank -%}
+          <div class="glossary-intro">
+            {{ section_description }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="section-label">A-Z</div>
+
+      <div class="glossary-items">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'glossary_item' -%}
+            <div class="glossary-item" data-block-id="{{ block.id }}">
+              <div class="glossary-item-header" data-toggle="content-{{ block.id }}">
+                <span class="item-name">{{ block.settings.ingredient_name }}</span>
+                <span class="item-toggle" data-icon="icon-{{ block.id }}">+</span>
+              </div>
+              <div class="glossary-item-content" id="content-{{ block.id }}">
+                <div class="item-details">
+                  {%- if block.settings.ingredient_description != blank -%}
+                    <div class="item-description">
+                      {{ block.settings.ingredient_description }}
+                    </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.used_in_products != blank -%}
+                    <div class="detail-row">
+                      <div class="detail-label">Used in Products</div>
+                      <div class="detail-list">
+                        {%- assign products = block.settings.used_in_products | split: ',' -%}
+                        {%- for product in products -%}
+                          <div class="detail-list-item">{{ product | strip }}</div>
+                        {%- endfor -%}
+                      </div>
+                    </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.key_benefits != blank -%}
+                    <div class="detail-row">
+                      <div class="detail-label">Key Benefits</div>
+                      <div class="detail-list">
+                        {%- assign benefits = block.settings.key_benefits | split: ',' -%}
+                        {%- for benefit in benefits -%}
+                          <div class="detail-list-item">{{ benefit | strip }}</div>
+                        {%- endfor -%}
+                      </div>
+                    </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.sourced_from != blank -%}
+                    <div class="detail-row">
+                      <div class="detail-label">Sourced From</div>
+                      <div class="detail-value">{{ block.settings.sourced_from }}</div>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="right-image-section">
+      <div class="glossary-image-wrapper">
+        {%- if glossary_image -%}
+          <img
+            src="{{ glossary_image | image_url: width: 700 }}"
+            alt="Ingredient Glossary"
+            loading="lazy"
+            width="550"
+            height="730"
+          />
+        {%- else -%}
+          <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #e8e8e8 0%, #f5f5f5 100%); color: #999;">
+            Glossary Image
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const headers = document.querySelectorAll('.glossary-item-header');
+
+    headers.forEach(header => {
+      header.addEventListener('click', function() {
+        const toggleId = this.getAttribute('data-toggle');
+        const contentEl = document.getElementById(toggleId);
+        const iconEl = this.querySelector('.item-toggle');
+
+        // Close all other items
+        document.querySelectorAll('.glossary-item-content.open').forEach(el => {
+          if (el.id !== toggleId) {
+            el.classList.remove('open');
+            document.querySelector(`[data-toggle="${el.id}"]`)?.querySelector('.item-toggle')?.classList.remove('open');
+          }
+        });
+
+        // Toggle current item
+        contentEl?.classList.toggle('open');
+        iconEl?.classList.toggle('open');
+      });
+    });
+
+    // Auto-open first item
+    const firstHeader = document.querySelector('.glossary-item-header');
+    if (firstHeader) {
+      const toggleId = firstHeader.getAttribute('data-toggle');
+      const contentEl = document.getElementById(toggleId);
+      const iconEl = firstHeader.querySelector('.item-toggle');
+      contentEl?.classList.add('open');
+      iconEl?.classList.add('open');
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Ingredient Glossary",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_horizontal",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Horizontal",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "sticky_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Image Sticky Top Position",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading",
+      "default": "Ingredient Glossary"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font_family",
+      "label": "Heading Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 20,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Font Size",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_font_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Heading Font Weight",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "min": -2,
+      "max": 3,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Heading Letter Spacing",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Introduction Text"
+    },
+    {
+      "type": "richtext",
+      "id": "section_description",
+      "label": "Introduction Description",
+      "default": "<p>With a commitment to creating products that sit proudly under the 'Clean Beauty' category. Our high-performance products are made using the very best quality ingredients in the most effective formulations that grant truly glowing skin.</p><p>Our products will never contain the sulphates SLS and SLES, parabens, formaldehydes and formaldehyde-releasing agents, phthalates, mineral oil, retinyl palmitate, oxybenzone, coal tar, hydroquinone, triclosan, and triclocarban.</p>"
+    },
+    {
+      "type": "font_picker",
+      "id": "intro_font_family",
+      "label": "Intro Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "intro_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Intro Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "intro_line_height",
+      "min": 1.2,
+      "max": 2,
+      "step": 0.1,
+      "label": "Intro Line Height",
+      "default": 1.6
+    },
+    {
+      "type": "color",
+      "id": "intro_color",
+      "label": "Intro Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "A-Z Label"
+    },
+    {
+      "type": "range",
+      "id": "label_font_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Label Font Size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "label_font_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Label Font Weight",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "label_letter_spacing",
+      "min": 0,
+      "max": 3,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Label Letter Spacing",
+      "default": 0.5
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label Color",
+      "default": "#999999"
+    },
+    {
+      "type": "header",
+      "content": "Glossary Items"
+    },
+    {
+      "type": "color",
+      "id": "item_border_color",
+      "label": "Item Border Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "range",
+      "id": "item_padding",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Item Padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "item_name_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Ingredient Name Size",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "item_name_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Ingredient Name Weight",
+      "default": 600
+    },
+    {
+      "type": "color",
+      "id": "item_name_color",
+      "label": "Ingredient Name Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "item_hover_color",
+      "label": "Item Hover Color",
+      "default": "#ccaf67"
+    },
+    {
+      "type": "color",
+      "id": "toggle_color",
+      "label": "Toggle Icon Color",
+      "default": "#999999"
+    },
+    {
+      "type": "header",
+      "content": "Item Description"
+    },
+    {
+      "type": "font_picker",
+      "id": "description_font_family",
+      "label": "Description Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Description Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "description_line_height",
+      "min": 1.2,
+      "max": 2,
+      "step": 0.1,
+      "label": "Description Line Height",
+      "default": 1.6
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Detail Labels"
+    },
+    {
+      "type": "range",
+      "id": "detail_label_size",
+      "min": 10,
+      "max": 14,
+      "step": 1,
+      "unit": "px",
+      "label": "Detail Label Size",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "detail_label_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Detail Label Weight",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "detail_label_spacing",
+      "min": 0,
+      "max": 2,
+      "step": 0.2,
+      "unit": "px",
+      "label": "Detail Label Letter Spacing",
+      "default": 0.2
+    },
+    {
+      "type": "color",
+      "id": "detail_label_color",
+      "label": "Detail Label Color",
+      "default": "#999999"
+    },
+    {
+      "type": "range",
+      "id": "detail_value_size",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Detail Value Size",
+      "default": 13
+    },
+    {
+      "type": "color",
+      "id": "detail_value_color",
+      "label": "Detail Value Color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Image Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "glossary_image",
+      "label": "Glossary Image (Right Sidebar)"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Image Border Radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Scrollbar"
+    },
+    {
+      "type": "color",
+      "id": "scrollbar_color",
+      "label": "Scrollbar Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "scrollbar_hover_color",
+      "label": "Scrollbar Hover Color",
+      "default": "#999999"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "glossary_item",
+      "name": "Ingredient Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "ingredient_name",
+          "label": "Ingredient Name",
+          "default": "Ingredient Name"
+        },
+        {
+          "type": "richtext",
+          "id": "ingredient_description",
+          "label": "Ingredient Description",
+          "default": "<p>Add a detailed description of the ingredient, its properties, and benefits.</p>"
+        },
+        {
+          "type": "text",
+          "id": "used_in_products",
+          "label": "Used in Products (comma-separated)",
+          "placeholder": "Product 1, Product 2, Product 3"
+        },
+        {
+          "type": "text",
+          "id": "key_benefits",
+          "label": "Key Benefits (comma-separated)",
+          "placeholder": "Benefit 1, Benefit 2, Benefit 3"
+        },
+        {
+          "type": "text",
+          "id": "sourced_from",
+          "label": "Sourced From",
+          "placeholder": "e.g., Aloe Vera Plants"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredient Glossary",
+      "blocks": [
+        {
+          "type": "glossary_item",
+          "settings": {
+            "ingredient_name": "5-Tier Digestive Enzyme Blend",
+            "ingredient_description": "<p>A comprehensive blend of digestive enzymes including protease, lipase, amylase, cellulase, and lactase. This combination helps break down proteins, fats, carbohydrates, fiber, and dairy products for optimal digestion and nutrient absorption.</p>",
+            "used_in_products": "Collagen Elixir, Beauty Supplement",
+            "key_benefits": "Improved digestion, Enhanced nutrient absorption, Reduced bloating, Better gut health",
+            "sourced_from": "Plant-based enzymes"
+          }
+        },
+        {
+          "type": "glossary_item",
+          "settings": {
+            "ingredient_name": "Aloe Barbadensis Leaf Juice",
+            "ingredient_description": "<p>Aloe barbadensis leaf juice, commonly known as aloe vera, has been used for centuries for its health, beauty, medicinal, and skincare benefits. Aloe vera is mainly used to help soothe skin, may help with increased moisturisation and may help to reduce excessive inflammation when applied to the skin topically.</p>",
+            "used_in_products": "Balancing Cleanser, Hydrating Serum, Hydrating Sleep Mask, Nourishing Moisturiser",
+            "key_benefits": "Soothes and cools, Moisturises, Healing properties, Anti-inflammatory",
+            "sourced_from": "Aloe Vera Plants"
+          }
+        },
+        {
+          "type": "glossary_item",
+          "settings": {
+            "ingredient_name": "Arnica Montana Flower",
+            "ingredient_description": "<p>Arnica Montana Flower is a natural plant extract known for its soothing and conditioning properties. It helps to reduce inflammation, supports skin healing, and provides antioxidant protection. Commonly used in skincare formulations for its ability to calm irritated skin.</p>",
+            "used_in_products": "Soothing Eye Serum, Recovery Cream",
+            "key_benefits": "Reduces inflammation, Soothes irritated skin, Supports healing, Antioxidant protection",
+            "sourced_from": "Mountain Arnica Plants"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

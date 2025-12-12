@@ -1,0 +1,583 @@
+{% schema %}
+{
+  "name": "Key Ingredients",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "text",
+      "id": "section_label",
+      "label": "Section Label",
+      "default": "KEY INGREDIENTS"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Label Size",
+      "default": 12
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading",
+      "default": "We only use natural & high quality ingredients."
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 32,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size",
+      "default": 52
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "min": 30,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Heading Bottom Margin",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Padding",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#fafafa"
+    },
+    {
+      "type": "header",
+      "content": "Ingredients Grid"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "label": "Gap Between Items",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "circle_size",
+      "min": 80,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Circle Size",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "circle_border_width",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Circle Border Width",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "circle_border_color",
+      "label": "Circle Border Color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "header",
+      "content": "Ingredient Label Settings"
+    },
+    {
+      "type": "font_picker",
+      "id": "ingredient_label_font",
+      "label": "Ingredient Label Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "ingredient_label_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Ingredient Label Size",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "ingredient_label_color",
+      "label": "Ingredient Label Color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "ingredient_label_spacing",
+      "min": 0,
+      "max": 3,
+      "step": 0.5,
+      "label": "Label Letter Spacing",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Ingredient Name Settings"
+    },
+    {
+      "type": "font_picker",
+      "id": "ingredient_name_font",
+      "label": "Ingredient Name Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "ingredient_name_size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Ingredient Name Size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "ingredient_name_color",
+      "label": "Ingredient Name Color",
+      "default": "#1a1a1a"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "ingredient_image",
+          "label": "Ingredient Image/Icon"
+        },
+        {
+          "type": "text",
+          "id": "ingredient_label",
+          "label": "Ingredient Label",
+          "default": "5,000MG COLLAGEN"
+        },
+        {
+          "type": "text",
+          "id": "ingredient_name",
+          "label": "Ingredient Name",
+          "default": "Hydrolysed Collagen Peptides"
+        },
+        {
+          "type": "textarea",
+          "id": "ingredient_description",
+          "label": "Ingredient Description (Optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Key Ingredients",
+      "settings": {
+        "section_label": "KEY INGREDIENTS",
+        "section_heading": "We only use natural & high quality ingredients."
+      },
+      "blocks": [
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_label": "5,000MG COLLAGEN",
+            "ingredient_name": "Hydrolysed Collagen Peptides"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_label": "1 BILLION PROBIOTICS",
+            "ingredient_name": "Probiotics"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_label": "8G PREBIOTIC FIBRE",
+            "ingredient_name": "Prebiotics"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_label": "VITAMIN E",
+            "ingredient_name": "Vitamin E"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_label": "VITAMIN C",
+            "ingredient_name": "Vitamin C"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.key-ingredients-section {
+  padding: {{ section.settings.section_padding }}px 40px;
+  background-color: {{ section.settings.bg_color }};
+}
+
+.key-ingredients-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.key-ingredients-label {
+  font-size: {{ section.settings.label_size }}px;
+  color: {{ section.settings.label_color }};
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.key-ingredients-heading {
+  font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  font-size: {{ section.settings.heading_size }}px;
+  font-weight: 400;
+  color: {{ section.settings.heading_color }};
+  margin: 0 0 {{ section.settings.heading_margin_bottom }}px 0;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  text-align: center;
+}
+
+.ingredients-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: {{ section.settings.grid_gap }}px;
+  align-items: flex-start;
+}
+
+.ingredient-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.ingredient-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.ingredient-item:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.ingredient-item:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.ingredient-item:nth-child(4) {
+  animation-delay: 0.25s;
+}
+
+.ingredient-item:nth-child(5) {
+  animation-delay: 0.3s;
+}
+
+.ingredient-circle {
+  width: {{ section.settings.circle_size }}px;
+  height: {{ section.settings.circle_size }}px;
+  border-radius: 50%;
+  border: {{ section.settings.circle_border_width }}px solid {{ section.settings.circle_border_color }};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ingredient-circle:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.ingredient-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 20px;
+  display: block;
+}
+
+.ingredient-label {
+  font-family: {{ section.settings.ingredient_label_font.family }}, {{ section.settings.ingredient_label_font.fallback_families }};
+  font-size: {{ section.settings.ingredient_label_size }}px;
+  color: {{ section.settings.ingredient_label_color }};
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: {{ section.settings.ingredient_label_spacing }}px;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.ingredient-name {
+  font-family: {{ section.settings.ingredient_name_font.family }}, {{ section.settings.ingredient_name_font.fallback_families }};
+  font-size: {{ section.settings.ingredient_name_size }}px;
+  color: {{ section.settings.ingredient_name_color }};
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.ingredient-description {
+  font-size: 13px;
+  color: #666;
+  margin: 8px 0 0 0;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .key-ingredients-section {
+    padding: {{ section.settings.section_padding | minus: 20 }}px 30px;
+  }
+
+  .key-ingredients-heading {
+    font-size: clamp(32px, 6vw, {{ section.settings.heading_size }}px);
+    margin-bottom: {{ section.settings.heading_margin_bottom | minus: 15 }}px;
+  }
+
+  .ingredients-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: {{ section.settings.grid_gap | minus: 10 }}px;
+  }
+
+  .ingredient-circle {
+    width: {{ section.settings.circle_size | minus: 20 }}px;
+    height: {{ section.settings.circle_size | minus: 20 }}px;
+    margin-bottom: 16px;
+  }
+
+  .ingredient-name {
+    font-size: {{ section.settings.ingredient_name_size | minus: 2 }}px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .key-ingredients-section {
+    padding: {{ section.settings.section_padding | minus: 25 }}px 25px;
+  }
+
+  .ingredients-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: {{ section.settings.grid_gap | minus: 15 }}px;
+  }
+
+  .ingredient-circle {
+    width: {{ section.settings.circle_size | minus: 30 }}px;
+    height: {{ section.settings.circle_size | minus: 30 }}px;
+    margin-bottom: 14px;
+  }
+
+  .ingredient-label {
+    font-size: {{ section.settings.ingredient_label_size | minus: 1 }}px;
+  }
+
+  .ingredient-name {
+    font-size: {{ section.settings.ingredient_name_size | minus: 2 }}px;
+  }
+}
+
+@media (max-width: 768px) {
+  .key-ingredients-section {
+    padding: {{ section.settings.section_padding | minus: 30 }}px 20px;
+  }
+
+  .key-ingredients-heading {
+    font-size: clamp(28px, 7vw, 42px);
+    margin-bottom: {{ section.settings.heading_margin_bottom | minus: 25 }}px;
+  }
+
+  .ingredients-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: {{ section.settings.grid_gap | minus: 20 }}px;
+  }
+
+  .ingredient-circle {
+    width: {{ section.settings.circle_size | minus: 40 }}px;
+    height: {{ section.settings.circle_size | minus: 40 }}px;
+    margin-bottom: 12px;
+  }
+
+  .ingredient-label {
+    font-size: {{ section.settings.ingredient_label_size | minus: 2 }}px;
+  }
+
+  .ingredient-name {
+    font-size: {{ section.settings.ingredient_name_size | minus: 3 }}px;
+  }
+}
+
+@media (max-width: 480px) {
+  .key-ingredients-section {
+    padding: 40px 15px;
+  }
+
+  .key-ingredients-heading {
+    font-size: 28px;
+    margin-bottom: 35px;
+  }
+
+  .ingredients-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .ingredient-circle {
+    width: {{ section.settings.circle_size | minus: 50 }}px;
+    height: {{ section.settings.circle_size | minus: 50 }}px;
+    margin-bottom: 12px;
+  }
+
+  .ingredient-label {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .ingredient-name {
+    font-size: 16px;
+  }
+
+  .ingredient-description {
+    font-size: 12px;
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+
+<section class="key-ingredients-section">
+  <div class="key-ingredients-wrapper">
+    {% if section.settings.section_label %}
+      <div class="key-ingredients-label">{{ section.settings.section_label }}</div>
+    {% endif %}
+
+    {% if section.settings.section_heading %}
+      <h2 class="key-ingredients-heading">{{ section.settings.section_heading }}</h2>
+    {% endif %}
+
+    <div class="ingredients-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'ingredient' %}
+          <div class="ingredient-item" {{ block.shopify_attributes }}>
+            <div class="ingredient-circle">
+              {% if block.settings.ingredient_image %}
+                <img src="{{ block.settings.ingredient_image | image_url: width: 300 }}" alt="{{ block.settings.ingredient_name }}" class="ingredient-image" width="140" height="140" loading="lazy">
+              {% else %}
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%); display: flex; align-items: center; justify-content: center;">
+                  <span style="color: #999; font-size: 12px; text-align: center; padding: 10px;">Add Image</span>
+                </div>
+              {% endif %}
+            </div>
+
+            {% if block.settings.ingredient_label %}
+              <p class="ingredient-label">{{ block.settings.ingredient_label }}</p>
+            {% endif %}
+
+            {% if block.settings.ingredient_name %}
+              <p class="ingredient-name">{{ block.settings.ingredient_name }}</p>
+            {% endif %}
+
+            {% if block.settings.ingredient_description %}
+              <p class="ingredient-description">{{ block.settings.ingredient_description }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Optional: Add smooth scroll reveal animations
+  const ingredientItems = document.querySelectorAll('.ingredient-item');
+  
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  ingredientItems.forEach(item => {
+    observer.observe(item);
+  });
+});
+</script>

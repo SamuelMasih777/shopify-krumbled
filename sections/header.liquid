@@ -13,8 +13,78 @@
       "max": 300,
       "step": 10,
       "unit": "px",
-      "label": "Logo Width",
+      "label": "Center Logo Width",
       "default": 150
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 15,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Center Logo Height",
+      "default": 30,
+      "info": "Height of center logo (0 = auto, maintains aspect ratio)"
+    },
+    {
+      "type": "header",
+      "content": "Brand Pill Settings"
+    },
+    {
+      "type": "range",
+      "id": "pill_width",
+      "min": 80,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Pill Width",
+      "default": 150,
+      "info": "Width of brand tab pills"
+    },
+    {
+      "type": "range",
+      "id": "pill_height",
+      "min": 30,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Pill Height",
+      "default": 48,
+      "info": "Height of brand tab pills"
+    },
+    {
+      "type": "range",
+      "id": "pill_image_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Pill Image Size",
+      "default": 24,
+      "info": "Max height of images in brand tab pills"
+    },
+    {
+      "type": "header",
+      "content": "Announcement Carousel Settings"
+    },
+    {
+      "type": "range",
+      "id": "carousel_speed",
+      "min": 2000,
+      "max": 8000,
+      "step": 500,
+      "unit": "ms",
+      "label": "Carousel Speed",
+      "default": 4000,
+      "info": "Time each announcement is displayed"
+    },
+    {
+      "type": "checkbox",
+      "id": "carousel_autoplay",
+      "label": "Enable Auto Carousel",
+      "default": true,
+      "info": "Automatically rotate through announcements"
     }
   ],
   "blocks": [
@@ -31,6 +101,52 @@
           "id": "title",
           "label": "Brand Name",
           "default": "Brand Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "tab_image",
+          "label": "Tab Image",
+          "info": "Optional: Use image instead of text in the brand tab"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_image_in_tab",
+          "label": "Use Image in Tab",
+          "default": false,
+          "info": "Check to display image instead of text in the brand tab"
+        },
+        {
+          "type": "range",
+          "id": "tab_image_size",
+          "min": 0,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "label": "Tab Image Size (Override)",
+          "default": 2,
+          "info": "Override global pill image size for this tab (0 = use global setting)"
+        },
+        {
+          "type": "range",
+          "id": "tab_width",
+          "min": 0,
+          "max": 400,
+          "step": 5,
+          "unit": "px",
+          "label": "Tab Width (Override)",
+          "default": 0,
+          "info": "Override global pill width for this tab (0 = use global setting)"
+        },
+        {
+          "type": "range",
+          "id": "tab_height",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Tab Height (Override)",
+          "default": 0,
+          "info": "Override global pill height for this tab (0 = use global setting)"
         },
         {
           "type": "url",
@@ -77,13 +193,37 @@
           "default": "#ffffff"
         },
         {
+           "type": "header",
+           "content": "Announcement Bar Styling"
+        },
+        {
+          "type": "color",
+          "id": "announcement_color_text",
+          "label": "Announcement Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "font_picker",
+          "id": "announcement_font",
+          "label": "Announcement Font Family",
+          "default": "sans-serif"
+        },
+        {
           "type": "header",
           "content": "Brand Content"
         },
         {
           "type": "image_picker",
           "id": "logo",
-          "label": "Brand Logo"
+          "label": "Brand Logo (Center)",
+          "info": "Logo displayed in the center of the header"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_logo_image",
+          "label": "Use Logo Image",
+          "default": false,
+          "info": "Check to display logo image instead of text in the center"
         },
         {
           "type": "link_list",
@@ -150,6 +290,12 @@
           "id": "text",
           "label": "Text",
           "default": "Free Shipping Over $110 Australia Wide"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link URL",
+          "info": "Optional: Make announcement clickable"
         }
       ]
     }
@@ -167,6 +313,7 @@
   {% for block in section.blocks %}
     {% if block.type == 'brand_tab' %}
       {{ block.settings.font_family | font_face }}
+      {{ block.settings.announcement_font | font_face }}
       .brand-pill-{{ block.id }} {
         font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
       }
@@ -182,14 +329,51 @@
     <div class="brand-pills">
       {% for block in section.blocks %}
         {% if block.type == 'brand_tab' %}
-          <a href="{{ block.settings.brand_url | default: routes.root_url }}" 
-             class="pill brand-pill-{{ block.id }} {% if block.settings.active_default %}active default-active{% endif %}" 
+          {% assign current_url = request.path %}
+          {% if block.settings.brand_url != blank %}
+            {% assign brand_url = block.settings.brand_url %}
+          {% else %}
+            {% assign brand_url = routes.root_url %}
+          {% endif %}
+          {% assign is_current_brand = false %}
+          {% if brand_url != blank and brand_url != routes.root_url %}
+            {% if current_url contains brand_url or brand_url contains current_url %}
+              {% assign is_current_brand = true %}
+            {% endif %}
+          {% elsif brand_url == routes.root_url and current_url == '/' %}
+            {% assign is_current_brand = true %}
+          {% endif %}
+          
+          {% assign pill_image_size = section.settings.pill_image_size %}
+          {% if block.settings.tab_image_size > 0 %}
+            {% assign pill_image_size = block.settings.tab_image_size %}
+          {% endif %}
+          {% assign tab_width = section.settings.pill_width %}
+          {% if block.settings.tab_width > 0 %}
+            {% assign tab_width = block.settings.tab_width %}
+          {% endif %}
+          {% assign tab_height = section.settings.pill_height %}
+          {% if block.settings.tab_height > 0 %}
+            {% assign tab_height = block.settings.tab_height %}
+          {% endif %}
+          <a href="{{ brand_url }}" 
+             class="pill brand-pill-{{ block.id }} {% if block.settings.active_default or is_current_brand %}active default-active{% endif %}" 
                   data-index="{{ forloop.index0 }}"
                   data-color-bg="{{ block.settings.color_bg }}"
                   data-color-text="{{ block.settings.color_text }}"
-                  style="font-size: {{ block.settings.font_size }}px; background-color: {{ block.settings.color_bg }}; color: {{ block.settings.color_text }}; text-decoration: none; cursor: pointer;"
+                  data-announcement-color="{{ block.settings.announcement_color_text }}"
+                  data-announcement-font="{{ block.settings.announcement_font.family }}, {{ block.settings.announcement_font.fallback_families }}"
+                  data-brand-url="{{ brand_url }}"
+                  style="font-size: {{ block.settings.font_size }}px; width: {{ tab_width }}px; min-height: {{ tab_height }}px; background-color: {{ block.settings.color_bg }}; color: {{ block.settings.color_text }}; text-decoration: none; cursor: pointer;"
                   {{ block.shopify_attributes }}>
-            {{ block.settings.title }}
+            {% if block.settings.use_image_in_tab and block.settings.tab_image != blank %}
+              <img src="{{ block.settings.tab_image | image_url: width: 240 }}" 
+                   alt="{{ block.settings.title }}"
+                   class="brand-tab-image"
+                   style="max-height: {{ pill_image_size }}px; width: auto; display: block;">
+            {% else %}
+              {{ block.settings.title }}
+            {% endif %}
           </a>
         {% endif %}
       {% endfor %}
@@ -203,14 +387,40 @@
   </div>
 
   <!-- Promo Bar -->
-  <div class="promo-bar" id="promoBar" style="background-color: {{ section.blocks[0].settings.color_bg | default: '#eb4586' }}; color: {{ section.blocks[0].settings.color_text | default: '#ffffff' }}">
-    <div class="promo-inner">
-      {% for block in section.blocks %}
-        {% if block.type == 'announcement' %}
-          <span class="promo-text-item" {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
+  {% assign active_brand_index = 0 %}
+  {% for block in section.blocks %}
+    {% if block.type == 'brand_tab' %}
+      {% if block.settings.brand_url != blank %}
+        {% assign brand_url = block.settings.brand_url %}
+      {% else %}
+        {% assign brand_url = routes.root_url %}
+      {% endif %}
+      {% if brand_url != blank and brand_url != routes.root_url %}
+        {% if request.path contains brand_url or brand_url contains request.path %}
+          {% assign active_brand_index = forloop.index0 %}
         {% endif %}
-      {% endfor %}
-      <span class="promo-arrow">&rarr;</span>
+      {% elsif brand_url == routes.root_url and request.path == '/' %}
+        {% assign active_brand_index = forloop.index0 %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  {% assign active_brand = section.blocks[active_brand_index] %}
+  <div class="promo-bar" id="promoBar" data-carousel-speed="{{ section.settings.carousel_speed | default: 4000 }}" data-carousel-autoplay="{{ section.settings.carousel_autoplay | default: true }}" style="background-color: {{ active_brand.settings.color_bg | default: section.blocks[0].settings.color_bg | default: '#eb4586' }}; color: {{ active_brand.settings.announcement_color_text | default: section.blocks[0].settings.announcement_color_text | default: '#ffffff' }}; font-family: {{ active_brand.settings.announcement_font.family | default: section.blocks[0].settings.announcement_font.family | default: 'inherit' }}, {{ active_brand.settings.announcement_font.fallback_families }};">
+    <div class="promo-inner">
+      <div class="promo-text-wrapper">
+        {% for block in section.blocks %}
+          {% if block.type == 'announcement' %}
+            {% if block.settings.url != blank %}
+              <a href="{{ block.settings.url }}" class="promo-text-item" {{ block.shopify_attributes }}>
+                {{ block.settings.text }}
+              </a>
+            {% else %}
+              <span class="promo-text-item" {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
     </div>
   </div>
 
@@ -227,7 +437,20 @@
         <!-- Dynamic Menus -->
         {% for block in section.blocks %}
           {% if block.type == 'brand_tab' %}
-            <ul class="main-nav brand-menu-list" data-index="{{ forloop.index0 }}" {% unless block.settings.active_default %}style="display:none;"{% endunless %}>
+            {% if block.settings.brand_url != blank %}
+              {% assign brand_url = block.settings.brand_url %}
+            {% else %}
+              {% assign brand_url = routes.root_url %}
+            {% endif %}
+            {% assign is_current_brand = false %}
+            {% if brand_url != blank and brand_url != routes.root_url %}
+              {% if request.path contains brand_url or brand_url contains request.path %}
+                {% assign is_current_brand = true %}
+              {% endif %}
+            {% elsif brand_url == routes.root_url and request.path == '/' %}
+              {% assign is_current_brand = true %}
+            {% endif %}
+            <ul class="main-nav brand-menu-list" data-index="{{ forloop.index0 }}" {% unless block.settings.active_default or is_current_brand %}style="display:none;"{% endunless %}>
               {% if block.settings.menu != blank %}
                 {% for link in linklists[block.settings.menu].links %}
                   <li>
@@ -238,6 +461,9 @@
                          data-brand-index="{{ forloop.parentloop.index0 }}"
                        {% endif %}>
                       {{ link.title }}
+                      {% if link.links.size > 0 or link.title == block.settings.mega_menu_trigger %}
+                        <span class="nav-chevron">▼</span>
+                      {% endif %}
                     </a>
                   </li>
                 {% endfor %}
@@ -254,11 +480,25 @@
         <a href="{{ routes.root_url }}" class="logo-link">
           {% for block in section.blocks %}
             {% if block.type == 'brand_tab' %}
-              <div class="brand-logo-item" data-index="{{ forloop.index0 }}" {% unless block.settings.active_default %}style="display:none;"{% endunless %}>
-                {% if block.settings.logo != blank %}
+              {% if block.settings.brand_url != blank %}
+                {% assign brand_url = block.settings.brand_url %}
+              {% else %}
+                {% assign brand_url = routes.root_url %}
+              {% endif %}
+              {% assign is_current_brand = false %}
+              {% if brand_url != blank and brand_url != routes.root_url %}
+                {% if request.path contains brand_url or brand_url contains request.path %}
+                  {% assign is_current_brand = true %}
+                {% endif %}
+              {% elsif brand_url == routes.root_url and request.path == '/' %}
+                {% assign is_current_brand = true %}
+              {% endif %}
+              <div class="brand-logo-item" data-index="{{ forloop.index0 }}" {% unless block.settings.active_default or is_current_brand %}style="display:none;"{% endunless %}>
+                {% if block.settings.use_logo_image and block.settings.logo != blank %}
                   <img src="{{ block.settings.logo | image_url: width: section.settings.logo_width }}" 
                        alt="{{ block.settings.title }}"
-                       style="width: {{ section.settings.logo_width }}px; display:block; margin:0 auto;">
+                       class="brand-logo-image"
+                       style="width: {{ section.settings.logo_width }}px; {% if section.settings.logo_height > 0 %}height: {{ section.settings.logo_height }}px;{% else %}height: auto;{% endif %} display:block; margin:0 auto; max-width: 100%; object-fit: contain;">
                 {% else %}
                   <span class="logo-text">{{ block.settings.title }}</span>
                 {% endif %}
@@ -273,8 +513,9 @@
         <a href="{{ routes.search_url }}" class="icon-btn" title="Search">
            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
         </a>
-        <a href="{{ routes.cart_url }}" class="icon-btn" title="Cart">
+        <a href="{{ routes.cart_url }}" class="icon-btn cart-icon" title="Cart">
            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+           <span class="cart-count-badge" id="cartCountBadge">0</span>
         </a>
       </div>
     </div>

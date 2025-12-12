@@ -2,11 +2,12 @@
   --pink: #e9427c;
   --accent: #f28b2a; 
   --muted: #f6eee9;
+  --lemon: #fff7e7;
   --pill-bg: #efefef;
   --white-bg: #ffffff;
-  --promo-height: 36px;
-  --header-height: 92px;
-  --max-width: 1200px;
+  --promo-height: 32px;
+  --header-height: 50px;
+  --max-width: 1400px;
 }
 
 *{box-sizing:border-box}
@@ -14,7 +15,7 @@
 /* --- BRAND PILLS --- */
 .brand-pills-container {
   width: 100%;
-  background-color: var(--white-bg);
+  background-color: var(--lemon);
 }
 
 .brand-pills-row {
@@ -23,7 +24,7 @@
   align-items: flex-end;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding-right: 20px;
+  padding-right: 0px;
 }
 
 .account-icon-top {
@@ -45,7 +46,7 @@
 .brand-pills{
   display: flex;
   gap: 0;
-  padding: 14px 20px 0 20px;
+  padding: 5px 20px 0 0;
   align-items: flex-end;
   position: relative;
   z-index: 50;
@@ -66,7 +67,18 @@
   color: #888;
   margin-right: 5px;
   transition: all 0.2s ease;
-  white-space: nowrap; 
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.brand-pills .pill .brand-tab-image {
+  width: auto;
+  display: block;
+  object-fit: contain;
+  height: auto;
 }
 
 .brand-pills .pill.active{
@@ -76,6 +88,8 @@
   box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
   position: relative;
 }
+
+/* Pill active state styling handled by inline styles */
 
 /* --- PROMO BAR --- */
 .promo-bar{
@@ -99,31 +113,99 @@
   align-items: center;
   gap: 12px;
   overflow: hidden;
+  position: relative;
+  min-height: 20px;
+}
+
+.promo-text-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20px;
+  text-align: center;
+  width: 100%;
 }
 
 /* Carousel Animation */
+.promo-inner {
+  position: relative;
+}
+
 .promo-text-item {
-  display: none;
-  animation: fadeInPromo 0.5s ease-in-out;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out, transform 0.6s ease-in-out;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 90%;
-}
-.promo-text-item.active {
-  display: block;
-}
-@keyframes fadeInPromo {
-  from { opacity: 0; transform: translateY(2px); }
-  to { opacity: 1; transform: translateY(0); }
+  max-width: calc(100% - 40px);
+  text-align: center;
+  color: inherit;
+  text-decoration: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
 }
 
-.promo-bar .promo-arrow{font-weight:700; margin-left:6px; flex-shrink: 0;}
+.promo-text-item:hover {
+  text-decoration: underline;
+}
+
+/* Default state: visible if active */
+.promo-text-item.active {
+  opacity: 1;
+  visibility: visible;
+  /* Ensure it sits in center if not animating */
+  transform: translate(-50%, -50%);
+}
+
+/* Animations */
+.promo-text-item.slide-in-right {
+  animation: slideInRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.promo-text-item.slide-out-left {
+  animation: slideOutLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  /* Make sure it stays visible during animation until it's done */
+  visibility: visible !important; 
+  opacity: 1 !important;
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translate(50vw, -50%);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutLeft {
+  0% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50vw, -50%);
+    opacity: 0;
+  }
+}
+
+.promo-bar .promo-arrow{display: none;}
 
 /* --- MAIN HEADER --- */
 .site-header{
   background: white;
-  box-shadow: 0 2px 0 rgba(0,0,0,0.04);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
   position: relative;
   z-index: 30;
 }
@@ -157,16 +239,16 @@
 
 /* MAIN NAV */
 .main-nav{ list-style:none; margin:0; padding:0; display:flex; gap:18px; align-items:center;}
-.main-nav a{ text-decoration:none; color:#222; font-weight:400; font-size:15px; padding:6px 0; position: relative;}
+.main-nav a{ text-decoration:none; color:#222; font-weight:400; font-size:15px; padding:6px 0; position: relative; display: flex; align-items: center; gap: 4px;}
 .main-nav a[data-mega-trigger="true"] {
     cursor: pointer;
 }
-/*.main-nav a[data-mega-trigger="true"]:after {
-    content: ' \2304';
-    font-size: 10px;
-    margin-left: 2px;
-}*/ 
-/* Chevron optional */
+.nav-chevron {
+  font-size: 10px;
+  margin-left: 2px;
+  opacity: 0.6;
+  line-height: 1;
+}
 
 
 /* LOGO CENTER */
@@ -178,6 +260,13 @@
   letter-spacing:0.02em;
   font-weight:700;
   color:#111;
+}
+.brand-logo-image {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 /* ICONS RIGHT */
@@ -194,6 +283,29 @@
   align-items: center;
 }
 .icon-btn svg { width: 20px; height: 20px; }
+.cart-icon {
+  position: relative;
+}
+.cart-count-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #111;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0;
+}
+.cart-count-badge:empty {
+  display: none;
+}
 
 /* --- MEGA MENU --- */
 .mega-menu-wrapper {
@@ -229,6 +341,11 @@
   gap: 40px;
 }
 
+/* Fix for grid overflow */
+.mega-menu-inner > * {
+  min-width: 0;
+}
+
 /* Mega Sidebar */
 .mega-menu-sidebar ul { list-style: none; padding: 0; margin: 0; }
 .mega-menu-sidebar li { margin-bottom: 12px; }
@@ -254,15 +371,15 @@
 }
 .mega-product-card:hover { opacity: 0.8; }
 .product-image-wrap {
-    width: 100%;
+    width: 65%;
+    max-width: 140px;
+    margin: 0 auto 15px auto;
     aspect-ratio: 1/1; /* Square */
-    background: #f9f9f9;
-    margin-bottom: 12px;
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    border-radius: 4px;
+    overflow: visible;
 }
 .product-image-wrap img { width: 100%; height: 100%; object-fit: contain; }
 

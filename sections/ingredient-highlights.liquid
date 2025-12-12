@@ -1,0 +1,855 @@
+{%- liquid
+  assign section_heading = section.settings.section_heading
+  assign section_description = section.settings.section_description
+  assign button_text = section.settings.button_text
+  assign button_link = section.settings.button_link
+  assign button_target = section.settings.button_target
+-%}
+
+<style>
+  .ingredient-highlights-wrapper {
+    padding: {{ section.settings.section_padding_top }}px {{ section.settings.section_padding_horizontal }}px {{ section.settings.section_padding_bottom }}px;
+    background-color: {{ section.settings.section_bg_color }};
+  }
+
+  .ingredients-container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: flex-start;
+  }
+
+  .left-sidebar {
+    position: sticky;
+    top: {{ section.settings.sticky_top }}px;
+    padding-top: 0;
+    animation: fadeInLeft 0.8s ease-out;
+  }
+
+  .sidebar-heading {
+    font-size: {{ section.settings.heading_font_size }}px;
+    font-weight: {{ section.settings.heading_font_weight }};
+    color: {{ section.settings.heading_color }};
+    margin-bottom: 24px;
+    line-height: 1.2;
+    font-family: {{ section.settings.heading_font_family }};
+    letter-spacing: {{ section.settings.heading_letter_spacing }}px;
+  }
+
+  .sidebar-description {
+    font-size: {{ section.settings.description_font_size }}px;
+    color: {{ section.settings.description_color }};
+    line-height: {{ section.settings.description_line_height }};
+    margin-bottom: 32px;
+    font-family: {{ section.settings.description_font_family }};
+  }
+
+  .sidebar-description a {
+    color: {{ section.settings.description_color }};
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+
+  .sidebar-description a:hover {
+    color: {{ section.settings.accent_color }};
+  }
+
+  .ingredient-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: {{ section.settings.button_padding_y }}px {{ section.settings.button_padding_x }}px;
+    background-color: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+    text-decoration: none;
+    font-size: {{ section.settings.button_font_size }}px;
+    font-weight: {{ section.settings.button_font_weight }};
+    letter-spacing: {{ section.settings.button_letter_spacing }}px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: {{ section.settings.button_border_radius }}px;
+  }
+
+  .ingredient-button:hover {
+    background-color: {{ section.settings.button_hover_color }};
+    transform: translateX(4px);
+  }
+
+  .ingredient-button svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2;
+  }
+
+  .right-ingredients {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    animation: fadeInRight 0.8s ease-out;
+  }
+
+  .ingredient-item {
+    border-bottom: 1px solid {{ section.settings.ingredient_border_color }};
+    padding: {{ section.settings.ingredient_padding }}px 0;
+  }
+
+  .ingredient-item:first-child {
+    border-top: 1px solid {{ section.settings.ingredient_border_color }};
+    padding-top: {{ section.settings.ingredient_padding }}px;
+  }
+
+  .ingredient-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .ingredient-header:hover {
+    padding-left: 12px;
+  }
+
+  .ingredient-name {
+    font-size: {{ section.settings.ingredient_title_size }}px;
+    font-weight: {{ section.settings.ingredient_title_weight }};
+    color: {{ section.settings.ingredient_title_color }};
+    text-transform: uppercase;
+    letter-spacing: {{ section.settings.ingredient_letter_spacing }}px;
+    transition: color 0.3s ease;
+  }
+
+  .ingredient-header:hover .ingredient-name {
+    color: {{ section.settings.ingredient_hover_color }};
+  }
+
+  .ingredient-toggle {
+    font-size: 24px;
+    color: {{ section.settings.toggle_color }};
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .ingredient-header:hover .ingredient-toggle {
+    color: {{ section.settings.ingredient_hover_color }};
+  }
+
+  .ingredient-toggle.open {
+    transform: rotate(45deg);
+  }
+
+  .ingredient-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    opacity: 0;
+  }
+
+  .ingredient-content.open {
+    max-height: 600px;
+    opacity: 1;
+  }
+
+  .ingredient-description {
+    font-size: {{ section.settings.ingredient_description_size }}px;
+    color: {{ section.settings.ingredient_description_color }};
+    line-height: {{ section.settings.ingredient_description_line_height }};
+    padding: 20px 0;
+    margin: 0;
+    font-family: {{ section.settings.ingredient_description_font }};
+  }
+
+  .ingredient-description p {
+    margin: 0 0 12px 0;
+  }
+
+  .ingredient-description p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ingredient-description strong {
+    color: {{ section.settings.heading_color }};
+    font-weight: 600;
+  }
+
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .ingredients-container {
+      gap: 60px;
+    }
+
+    .sidebar-heading {
+      font-size: clamp(24px, 5vw, {{ section.settings.heading_font_size }}px);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .ingredients-container {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .left-sidebar {
+      position: static;
+      sticky: none;
+      margin-bottom: 20px;
+    }
+
+    .ingredient-header:hover {
+      padding-left: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ingredient-highlights-wrapper {
+      padding: {{ section.settings.section_padding_top | divided_by: 1.5 | round }}px {{ section.settings.section_padding_horizontal | divided_by: 1.5 | round }}px {{ section.settings.section_padding_bottom | divided_by: 1.5 | round }}px;
+    }
+
+    .sidebar-heading {
+      font-size: clamp(20px, 5vw, 32px);
+      margin-bottom: 16px;
+    }
+
+    .sidebar-description {
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+
+    .ingredient-button {
+      font-size: 12px;
+      padding: 12px 16px;
+    }
+
+    .ingredient-name {
+      font-size: 13px;
+    }
+
+    .ingredient-toggle {
+      font-size: 20px;
+    }
+
+    .ingredient-description {
+      font-size: 13px;
+    }
+
+    .ingredient-item {
+      padding: 16px 0;
+    }
+
+    .ingredient-item:first-child {
+      padding-top: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ingredient-highlights-wrapper {
+      padding: 40px 20px;
+    }
+
+    .ingredients-container {
+      gap: 30px;
+    }
+
+    .sidebar-heading {
+      font-size: 24px;
+    }
+
+    .sidebar-description {
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .ingredient-button {
+      font-size: 11px;
+      padding: 10px 14px;
+    }
+
+    .ingredient-item {
+      padding: 14px 0;
+    }
+
+    .ingredient-name {
+      font-size: 12px;
+      letter-spacing: 0.3px;
+    }
+
+    .ingredient-description {
+      font-size: 12px;
+      padding: 16px 0;
+    }
+  }
+</style>
+
+<div class="ingredient-highlights-wrapper">
+  <div class="ingredients-container">
+    <div class="left-sidebar">
+      <h2 class="sidebar-heading">{{ section_heading }}</h2>
+      
+      {%- if section_description != blank -%}
+        <div class="sidebar-description">
+          {{ section_description }}
+        </div>
+      {%- endif -%}
+
+      {%- if button_text != blank and button_link != blank -%}
+        <a 
+          href="{{ button_link }}" 
+          class="ingredient-button"
+          {%- if button_target %} target="_blank" rel="noopener noreferrer"{% endif %}
+        >
+          {{ button_text }}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polyline points="5 12 19 12"></polyline>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="right-ingredients">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'ingredient' -%}
+          <div class="ingredient-item" data-block-id="{{ block.id }}">
+            <div class="ingredient-header" data-toggle="content-{{ block.id }}">
+              <span class="ingredient-name">{{ block.settings.ingredient_name }}</span>
+              <span class="ingredient-toggle" data-icon="icon-{{ block.id }}">+</span>
+            </div>
+            <div class="ingredient-content" id="content-{{ block.id }}">
+              <div class="ingredient-description">
+                {{ block.settings.ingredient_description }}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const headers = document.querySelectorAll('.ingredient-header');
+
+    headers.forEach(header => {
+      header.addEventListener('click', function() {
+        const toggleId = this.getAttribute('data-toggle');
+        const contentEl = document.getElementById(toggleId);
+        const iconEl = this.querySelector('.ingredient-toggle');
+
+        // Close all other items
+        document.querySelectorAll('.ingredient-content.open').forEach(el => {
+          if (el.id !== toggleId) {
+            el.classList.remove('open');
+            document.querySelector(`[data-toggle="${el.id}"]`)?.querySelector('.ingredient-toggle')?.classList.remove('open');
+          }
+        });
+
+        // Toggle current item
+        contentEl?.classList.toggle('open');
+        iconEl?.classList.toggle('open');
+      });
+    });
+
+    // Auto-open first item
+    const firstHeader = document.querySelector('.ingredient-header');
+    if (firstHeader) {
+      const toggleId = firstHeader.getAttribute('data-toggle');
+      const contentEl = document.getElementById(toggleId);
+      const iconEl = firstHeader.querySelector('.ingredient-toggle');
+      contentEl?.classList.add('open');
+      iconEl?.classList.add('open');
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Ingredient Highlights",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_horizontal",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Horizontal",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "sticky_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Sticky Position From Top",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading",
+      "default": "Ingredient Highlights"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font_family",
+      "label": "Heading Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 20,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Font Size",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_font_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Heading Font Weight",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "min": -2,
+      "max": 3,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Heading Letter Spacing",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    {
+      "type": "richtext",
+      "id": "section_description",
+      "label": "Description Text",
+      "default": "<p>Our proprietary blend of bioavailable, bioactive and clinically proven ingredients have been carefully selected to enhance total wellbeing, radiance and optimal nutrition from within.</p>"
+    },
+    {
+      "type": "font_picker",
+      "id": "description_font_family",
+      "label": "Description Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "description_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "description_line_height",
+      "min": 1.2,
+      "max": 2,
+      "step": 0.1,
+      "label": "Description Line Height",
+      "default": 1.6
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "See Ingredient Glossary"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_target",
+      "label": "Open Link in New Tab",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Font Size",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "button_font_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Button Font Weight",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "button_letter_spacing",
+      "min": 0,
+      "max": 3,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Button Letter Spacing",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "button_padding_y",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Button Padding Vertical",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_padding_x",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Button Padding Horizontal",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button Hover Color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Button Border Radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Ingredient Items"
+    },
+    {
+      "type": "color",
+      "id": "ingredient_border_color",
+      "label": "Border Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "range",
+      "id": "ingredient_padding",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Item Padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "ingredient_title_size",
+      "min": 11,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Ingredient Title Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "ingredient_title_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Ingredient Title Weight",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "ingredient_letter_spacing",
+      "min": 0,
+      "max": 3,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Ingredient Letter Spacing",
+      "default": 0.5
+    },
+    {
+      "type": "color",
+      "id": "ingredient_title_color",
+      "label": "Ingredient Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "ingredient_hover_color",
+      "label": "Ingredient Hover Color",
+      "default": "#ccaf67"
+    },
+    {
+      "type": "color",
+      "id": "toggle_color",
+      "label": "Toggle Icon Color",
+      "default": "#999999"
+    },
+    {
+      "type": "header",
+      "content": "Description Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "ingredient_description_font",
+      "label": "Description Font",
+      "default": "sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "ingredient_description_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Description Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "ingredient_description_line_height",
+      "min": 1.2,
+      "max": 2,
+      "step": 0.1,
+      "label": "Description Line Height",
+      "default": 1.6
+    },
+    {
+      "type": "color",
+      "id": "ingredient_description_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (Links, Hover)",
+      "default": "#ccaf67"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "ingredient_name",
+          "label": "Ingredient Name",
+          "default": "Ingredient Name"
+        },
+        {
+          "type": "richtext",
+          "id": "ingredient_description",
+          "label": "Ingredient Description",
+          "default": "<p>Add your ingredient details and benefits here. Describe the ingredient's properties and its role in the product.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredient Highlights",
+      "blocks": [
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_name": "GLUCONOLACTONE",
+            "ingredient_description": "<p>A gentle polyhydroxy acid that exfoliates and hydrates the skin. Gluconolactone helps remove dead skin cells while maintaining the skin's moisture barrier, revealing brighter and smoother skin texture.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_name": "GLYCERIN",
+            "ingredient_description": "<p>A powerful humectant that draws moisture from the environment into the skin. Glycerin provides deep hydration and is suitable for all skin types, helping to maintain optimal skin moisture levels throughout the day.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_name": "GLYCERYL STEARATE",
+            "ingredient_description": "<p>An emollient that softens and conditions the skin. Glyceryl Stearate helps to lock in moisture and improve the skin's texture, leaving it feeling smooth and supple.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_name": "INCA / PLUKENETIA VOLUBILIS SEED OIL",
+            "ingredient_description": "<p>A nutrient-rich oil packed with omega fatty acids and antioxidants. Inca seed oil deeply nourishes the skin, improves elasticity, and provides powerful anti-inflammatory benefits for sensitive skin.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_name": "LACTIC ACID",
+            "ingredient_description": "<p>A gentle alpha hydroxy acid that exfoliates the skin while promoting hydration. Lactic acid helps improve skin brightness, reduces the appearance of fine lines, and is ideal for sensitive skin types.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_name": "ORGANIC SUPEROX C AF (AUSTRALIAN KAKADU PLUM)",
+            "ingredient_description": "<p>A potent vitamin C derivative with exceptional stability. Kakadu plum offers brightening, antioxidant, and anti-aging benefits, helping to even out skin tone and protect against environmental stressors.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_name": "PANTHENOL (PROVITAMIN B5)",
+            "ingredient_description": "<p>A soothing and hydrating ingredient that supports skin healing. Panthenol reduces inflammation, calms irritated skin, and strengthens the skin barrier for improved overall skin health.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_name": "PRORENEW COMPLEX (PROBIOTIC COMPLEX)",
+            "ingredient_description": "<p>A revolutionary probiotic complex that supports the skin's natural microbiome. ProRenew helps maintain a healthy bacterial balance, improving skin resilience and reducing inflammation for clearer, healthier-looking skin.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_name": "SODIUM BENZOATE",
+            "ingredient_description": "<p>A naturally derived preservative that keeps products fresh and safe. Sodium benzoate ensures the integrity and longevity of the formula without compromising skin health.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_name": "SODIUM CITRATE",
+            "ingredient_description": "<p>A pH buffer that maintains the formula's optimal acidity level. Sodium citrate ensures the product works effectively while remaining gentle and safe for all skin types.</p>"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "ingredient_name": "SODIUM PHYTATE",
+            "ingredient_description": "<p>A plant-derived ingredient with antioxidant properties. Sodium phytate protects the skin from free radical damage and helps maintain a healthy, youthful complexion.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

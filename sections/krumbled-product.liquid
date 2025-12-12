@@ -1,0 +1,753 @@
+{% schema %}
+{
+  "name": "Krumbled Product",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Settings"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 40,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Section Padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "image_width_percent",
+      "min": 40,
+      "max": 60,
+      "step": 5,
+      "unit": "%",
+      "label": "Image Column Width",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "product_type_label",
+      "label": "Product Type Label",
+      "default": "COLLAGEN POWDER"
+    },
+    {
+      "type": "color",
+      "id": "product_type_color",
+      "label": "Product Type Color",
+      "default": "#999999"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Title Font",
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 32,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Title Size",
+      "default": 52
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Rating Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show Rating",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Price Settings"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "sale_price_color",
+      "label": "Sale Price Color",
+      "default": "#eb4586"
+    },
+    {
+      "type": "header",
+      "content": "Button Settings"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "ADD TO CART"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button Background",
+      "default": "#eb4586"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Collapsible Sections"
+    },
+    {
+      "type": "text",
+      "id": "description_label",
+      "label": "Description Label",
+      "default": "DESCRIPTION"
+    },
+    {
+      "type": "text",
+      "id": "recommended_use_label",
+      "label": "Recommended Use Label",
+      "default": "RECOMMENDED USE"
+    },
+    {
+      "type": "text",
+      "id": "ingredients_label",
+      "label": "Ingredients Label",
+      "default": "INGREDIENTS"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Krumbled Product"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.krumbled-product {
+  padding: {{ section.settings.section_padding }}px 40px;
+  background-color: #fafafa;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: {{ section.settings.image_width_percent }}% 1fr;
+  gap: 60px;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+/* LEFT: Images */
+.product-images {
+  position: sticky;
+  top: 80px;
+}
+
+.product-main-image {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  margin-bottom: 20px;
+}
+
+.product-main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-thumbnails {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.product-thumbnail {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  background-color: #f0f0f0;
+}
+
+.product-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.product-thumbnail:hover {
+  border-color: #ddd;
+  transform: scale(1.02);
+}
+
+.product-thumbnail.active {
+  border-color: #333;
+}
+
+/* RIGHT: Content */
+.product-content {
+  padding-right: 40px;
+}
+
+.product-type {
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: {{ section.settings.product_type_color }};
+  margin-bottom: 20px;
+}
+
+.product-title {
+  font-family: {{ section.settings.title_font.family }}, {{ section.settings.title_font.fallback_families }};
+  font-size: {{ section.settings.title_size }}px;
+  font-weight: 400;
+  color: {{ section.settings.title_color }};
+  line-height: 1.1;
+  margin: 0 0 20px 0;
+  letter-spacing: -0.5px;
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.product-stars {
+  display: flex;
+  gap: 4px;
+}
+
+.product-star {
+  color: #ffc107;
+  font-size: 16px;
+}
+
+.product-review-count {
+  font-size: 14px;
+  color: #666;
+}
+
+.product-description-short {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.product-pricing {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.product-price-original {
+  font-size: 16px;
+  color: {{ section.settings.price_color }};
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.product-price-current {
+  font-size: 18px;
+  font-weight: 600;
+  color: {{ section.settings.sale_price_color }};
+}
+
+.product-sale-badge {
+  background-color: {{ section.settings.sale_price_color }};
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.product-financing {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 25px;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.product-financing-icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  flex-shrink: 0;
+}
+
+.product-quantity {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 25px;
+  width: fit-content;
+}
+
+.quantity-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+}
+
+.quantity-btn:hover {
+  background-color: #f5f5f5;
+}
+
+.quantity-input {
+  width: 50px;
+  height: 36px;
+  border: 1px solid #ddd;
+  border-left: none;
+  border-right: none;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.quantity-input:focus {
+  outline: none;
+  background-color: #f9f9f9;
+}
+
+.product-add-to-cart {
+  width: 100%;
+  padding: 16px;
+  background-color: {{ section.settings.button_bg }};
+  color: {{ section.settings.button_text_color }};
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 25px;
+}
+
+.product-add-to-cart:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Collapsible Sections */
+.product-collapsibles {
+  border-top: 1px solid #ddd;
+  margin-top: 30px;
+}
+
+.collapsible-item {
+  border-bottom: 1px solid #ddd;
+}
+
+.collapsible-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+.collapsible-header:hover {
+  color: #666;
+}
+
+.collapsible-title {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.collapsible-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  color: #999;
+  font-weight: bold;
+}
+
+.collapsible-icon.open {
+  transform: rotate(180deg);
+}
+
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0;
+}
+
+.collapsible-content.open {
+  max-height: 1000px;
+  padding-bottom: 20px;
+}
+
+.collapsible-text {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #555;
+}
+
+.collapsible-text p {
+  margin: 0 0 10px 0;
+}
+
+.collapsible-text p:last-child {
+  margin-bottom: 0;
+}
+
+.collapsible-text ul,
+.collapsible-text ol {
+  margin: 10px 0 10px 20px;
+  padding: 0;
+}
+
+.collapsible-text li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .krumbled-product {
+    padding: 50px 30px;
+  }
+
+  .product-grid {
+    gap: 40px;
+    grid-template-columns: 45% 1fr;
+  }
+
+  .product-content {
+    padding-right: 20px;
+  }
+
+  .product-title {
+    font-size: clamp(32px, 5vw, {{ section.settings.title_size }}px);
+  }
+}
+
+@media (max-width: 768px) {
+  .krumbled-product {
+    padding: 40px 20px;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .product-images {
+    position: static;
+  }
+
+  .product-content {
+    padding-right: 0;
+  }
+
+  .product-title {
+    font-size: clamp(28px, 6vw, 48px);
+  }
+
+  .product-thumbnails {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .product-pricing {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .krumbled-product {
+    padding: 30px 15px;
+  }
+
+  .product-title {
+    font-size: 28px;
+  }
+
+  .product-thumbnails {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .collapsible-header {
+    padding: 16px 0;
+  }
+
+  .collapsible-title {
+    font-size: 11px;
+  }
+}
+</style>
+
+<section class="krumbled-product">
+  {% if section.settings.product %}
+    {% assign product = section.settings.product %}
+    
+    <div class="product-grid">
+      <!-- LEFT: Images -->
+      <div class="product-images">
+        <div class="product-main-image">
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title }}" id="mainImage">
+          {% else %}
+            <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%); display: flex; align-items: center; justify-content: center;">
+              <span style="color: #999;">No Image</span>
+            </div>
+          {% endif %}
+        </div>
+
+        {% if product.images.size > 1 %}
+          <div class="product-thumbnails">
+            {% for image in product.images %}
+              <div class="product-thumbnail {% if forloop.first %}active{% endif %}" data-src="{{ image | image_url: width: 800 }}" data-index="{{ forloop.index0 }}">
+                <img src="{{ image | image_url: width: 200 }}" alt="{{ product.title }}">
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- RIGHT: Content -->
+      <div class="product-content">
+        <!-- Product Type -->
+        <div class="product-type">{{ section.settings.product_type_label }}</div>
+
+        <!-- Title -->
+        <h1 class="product-title">{{ product.title }}</h1>
+
+        <!-- Rating -->
+        {% if section.settings.show_rating %}
+          <div class="product-rating">
+            <div class="product-stars">
+              {% for i in (1..5) %}
+                <span class="product-star">★</span>
+              {% endfor %}
+            </div>
+            <span class="product-review-count">148 Reviews</span>
+          </div>
+        {% endif %}
+
+        <!-- Description -->
+        {% if product.description %}
+          <div class="product-description-short">{{ product.description | strip_html | truncatewords: 50 }}</div>
+        {% endif %}
+
+        <!-- Pricing -->
+        <div class="product-pricing">
+          {% if product.compare_at_price %}
+            <span class="product-price-original">${{ product.compare_at_price | money_without_currency }}</span>
+            <span class="product-price-current">${{ product.price | money_without_currency }}</span>
+            <span class="product-sale-badge">Sale</span>
+          {% else %}
+            <span class="product-price-current">${{ product.price | money_without_currency }}</span>
+          {% endif %}
+        </div>
+
+        <!-- Financing Info -->
+        <div class="product-financing">
+          <span class="product-financing-icon">ℹ</span>
+          <span>or 4 interest-free payments of <strong>${{ product.price | divided_by: 4 | money_without_currency }}</strong> with Afterpay</span>
+        </div>
+
+        <!-- Quantity & Add to Cart -->
+        <div style="display: flex; gap: 15px; align-items: center;">
+          <div class="product-quantity">
+            <button class="quantity-btn" id="decreaseQty" aria-label="Decrease quantity">−</button>
+            <input type="number" class="quantity-input" id="quantity" value="1" min="1">
+            <button class="quantity-btn" id="increaseQty" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+
+        <button class="product-add-to-cart" id="addToCartBtn">{{ section.settings.button_text }}</button>
+
+        <!-- Collapsible Sections -->
+        <div class="product-collapsibles">
+          <!-- Description -->
+          <div class="collapsible-item">
+            <div class="collapsible-header" data-target="description">
+              <h3 class="collapsible-title">{{ section.settings.description_label }}</h3>
+              <span class="collapsible-icon">›</span>
+            </div>
+            <div class="collapsible-content" id="description">
+              <div class="collapsible-text">
+                {{ product.description }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Recommended Use -->
+          <div class="collapsible-item">
+            <div class="collapsible-header" data-target="recommended">
+              <h3 class="collapsible-title">{{ section.settings.recommended_use_label }}</h3>
+              <span class="collapsible-icon">›</span>
+            </div>
+            <div class="collapsible-content" id="recommended">
+              <div class="collapsible-text">
+                <p>Mix 1 scoop (approximately 10g) with 250ml of water, milk, juice or your favorite beverage.</p>
+                <p>Stir well and consume immediately. Can be enjoyed hot or cold.</p>
+                <p>For best results, take daily as part of your wellness routine.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ingredients -->
+          <div class="collapsible-item">
+            <div class="collapsible-header" data-target="ingredients">
+              <h3 class="collapsible-title">{{ section.settings.ingredients_label }}</h3>
+              <span class="collapsible-icon">›</span>
+            </div>
+            <div class="collapsible-content" id="ingredients">
+              <div class="collapsible-text">
+                {% if product.metafields.custom.ingredients %}
+                  {{ product.metafields.custom.ingredients }}
+                {% else %}
+                  <p>Hydrolysed Collagen Peptides (Bovine), Cocoa Powder, Natural Flavourings, Stevia, Sunflower Lecithin.</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div style="text-align: center; padding: 60px 20px; background: #f9f9f9; border-radius: 8px;">
+      <p style="font-size: 16px; color: #666; margin: 0;">Please select a product to display</p>
+    </div>
+  {% endif %}
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Image Thumbnails
+  const thumbnails = document.querySelectorAll('.product-thumbnail');
+  const mainImage = document.getElementById('mainImage');
+
+  thumbnails.forEach(thumb => {
+    thumb.addEventListener('click', function() {
+      thumbnails.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      mainImage.src = this.dataset.src;
+      mainImage.style.opacity = '0.8';
+      setTimeout(() => {
+        mainImage.style.opacity = '1';
+      }, 100);
+    });
+  });
+
+  // Quantity Controls
+  const quantityInput = document.getElementById('quantity');
+  const decreaseBtn = document.getElementById('decreaseQty');
+  const increaseBtn = document.getElementById('increaseQty');
+
+  if (decreaseBtn) {
+    decreaseBtn.addEventListener('click', () => {
+      let value = parseInt(quantityInput.value) || 1;
+      if (value > 1) {
+        quantityInput.value = value - 1;
+      }
+    });
+  }
+
+  if (increaseBtn) {
+    increaseBtn.addEventListener('click', () => {
+      let value = parseInt(quantityInput.value) || 1;
+      quantityInput.value = value + 1;
+    });
+  }
+
+  // Collapsible Sections
+  const headers = document.querySelectorAll('.collapsible-header');
+  
+  headers.forEach(header => {
+    header.addEventListener('click', function() {
+      const targetId = this.dataset.target;
+      const content = document.getElementById(targetId);
+      const icon = this.querySelector('.collapsible-icon');
+      
+      if (content) {
+        content.classList.toggle('open');
+        icon.classList.toggle('open');
+      }
+    });
+  });
+
+  // Add to Cart
+  const addToCartBtn = document.getElementById('addToCartBtn');
+  if (addToCartBtn) {
+    addToCartBtn.addEventListener('click', function() {
+      const quantity = parseInt(quantityInput.value) || 1;
+      alert(`Added ${quantity} item(s) to cart!`);
+    });
+  }
+});
+</script>

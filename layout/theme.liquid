@@ -10,6 +10,7 @@
         {% section 'header' %}
         {{ content_for_layout }}
         {% include 'brand-context' %}
+        {% render 'cart-drawer' %}
         {% case current_brand %}
           {% when 'mini-me' %}
             {% section 'footer-mini' %}

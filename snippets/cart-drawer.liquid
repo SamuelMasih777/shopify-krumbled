@@ -1,0 +1,537 @@
+<!-- snippets/cart-drawer.liquid -->
+
+<div id="cart-drawer-overlay" class="cart-drawer-overlay" onclick="closeCartDrawer()"></div>
+
+<div id="cart-drawer" class="cart-drawer">
+  <!-- Header -->
+  <div class="drawer-header">
+    <div class="drawer-title">
+      Cart &bull; <span id="drawer-cart-count">0</span> Items
+    </div>
+    <button class="drawer-close-btn" onclick="closeCartDrawer()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 6L6 18M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Free Shipping Progress -->
+  <div class="drawer-shipping-progress">
+    <div class="progress-bar-bg">
+      <div id="progress-bar-fill" class="progress-bar-fill" style="width: 0%;"></div>
+    </div>
+    <div class="shipping-threshold-badge">
+      <span class="threshold-amount">$110</span>
+      <div class="free-shipping-text">FREE<br>SHIPPING</div>
+    </div>
+  </div>
+
+  <div id="shipping-message-container" class="shipping-message-container">
+    <div class="shipping-icon">$$</div>
+    <div class="shipping-text">
+      <span id="shipping-status-title" class="shipping-status-title">Free Shipping</span>
+      <span id="shipping-status-sub" class="shipping-status-sub">You're $XX.XX away from Free Shipping</span>
+    </div>
+  </div>
+
+  <!-- Notification -->
+  <div class="drawer-notification">
+    We're currently experiencing dispatch delays due to high demand. Thank you for your patience
+  </div>
+
+  <!-- Cart Items -->
+  <div id="drawer-items-container" class="drawer-items-container">
+    <!-- Items injected via JS -->
+  </div>
+
+  <!-- Footer -->
+  <div class="drawer-footer">
+    <div class="drawer-upsell-toggle">
+      Mini Cart Upsells <span class="chevron">▼</span>
+    </div>
+
+    <!-- Shipping Protection -->
+    <div class="shipping-protection-row">
+      <div class="protection-toggle-wrapper">
+        <label class="switch">
+          <input type="checkbox" id="shipping-protection-toggle" checked>
+          <span class="slider round"></span>
+        </label>
+        <span class="protection-label">Shipping Protection</span>
+      </div>
+      <span class="protection-price">$2.50</span>
+    </div>
+    <div class="protection-desc">
+      If selected, Krumbled will replace any items damaged or lost during delivery.
+    </div>
+
+    <!-- Checkout -->
+    <a href="/checkout" class="drawer-checkout-btn">
+      Checkout &bull; <span id="drawer-total-price">$0.00</span> AUD
+    </a>
+  </div>
+</div>
+
+<style>
+  /* Overlay */
+  .cart-drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  .cart-drawer-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Drawer Main */
+  .cart-drawer {
+    position: fixed;
+    top: 0;
+    right: -450px;
+    width: 450px;
+    max-width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 9999;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Arapey', serif; /* Or keep sans-serif depending on preference */
+  }
+  .cart-drawer.open {
+    right: 0;
+  }
+
+  /* Header */
+  .drawer-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f1f1;
+  }
+  .drawer-title {
+    font-size: 24px;
+    font-weight: 400;
+    color: #333;
+  }
+  .drawer-close-btn {
+    background: #f1f1f1;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #666;
+  }
+
+  /* Progress Bar */
+  .drawer-shipping-progress {
+    padding: 20px 20px 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .progress-bar-bg {
+    flex-grow: 1;
+    height: 12px;
+    background: #f1f1f1;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 15px;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: #e9427c;
+    width: 0%;
+    transition: width 0.5s ease;
+  }
+  .shipping-threshold-badge {
+    border: 2px solid #e9427c;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #e9427c;
+    background: #fff;
+    flex-shrink: 0;
+  }
+  .threshold-amount {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .free-shipping-text {
+    font-size: 8px;
+    text-align: center;
+    line-height: 1;
+    margin-top: 2px;
+    font-weight: 700;
+  }
+
+  .shipping-message-container {
+    margin: 0 20px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+  }
+  .shipping-icon {
+    font-size: 24px;
+    color: #e9427c;
+    font-weight: bold;
+    background: #ffeef4;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+  .shipping-text {
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+  }
+  .shipping-status-title {
+    color: #e9427c;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .shipping-status-sub {
+    font-size: 13px;
+    color: #333;
+  }
+
+  .drawer-notification {
+    margin: 15px 20px;
+    border: 1px solid #ffcccc;
+    color: #e9427c;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-align: center;
+    font-family: sans-serif;
+    line-height: 1.4;
+  }
+
+  /* Items */
+  .drawer-items-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0 20px;
+  }
+  .cart-item {
+    display: flex;
+    gap: 15px;
+    padding: 20px 0;
+    border-bottom: 1px solid #f1f1f1;
+  }
+  .cart-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 4px;
+    background: #f9f9f9;
+  }
+  .cart-item-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: sans-serif;
+  }
+  .cart-item-title {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 4px;
+    color: #333;
+  }
+  .cart-item-vendor {
+    font-size: 11px;
+    color: #e9427c;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .cart-item-price {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-left: auto;
+  }
+  
+  .cart-qty-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+  }
+  .qty-selector {
+    display: flex;
+    align-items: center;
+    background: #f5f5f5;
+    border-radius: 20px;
+    padding: 2px 8px;
+  }
+  .qty-btn {
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0 8px;
+    color: #333;
+  }
+  .qty-val {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0 5px;
+    min-width: 20px;
+    text-align: center;
+  }
+  .remove-link {
+    font-size: 12px;
+    text-decoration: underline;
+    color: #333;
+    cursor: pointer;
+    margin-left: auto;
+  }
+
+  /* Footer */
+  .drawer-footer {
+    padding: 20px;
+    background: #fcfcfc;
+    border-top: 1px solid #eee;
+  }
+  .drawer-upsell-toggle {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 13px;
+    color: #333;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .shipping-protection-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: sans-serif;
+    margin-bottom: 5px;
+  }
+  .protection-toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .protection-label {
+    font-weight: 700;
+    font-size: 14px;
+  }
+  /* Toggle Switch */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 24px;
+  }
+  .switch input { display: none; }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+  }
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+  input:checked + .slider {
+    background-color: #e9427c; /* Blue/Gray from design? Using Pink for now */
+  }
+  input:checked + .slider:before {
+    transform: translateX(16px);
+  }
+
+  .protection-price {
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .protection-desc {
+    font-size: 11px;
+    color: #666;
+    font-family: sans-serif;
+    margin-bottom: 20px;
+  }
+
+  .drawer-checkout-btn {
+    display: block;
+    width: 100%;
+    background: #e9427c;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    transition: opacity 0.3s;
+  }
+  .drawer-checkout-btn:hover {
+    opacity: 0.9;
+  }
+
+  @media(max-width: 500px) {
+    .cart-drawer { width: 100%; }
+  }
+</style>
+
+<script>
+  const FREE_SHIPPING_THRESHOLD = 11000; // in cents ($110.00)
+
+  // Open/Close
+  window.openCartDrawer = function() {
+    document.getElementById('cart-drawer-overlay').classList.add('open');
+    document.getElementById('cart-drawer').classList.add('open');
+    refreshCartDrawer();
+  }
+
+  window.closeCartDrawer = function() {
+    document.getElementById('cart-drawer-overlay').classList.remove('open');
+    document.getElementById('cart-drawer').classList.remove('open');
+  }
+
+  // Fetch Cart
+  function refreshCartDrawer() {
+    fetch('/cart.js')
+      .then(res => res.json())
+      .then(cart => {
+        renderCartItems(cart);
+        updateDrawerHeader(cart);
+        updateProgressBar(cart);
+      });
+  }
+
+  function updateDrawerHeader(cart) {
+    document.getElementById('drawer-cart-count').textContent = cart.item_count;
+    document.getElementById('drawer-total-price').textContent = formatMoney(cart.total_price);
+    
+    // Also update any global header badges
+    const badge = document.getElementById('cartCountBadge');
+    if(badge) badge.textContent = cart.item_count;
+  }
+
+  function updateProgressBar(cart) {
+    const total = cart.total_price;
+    const remaining = FREE_SHIPPING_THRESHOLD - total;
+    const fill = document.getElementById('progress-bar-fill');
+    const title = document.getElementById('shipping-status-title');
+    const sub = document.getElementById('shipping-status-sub');
+    const icon = document.querySelector('.shipping-icon');
+
+    if (remaining <= 0) {
+      fill.style.width = '100%';
+      title.textContent = 'Free Shipping Unlocked!';
+      title.style.color = '#e9427c';
+      sub.textContent = 'You are eligible for free shipping.';
+      icon.innerHTML = '✓';
+    } else {
+      const percentage = (total / FREE_SHIPPING_THRESHOLD) * 100;
+      fill.style.width = percentage + '%';
+      title.textContent = 'Free Shipping';
+      title.style.color = '#e9427c';
+      sub.textContent = "You're " + formatMoney(remaining) + " away from Free Shipping";
+      icon.innerHTML = '$$';
+    }
+  }
+
+  function renderCartItems(cart) {
+    const container = document.getElementById('drawer-items-container');
+    container.innerHTML = '';
+
+    if (cart.items.length === 0) {
+      container.innerHTML = '<div style="padding:40px; text-align:center; font-family:sans-serif; color:#666;">Your cart is empty.</div>';
+      return;
+    }
+
+    cart.items.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'cart-item';
+      
+      row.innerHTML = `
+        <img src="${item.image}" class="cart-item-image" alt="${item.title}">
+        <div class="cart-item-details">
+          <div style="display:flex;">
+             <div class="cart-item-title">${item.product_title}</div>
+             <div class="cart-item-price">${formatMoney(item.original_line_price)}</div>
+          </div>
+          <div style="font-size:12px; color:#666;">${item.variant_title !== null ? item.variant_title : ''}</div>
+          <div class="cart-item-vendor">${item.vendor}</div>
+          
+          <div class="cart-qty-wrapper">
+             <div class="qty-selector">
+               <button class="qty-btn" onclick="changeQty('${item.key}', ${item.quantity - 1})">−</button>
+               <span class="qty-val">${item.quantity}</span>
+               <button class="qty-btn" onclick="changeQty('${item.key}', ${item.quantity + 1})">+</button>
+             </div>
+             <span class="remove-link" onclick="changeQty('${item.key}', 0)">Remove</span>
+          </div>
+        </div>
+      `;
+      container.appendChild(row);
+    });
+  }
+
+  window.changeQty = function(key, newQty) {
+    const body = JSON.stringify({
+      id: key,
+      quantity: newQty
+    });
+
+    fetch('/cart/change.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: body
+    })
+    .then(res => res.json())
+    .then(cart => {
+      renderCartItems(cart);
+      updateDrawerHeader(cart);
+      updateProgressBar(cart);
+    });
+  }
+
+  function formatMoney(cents) {
+    return '$' + (cents / 100).toFixed(2);
+  }
+</script>

@@ -1,7 +1,64 @@
 {% schema %}
 {
   "name": "Main Product",
-  "settings": [],
+  "settings": [
+    {
+       "type": "header",
+       "content": "Krumbled Layout Settings"
+    },
+    {
+      "type": "font_picker",
+      "id": "krumbled_heading_font",
+      "label": "Heading Font",
+      "default": "serif"
+    },
+    {
+       "type": "color",
+       "id": "krumbled_accent_color",
+       "label": "Accent Color",
+       "default": "#e9427c"
+    },
+    {
+       "type": "header",
+       "content": "Collapsible Settings"
+    },
+    {
+       "type": "color",
+       "id": "collapsible_text_color",
+       "label": "Collapsible Title Color",
+       "default": "#000000"
+    },
+     {
+       "type": "color",
+       "id": "collapsible_active_color",
+       "label": "Collapsible Active Color",
+       "default": "#e9427c"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collapsible_tab",
+      "name": "Collapsible Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Collapsible Row"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Row Content"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Row Content from Page"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
       "name": "Main Product"
